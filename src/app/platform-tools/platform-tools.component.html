@@ -9,17 +9,21 @@
         </div>
     </div>
 </div>
+
+
+
     <div class="section section-dark section-nucleo-icons">
         <div class="container">
-            <div class="row">
+
+            <div class="row" *ngIf="showPlatform" id="platforms">
                 <div class="col-lg-6 col-md-12">
                     <h2 class="title">Platforms</h2><br/>
                     <p class="description">
                         We work with all of the platforms your customers rely on. iOS, Android, Linux, macOS, Windows, Chrome, Firefox, Edge, IE, Safari. We support all of them.
                     </p><br/>
-                    <a class="btn btn-danger btn-round" style="color:white">Platforms</a>
-                    <a href="/" class="btn btn-outline-danger btn-round">Tools</a>
-                    <a href="/" class="btn btn-outline-danger btn-round">Workflow</a>
+                    <a class="btn btn-danger btn-round" (click)="platformEvent()" style="color:white">Platforms</a>
+                    <a class="btn btn-outline-danger btn-round" (click)="toolsEvent()">Tools</a>
+                    <a class="btn btn-outline-danger btn-round" (click)="workflowEvent()">Workflow</a>
                 </div>
 
                 <div class="col-lg-6 col-md-12">
@@ -54,6 +58,60 @@
                         <i><img src="../../assets/img/platformsLogos/angular.svg" style="width:42px;height:42px;" alt="Angular logo"></i>
                         <i><img src="../../assets/img/platformsLogos/laravel.png" style="width:42px;height:42px;" alt="Laravel logo"></i>
                         <i><img src="../../assets/img/platformsLogos/wordpress.png" style="width:42px;height:42px;" alt="Wordpress logo"></i>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="showTools" id="tools">
+                <div class="col-lg-6 col-md-12">
+                    <h2 class="title">Tools</h2><br/>
+                    <p class="description">
+                        We work with all of the platforms your customers rely on. iOS, Android, Linux, macOS, Windows, Chrome, Firefox, Edge, IE, Safari. We support all of them.
+                    </p><br/>
+                    <a class="btn btn-outline-danger btn-round" (click)="platformEvent()" >Platforms</a>
+                    <a class="btn btn-danger btn-round" (onClick)="toolsEvent()" style="color:white">Tools</a>
+                    <a class="btn btn-outline-danger btn-round" (click)="workflowEvent()">Workflow</a>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="icons-container">
+
+                        <i class="nc-icon nc-atom"></i>
+                        <i><img class ="nc-icon" src="../../assets/img/platformsLogos/chrome.png" style="width:42px;height:42px;"></i>
+                        <i><img src="../../assets/img/platformsLogos/firefox.png" style="width:42px;height:42px;" alt="Firefox logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/safari.png" style="width:42px;height:42px;" alt="Safari logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/edge.png" style="width:42px;height:42px;" alt="Edge logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/linux.png" style="width:40px;height:46px;" alt="linux logo"></i>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="showWorkflow" id="workflow">
+                <div class="col-lg-6 col-md-12">
+                    <h2 class="title">Workflow</h2><br/>
+                    <p class="description">
+                        We work with all of the platforms your customers rely on. iOS, Android, Linux, macOS, Windows, Chrome, Firefox, Edge, IE, Safari. We support all of them.
+                    </p><br/>
+                    <a class="btn btn-outline-danger btn-round" (click)="platformEvent()" >Platforms</a>
+                    <a class="btn btn-outline-danger btn-round" (click)="toolsEvent()">Tools</a>
+                    <a class="btn btn-danger btn-round" style="color:white" (click)="workflowEvent()">Workflow</a>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                    <div class="icons-container">
+
+                        <i class="nc-icon nc-atom"></i>
+                        <i><img class ="nc-icon" src="../../assets/img/platformsLogos/chrome.png" style="width:42px;height:42px;"></i>
+                        <i><img src="../../assets/img/platformsLogos/firefox.png" style="width:42px;height:42px;" alt="Firefox logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/safari.png" style="width:42px;height:42px;" alt="Safari logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/edge.png" style="width:42px;height:42px;" alt="Edge logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/linux.png" style="width:40px;height:46px;" alt="linux logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/mac.png" style="width:42px;height:42px;" alt="mac logo"></i>
+                        <i><img src="../../assets/img/platformsLogos/ios.png" style="width:42px;height:42px;" alt="iOS logo"></i>
 
                     </div>
                 </div>
