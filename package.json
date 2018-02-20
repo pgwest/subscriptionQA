@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "4.3.1",
     "@angular/router": "4.3.1",
     "@ng-bootstrap/ng-bootstrap": "1.0.0-beta.4",
-    "angularfire2": "^5.0.0-rc.6",
+    "angularfire2": "^5.0.0-rc.3",
     "bootstrap": "4.0.0-beta",
     "core-js": "^2.4.1",
     "firebase": "^4.10.0",
@@ -34,7 +34,7 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.2",
+    "@angular/cli": "^1.7.0",
     "@angular/compiler-cli": "4.3.1",
     "@angular/language-service": "4.3.1",
     "@types/jasmine": "2.5.45",
@@ -45,9 +45,9 @@
     "karma": "~1.7.0",
     "karma-chrome-launcher": "~2.1.1",
     "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "karma-coverage-istanbul-reporter": "^1.2.1",
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
