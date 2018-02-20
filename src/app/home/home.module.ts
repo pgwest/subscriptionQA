@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 
 import { ComponentsModule } from '../components/components.module';
+import { PlatformToolsModule } from '../platform-tools/platform-tools.module';
+
 
 @NgModule({
     imports: [
@@ -16,7 +18,8 @@ import { ComponentsModule } from '../components/components.module';
         FormsModule,
         RouterModule,
         ComponentsModule,
-        NgbModule
+        NgbModule,
+        PlatformToolsModule
     ],
     declarations: [ HomeComponent ],
     exports:[ HomeComponent ],

@@ -18,6 +18,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 import { HomeModule } from './home/home.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
 
 @NgModule({
   declarations: [

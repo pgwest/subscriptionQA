@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlatformToolsComponent} from '../platform-tools/platform-tools.component';
 
 @Component({
     selector: 'app-home',
