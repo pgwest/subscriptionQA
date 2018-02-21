@@ -10,6 +10,11 @@ import { LandingComponent } from './landing/landing.component';
 import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { ServicesComponent } from './services/services.component';
+import { ResourcesComponent } from './resources/resources.component';
+import { ImpactComponent } from './impact/impact.component';
+import { AboutComponent } from './about/about.component';
+
 
 const routes: Routes =[
     { path: 'home',             component: HomeComponent },
@@ -18,6 +23,11 @@ const routes: Routes =[
     { path: 'landing',          component: LandingComponent },
     { path: 'dashboard',          component: DashboardComponent },
     { path: 'nucleoicons',      component: NucleoiconsComponent },
+    { path: 'services',      component: ServicesComponent },
+    { path: 'resources',      component: ResourcesComponent },
+    { path: 'impact',      component: ImpactComponent },
+    { path: 'about',      component: AboutComponent },
+    { path: 'pricing',      component: ServicesComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

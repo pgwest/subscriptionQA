@@ -19,6 +19,17 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeModule } from './home/home.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
+import { ResourcesComponent } from './resources/resources.component';
+import { BlogComponent } from './blog/blog.component';
+import { WhitepaperComponent } from './whitepaper/whitepaper.component';
+import { CostSummaryComponent } from './cost-summary/cost-summary.component';
+import { ResourceSummaryComponent } from './resource-summary/resource-summary.component';
+import { PriceWizardComponent } from './price-wizard/price-wizard.component';
+import { FullServiceSummaryComponent } from './full-service-summary/full-service-summary.component';
+import { ImpactComponent } from './impact/impact.component';
+import { AboutComponent } from './about/about.component';
+import { ServicesComponent } from './services/services.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +39,17 @@ import { PlatformToolsComponent } from './platform-tools/platform-tools.componen
     ProfileComponent,
     NavbarComponent,
     FooterComponent,
-    DashboardComponent
+    DashboardComponent,
+    ResourcesComponent,
+    BlogComponent,
+    WhitepaperComponent,
+    CostSummaryComponent,
+    ResourceSummaryComponent,
+    PriceWizardComponent,
+    FullServiceSummaryComponent,
+    ImpactComponent,
+    AboutComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
