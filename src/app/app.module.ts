@@ -31,6 +31,7 @@ import { AboutComponent } from './about/about.component';
 import { ServicesComponent } from './services/services.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostsComponent } from './blogposts/blogposts.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 @NgModule({
@@ -38,7 +39,6 @@ import { BlogpostsComponent } from './blogposts/blogposts.component';
     AppComponent,
     SignupComponent,
     LandingComponent,
-    ProfileComponent,
     NavbarComponent,
     FooterComponent,
     DashboardComponent,
@@ -52,7 +52,9 @@ import { BlogpostsComponent } from './blogposts/blogposts.component';
     AboutComponent,
     BlogpostComponent,
     BlogpostsComponent,
-    ServicesComponent
+    ServicesComponent,
+    ProfileComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,

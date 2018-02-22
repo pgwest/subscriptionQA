@@ -3,7 +3,7 @@
     margin-bottom: 0;
 }
 .filter1{
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     content: "";
     display: block;
     height: 100%;
@@ -13,6 +13,9 @@
     width: 100%;
     z-index: 1;
 }
+
+.tab { margin-left: 40px; }
+
 
 .page-header{
     background-color: #B2AFAB;

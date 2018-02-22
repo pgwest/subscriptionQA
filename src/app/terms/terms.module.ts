@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from '../profile/profile.component';
+import { TermsComponent } from '../terms/terms.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    ProfileComponent
+    TermsComponent
   ],
   declarations: []
 })
-export class DashboardModule { }
+export class TermsModule { }
