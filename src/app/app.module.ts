@@ -20,7 +20,7 @@ import { HomeModule } from './home/home.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
 import { ResourcesComponent } from './resources/resources.component';
-import { BlogComponent } from './blog/blog.component';
+// import { BlogComponent } from './blog/blog.component';
 import { WhitepaperComponent } from './whitepaper/whitepaper.component';
 import { CostSummaryComponent } from './cost-summary/cost-summary.component';
 import { ResourceSummaryComponent } from './resource-summary/resource-summary.component';
@@ -43,7 +43,6 @@ import { BlogpostsComponent } from './blogposts/blogposts.component';
     FooterComponent,
     DashboardComponent,
     ResourcesComponent,
-    BlogComponent,
     WhitepaperComponent,
     CostSummaryComponent,
     ResourceSummaryComponent,
