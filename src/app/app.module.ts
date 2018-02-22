@@ -29,6 +29,8 @@ import { FullServiceSummaryComponent } from './full-service-summary/full-service
 import { ImpactComponent } from './impact/impact.component';
 import { AboutComponent } from './about/about.component';
 import { ServicesComponent } from './services/services.component';
+import { BlogpostComponent } from './blogpost/blogpost.component';
+import { BlogpostsComponent } from './blogposts/blogposts.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { ServicesComponent } from './services/services.component';
     FullServiceSummaryComponent,
     ImpactComponent,
     AboutComponent,
+    BlogpostComponent,
+    BlogpostsComponent,
     ServicesComponent
   ],
   imports: [
