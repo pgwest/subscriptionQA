@@ -7,18 +7,22 @@ import { AppRoutingModule } from './app.routing';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 
+// custom modules
+
+import { HomeModule } from './home/home.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+
+
+// Custom Components
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { LandingComponent } from './landing/landing.component';
-import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
-import { HomeModule } from './home/home.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
 import { ResourcesComponent } from './resources/resources.component';
 // import { BlogComponent } from './blog/blog.component';
 import { WhitepaperComponent } from './whitepaper/whitepaper.component';
@@ -31,7 +35,10 @@ import { AboutComponent } from './about/about.component';
 import { ServicesComponent } from './services/services.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostsComponent } from './blogposts/blogposts.component';
+
 import { TermsComponent } from './terms/terms.component';
+import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -41,7 +48,6 @@ import { TermsComponent } from './terms/terms.component';
     LandingComponent,
     NavbarComponent,
     FooterComponent,
-    DashboardComponent,
     ResourcesComponent,
     WhitepaperComponent,
     CostSummaryComponent,
@@ -52,9 +58,7 @@ import { TermsComponent } from './terms/terms.component';
     AboutComponent,
     BlogpostComponent,
     BlogpostsComponent,
-    ServicesComponent,
-    ProfileComponent,
-    TermsComponent
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,7 @@ import { TermsComponent } from './terms/terms.component';
     RouterModule,
     AppRoutingModule,
     HomeModule,
+    DashboardModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],

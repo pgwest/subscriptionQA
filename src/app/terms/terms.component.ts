@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DashboardModule } from '../dashboard/dashboard.module';
+
+
 @Component({
   selector: 'app-terms',
   templateUrl: './terms.component.html',

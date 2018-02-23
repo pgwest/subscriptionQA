@@ -5,9 +5,9 @@ import { TermsComponent } from '../terms/terms.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    TermsComponent
+    CommonModule
   ],
-  declarations: []
+  exports: [TermsComponent],
+  declarations: [TermsComponent]
 })
 export class TermsModule { }
