@@ -15,6 +15,7 @@ import { ImpactComponent } from './impact/impact.component';
 import { AboutComponent } from './about/about.component';
 import { BlogpostsComponent } from './blogposts/blogposts.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
+import { WhitepaperComponent } from './whitepaper/whitepaper.component';
 
 
 const routes: Routes =[
@@ -30,6 +31,7 @@ const routes: Routes =[
     { path: 'pricing',      component: ServicesComponent },
     { path: 'blog',      component: BlogpostsComponent },
     { path: 'post',      component: BlogpostComponent },
+    { path: 'whitepaper',      component: WhitepaperComponent },
     { path: '**', component: HomeComponent },
 
     { path: '', redirectTo: 'home', pathMatch: 'full' }

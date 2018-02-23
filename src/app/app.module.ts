@@ -39,6 +39,7 @@ import { BlogpostsComponent } from './blogposts/blogposts.component';
 import { TermsComponent } from './terms/terms.component';
 import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
 import { ProfileComponent } from './profile/profile.component';
+import { SupportComponent } from './support/support.component';
 
 
 @NgModule({

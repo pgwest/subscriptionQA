@@ -1,0 +1,100 @@
+<div class="wrapper">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('../assets/img/bruno-abatti.jpg');">
+        <div class="filter"></div>
+    </div>
+    <div class="section section-gray profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                    <img src="../assets/img/jeff.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                </div>
+                <div class="name">
+                    <h2>Jeff Handy<br /></h2>
+                    <h6>Your Friendly Account Manager</h6>
+                    <br/>
+                    <p>Phone Number - 801-555-9898</p>
+                    <p>Email - jpmorgan@sevadev.com</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    <br />
+                    <p>An artist of considerable range, Jane Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+
+                    <!-- <button class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-content section section-gray">
+     <div class="container">
+         <div class="row">
+             <div class="profile-picture">
+                 <!-- <app-image-upload [image]="'../assets/img/faces/clem-onojeghuo-2.jpg'"></app-image-upload> -->
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-6 ml-auto mr-auto">
+                 <form class="settings-form">
+                     <div class="row">
+                         <div class="col-md-6 col-sm-6  ml-auto mr-auto">
+                             <div class="form-group ml-auto mr-auto">
+                                 <label>Contact Preference</label>
+                                 <input type="text" class="form-control border-input" placeholder="Email/Text/Phone">
+                             </div>
+                         </div>
+
+
+                   <div class="form-group ml-auto mr-auto">
+                     <label>Comments/Notes for Account Manager</label>
+                         <textarea class="form-control textarea-limited" placeholder="This is a textarea limited to 150 characters." rows="3" maxlength="150" ></textarea>
+                         <h5><small><span id="textarea-limited-message" class="pull-right">150 characters left</span></small></h5>
+                   </div>
+                   <div class="row ml-auto mr-auto">
+                     <div class="col-md-8 col-sm-8  ml-auto mr-auto">
+<br/>
+                 <h4>Account Manager Update Preferences</h4>
+                 <ul class="notifications">
+                       <li class="notification-item">
+                         Weekly Updates -
+                         <bSwitch
+                             [switch-on-color]="'info'"
+                             [switch-off-color]="'info'"
+                             [(ngModel)]="state_info"
+                             name="first_switch">
+                         </bSwitch>
+                       </li>
+                       <li class="notification-item">
+                         Monthly Updates -
+                         <bSwitch
+                             [switch-on-color]="'info'"
+                             [switch-off-color]="'info'"
+                             [(ngModel)]="state_info1"
+                             name="second_switch">
+                         </bSwitch>
+                       </li>
+                       <li class="notification-item">
+                         Regular In-Person Meetings -
+                         <bSwitch
+                             [switch-on-color]="'info'"
+                             [switch-off-color]="'info'"
+                             [(ngModel)]="state_info2"
+                             name="third_switch">
+                         </bSwitch>
+                       </li>
+                   </ul>
+                 </div>
+               </div>
+                 </div>
+                 </form>
+
+             </div>
+         </div>
+         <div class="row">
+         <div class="text-center ml-auto mr-auto">
+           <button type="submit" class="btn btn-wd btn-info btn-round">Save</button>
+         </div>
+       </div>
+     </div>
+ </div>
