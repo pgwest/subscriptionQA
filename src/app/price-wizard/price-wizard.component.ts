@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ServicesModule } from '../services/services.module';
+
+
 @Component({
   selector: 'app-price-wizard',
   templateUrl: './price-wizard.component.html',

@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { ProfileModule } from '../profile/profile.module';
 import { TermsModule } from '../terms/terms.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SupportModule } from '../support/support.module';
-
-// import { RouterModule } from '@angular/router';
-// import { BrowserModule } from '@angular/platform-browser';
 
 import {DashboardComponent } from './dashboard.component';
 
@@ -23,3 +21,4 @@ import {DashboardComponent } from './dashboard.component';
   exports: [DashboardComponent]
 })
 export class DashboardModule { }
+ 

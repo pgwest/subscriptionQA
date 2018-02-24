@@ -14,3 +14,4 @@ import { JWBootstrapSwitchModule } from 'jw-bootstrap-switch-ng2';
   exports: [SupportComponent]
 })
 export class SupportModule { }
+ 

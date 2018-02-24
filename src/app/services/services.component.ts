@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ResourceSummaryComponent } from '../resource-summary/resource-summary.component';
+import { CostSummaryComponent } from '../cost-summary/cost-summary.component';
+import { PriceWizardComponent } from '../price-wizard/price-wizard.component';
+
 
 @Component({
   selector: 'app-services',

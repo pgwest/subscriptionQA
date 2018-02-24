@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 
 import { HomeModule } from './home/home.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ServicesModule } from './services/services.module';
 
 
 // Custom Components
@@ -42,6 +43,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SupportComponent } from './support/support.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,15 +53,14 @@ import { SupportComponent } from './support/support.component';
     FooterComponent,
     ResourcesComponent,
     WhitepaperComponent,
-    CostSummaryComponent,
-    ResourceSummaryComponent,
-    PriceWizardComponent,
+    // CostSummaryComponent,
+    // ResourceSummaryComponent,
+    // PriceWizardComponent,
     FullServiceSummaryComponent,
     ImpactComponent,
     AboutComponent,
     BlogpostComponent,
-    BlogpostsComponent,
-    ServicesComponent
+    BlogpostsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +70,7 @@ import { SupportComponent } from './support/support.component';
     AppRoutingModule,
     HomeModule,
     DashboardModule,
+    ServicesModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],

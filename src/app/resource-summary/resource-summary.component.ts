@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ServicesModule } from '../services/services.module';
+
+
 @Component({
   selector: 'app-resource-summary',
   templateUrl: './resource-summary.component.html',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResourceSummaryComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
-  }
+
+      constructor() { }
+
+      ngOnInit() {
+      }
 
 }
