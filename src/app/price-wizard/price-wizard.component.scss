@@ -1,0 +1,37 @@
+// .cards_wrapper {
+//     background: red;
+// }
+//
+// @media(min-width: 122px) {
+//   .center_wrapper { width: 122px; }
+// }
+//
+// @media(min-width: 296px) {
+//   .center_wrapper { width: 244px; }
+// }
+//
+// @media(min-width: 416px) {
+//   .center_wrapper { width: 366px; }
+// }
+//
+// @media(min-width: 524px) {
+//   .center_wrapper { width: 488px; }
+// }
+//
+// @media(min-width: 646px) {
+//   .center_wrapper { width: 610px; }
+// }
+
+.center_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 0 auto;
+  // background: yellow;
+}
+
+.card1 {
+  border: 1px solid;
+  margin: 10px;
+  text-align: center;
+}
