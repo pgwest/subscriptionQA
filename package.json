@@ -24,7 +24,7 @@
     "angularfire2": "^5.0.0-rc.3",
     "bootstrap": "4.0.0-beta",
     "core-js": "^2.4.1",
-    "firebase": "^4.10.0",
+    "firebase": "^4.10.1",
     "jquery": "3.2.1",
     "jw-bootstrap-switch-ng2": "1.0.3",
     "ng2-nouislider": "1.6.1",

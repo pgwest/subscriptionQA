@@ -45,10 +45,26 @@
                     Dashboard
                 </a>
               </li> -->
+
               <li class="nav-item">
-                <a class="nav-link btn btn-neutral btn-round btn-sm" rel="tooltip" title="Services" data-placement="bottom" routerLink="/signup">
+                <a class="nav-link" rel="tooltip" title="dashboard" data-placement="bottom" routerLink="/dashboard" *ngIf="(authService.user | async)">
+                  <!-- <a [routerLink]="['/signup']" class=" nav-link btn btn-outline-neutral btn-round btn-lg">View Register Page</a> -->
+                    Dashboard
+                    <!-- <p class="d-lg-none">Dashboard</p> -->
+                </a>
+              </li>
+
+
+
+              <li class="nav-item">
+                <a class="nav-link btn btn-neutral btn-round btn-sm" rel="tooltip" title="Services" data-placement="bottom" routerLink="/signup"  *ngIf="!(authService.user | async)">
                   <!-- <a [routerLink]="['/signup']" class=" nav-link btn btn-outline-neutral btn-round btn-lg">View Register Page</a> -->
                     Login
+                    <!-- <p class="d-lg-none">Dashboard</p> -->
+                </a>
+                <a class="nav-link btn btn-neutral btn-round btn-sm" rel="tooltip" title="Services" data-placement="bottom" routerLink="/home" (click)="logout()" *ngIf="(authService.user | async)">
+                  <!-- <a [routerLink]="['/signup']" class=" nav-link btn btn-outline-neutral btn-round btn-lg">View Register Page</a> -->
+                    Logout
                     <!-- <p class="d-lg-none">Dashboard</p> -->
                 </a>
               </li>

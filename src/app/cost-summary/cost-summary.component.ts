@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ServicesModule } from '../services/services.module';
-
 import { costCalculations } from './costCalculations';
-
 import { CurrencyPipe } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-cost-summary',

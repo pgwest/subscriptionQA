@@ -5,6 +5,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import { AngularFireStorageModule } from 'angularfire2/storage';
+
+
 import { environment } from '../environments/environment';
 
 // custom modules
@@ -42,6 +48,9 @@ import { PlatformToolsComponent } from './platform-tools/platform-tools.componen
 import { ProfileComponent } from './profile/profile.component';
 import { SupportComponent } from './support/support.component';
 
+//ServicesModule
+
+import {AuthService } from './auth.service';
 
 
 @NgModule({
@@ -71,9 +80,13 @@ import { SupportComponent } from './support/support.component';
     HomeModule,
     DashboardModule,
     ServicesModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    // AngularFireStorageModule,
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
