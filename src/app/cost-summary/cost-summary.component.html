@@ -17,11 +17,11 @@
       <div class="card-body">
         <!-- <h4 class="card-category">Pricing</h4> -->
         <!-- <h3 class="card-title">$5800</h3> -->
-        <h3 ><b>Price: <strong>$5800</strong></b> (monthly)</h3>
+        <h3 ><b>Price: <strong>{{costs[4].price | currency:'USD':true:'2.0-0'}}</strong></b> ({{costs[2].name}})</h3>
         <ul>
-            <li><b><strong>$16.48</strong></b> Hourly Per Resource Equivalent</li>
-            <li><b><strong>$2900</strong></b> Monthly Per Resource Equivalent</li>
-            <li><b><strong>$34,800</strong></b> Annual Per Resource Equivalent</li>
+            <li><b><strong>{{costs[0].price | currency:'USD':true:'2.2-4'}}</strong></b> Hourly Per Resource Equivalent</li>
+            <li><b><strong>{{costs[2].price | currency:'USD':true:'2.0-0'}}</strong></b> Monthly Per Resource Equivalent</li>
+            <li><b><strong>{{costs[3].price | currency:'USD':true:'2.0-0'}}</strong></b> Annual Per Resource Equivalent</li>
         </ul>
     </div>
 </div>

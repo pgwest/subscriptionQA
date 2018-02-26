@@ -6,6 +6,9 @@ import { ProfileModule } from '../profile/profile.module';
 import { TermsModule } from '../terms/terms.module';
 import { SupportModule } from '../support/support.module';
 
+import { ResourceSummaryModule } from '../resource-summary/resource-summary.module';
+import { CostSummaryModule } from '../cost-summary/cost-summary.module';
+
 import {DashboardComponent } from './dashboard.component';
 
 @NgModule({
@@ -14,11 +17,12 @@ import {DashboardComponent } from './dashboard.component';
     ProfileModule,
     TermsModule,
     NgbModule,
-    SupportModule
+    SupportModule,
+    ResourceSummaryModule,
+    CostSummaryModule
 
   ],
   declarations: [DashboardComponent],
   exports: [DashboardComponent]
 })
 export class DashboardModule { }
- 

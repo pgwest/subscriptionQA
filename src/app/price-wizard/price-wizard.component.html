@@ -20,9 +20,8 @@
 
 
 
-    <div class="col-md-4" *ngFor="let choice of question.choices">
-      <a href="">
-        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:300px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'">
+    <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(question.id,choice.id)">
+        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:300px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
             <div class="card-body">
                     <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
                     <br/>
@@ -31,7 +30,6 @@
 
             </div>
         </div>
-      </a>
     </div>
 
 
@@ -41,6 +39,15 @@
 </div>
 </div>
 
+<div id="numQA" *ngIf="isLastQA">
+  <!-- ask question to select number of resources -->
+</div>
+<div id="numDev" *ngIf="isLastDev">
+  <!-- ask question to select number of resources -->
+</div>
+<div id="numMon" *ngIf="isLastMon">
+  <!-- ask question to select number of resources -->
+</div>
 
 
 
