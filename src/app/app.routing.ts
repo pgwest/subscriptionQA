@@ -17,6 +17,8 @@ import { BlogpostsComponent } from './blogposts/blogposts.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { WhitepaperComponent } from './whitepaper/whitepaper.component';
 
+import { AdminComponent } from './admin/admin.component';
+
 
 const routes: Routes =[
     { path: 'home',             component: HomeComponent },
@@ -32,6 +34,7 @@ const routes: Routes =[
     { path: 'blog',      component: BlogpostsComponent },
     { path: 'post',      component: BlogpostComponent },
     { path: 'whitepaper',      component: WhitepaperComponent },
+    { path: 'admin',      component: AdminComponent },
     { path: '**', component: HomeComponent },
 
     { path: '', redirectTo: 'home', pathMatch: 'full' }

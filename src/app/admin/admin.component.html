@@ -1,0 +1,117 @@
+<div class="team-2 section-image" style="background-image: url('assets/img/pebbles.jpg')">
+  <br/><br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11 ml-auto mr-auto text-center">
+                <h1 class="title">Admin Dashboard</h1>
+
+<div class="filter1">
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-8 ml-auto mr-auto">
+        <h2 class="title" style="color:white">
+            Standard Pricing
+        </h2>
+
+        <button type="button" class="btn btn-primary btn-round" (click)="open(Login)">
+            Add Service
+        </button>
+        <br/><br/>
+        <div class="table-responsive text-center" style="color:white; font-weight:bolder;">
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                      <th>{{ tableData1.headerRow[1] }}</th>
+                      <th>{{ tableData1.headerRow[2] }}</th>
+                      <th class="text-right">{{ tableData1.headerRow[3] }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let price of price$ | async">
+                        <td style="color:white; font-weight:bolder;">{{price?.category}}</td>
+                        <td style="color:white; font-weight:bolder;">{{price?.service}}</td>
+                        <td class="text-right" style="color:white; font-weight:bolder;">&euro; {{price?.price}}</td>
+                        <td class="td-actions text-right" style="color:white; font-weight:bolder;">
+
+                            <!-- <button type="button" ngbTooltip="Edit Profile" class="btn btn-success btn-link btn-sm" (click)="editModalShow(Edit, price)"> -->
+                              <button type="button" ngbTooltip="Edit Profile" class="btn btn-success btn-link btn-sm" (click)="modalData(price,Edit)">
+
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button type="button" ngbTooltip="Remove" class="btn btn-danger btn-link btn-sm" (click)="deletePrice(price)">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+      <ng-template #Login let-c="close" let-d="dismiss">
+          <div class="modal-header modal-register no-border-header text-center">
+              <button type="button" class="close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="modal-title text-center">Add Service</h3>
+              <p>Add pricing for a specific service.</p>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" value="" placeholder="QA/Dev/Mon." class="form-control"  [(ngModel)]="updatedCategory" name="category"/>
+            </div>
+              <div class="form-group">
+                  <label>Service</label>
+                  <input type="text" value="" placeholder="Service" class="form-control"  [(ngModel)]="updatedService" name="service"/>
+              </div>
+              <div class="form-group">
+                  <label>Price</label>
+                  <input type="number" value="" placeholder="Price" class="form-control"  [(ngModel)]="updatedPrice" name="price"/>
+              </div>
+              <button class="btn btn-block btn-round" (click)="d('save');addPrice()">Save</button>
+          </div>
+          <!-- <div class="modal-register modal-footer no-border-footer">
+              <span class="text-muted text-center">Looking <a>create an account</a> ?</span>
+          </div> -->
+      </ng-template>
+
+
+      <ng-template #Edit let-c="close" let-d="dismiss">
+          <div class="modal-header modal-register no-border-header text-center">
+              <button type="button" class="close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="modal-title text-center">Edit Service</h3>
+              <!-- <p>Add pricing for a specific service.</p> -->
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <label>Category</label>
+                <input type="text" value="" placeholder={{modalPrice.category}} class="form-control"  [(ngModel)]="updatedCategory" name="category"/>
+            </div>
+              <div class="form-group">
+                  <label>Service</label>
+                  <input type="text" value="" placeholder={{modalPrice.service}} class="form-control"  [(ngModel)]="updatedService" name="service"/>
+              </div>
+              <div class="form-group">
+                  <label>Price</label>
+                  <input type="number" value="" placeholder={{modalData.price}} class="form-control"  [(ngModel)]="updatedPrice" name="price"/>
+              </div>
+              <button class="btn btn-block btn-round" (click)="d('save');updatePrice()">Save</button>
+          </div>
+          <!-- <div class="modal-register modal-footer no-border-footer">
+              <span class="text-muted text-center">Looking <a>create an account</a> ?</span>
+          </div> -->
+      </ng-template>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>

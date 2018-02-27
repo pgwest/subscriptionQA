@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+
 
 import { ServicesModule } from '../services/services.module';
 import { costCalculations } from './costCalculations';
 import { CurrencyPipe } from '@angular/common';
 
+export interface Price {
+  id?: string;
+  price: number;
+  service: string;
+  standard: boolean;
+}
 
 
 @Component({
@@ -13,37 +22,35 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class CostSummaryComponent implements OnInit {
 
-  costs: costCalculations[] = [
-      {
-        name: "Hourly",
-        price: 16.48
-      },
-      {
-        name: "Weekly",
-        price: 700
-      },
-      {
-        name: "Monthly",
-        price: 2900
-      },
-      {
-        name: "Annual",
-        price: 34800
-      },
-      {
-        name: "Total",
-        price: 5800
-      }
-    ];
+    hourly : number;
+    monthly: number;
+    annual : number;
+    total  : number;
+    frequency : string;
 
 
-    // <h3 ><b>Price: <strong>$5800</strong></b> (monthly)</h3>
-    // <ul>
-    //     <li><b><strong>$16.48</strong></b> Hourly Per Resource Equivalent</li>
-    //     <li><b><strong>$2900</strong></b> Monthly Per Resource Equivalent</li>
-    //     <li><b><strong>$34,800</strong></b> Annual Per Resource Equivalent</li>
+    priceCollectionRef: AngularFirestoreCollection<Price>;
+    price$: Observable<Price[]>;
 
-  constructor() { }
+    constructor(private afs: AngularFirestore) {
+      this.priceCollectionRef = this.afs.collection<Price>('prices');
+      // this.price$ = this.priceCollectionRef.valueChanges();
+      this.price$ = this.priceCollectionRef.snapshotChanges().map(actions => {
+        return actions.map(action => {
+          const data = action.payload.doc.data() as Price;
+          const id = action.payload.doc.id;
+          return { id, ...data };
+        });
+});
+
+      this.total = 5200;
+      this.monthly = 2600;
+      this.hourly = 14.77;
+      this.annual = 31200;
+      this.frequency = " (monthly)";
+
+    }
+
 
   ngOnInit() {
   }

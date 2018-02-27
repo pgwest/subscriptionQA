@@ -51,6 +51,7 @@ import { SupportComponent } from './support/support.component';
 //ServicesModule
 
 import {AuthService } from './auth.service';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import {AuthService } from './auth.service';
     ImpactComponent,
     AboutComponent,
     BlogpostComponent,
-    BlogpostsComponent
+    BlogpostsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
