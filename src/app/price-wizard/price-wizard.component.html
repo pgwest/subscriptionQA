@@ -28,7 +28,7 @@
 </div>
 </div>
 
-<div *ngIf="!isFirstQuestion && !isLastQuesiton">
+<div *ngIf="isQuestions">
   <div id="service categories" *ngFor="let question of questions">
       <div *ngIf=question.isVisible>
       <div class="text-center" style="color:white">
@@ -42,6 +42,7 @@
       </div>
       <div class="col-md-3">
         <button *ngIf="question.id != lastQuestionId" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextQuestion(question)">Next ></button>
+        <button *ngIf="isResourceQuestionNext" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextResources(question)">Next ></button>
       </div>
       </div>
       <br/>
@@ -71,264 +72,128 @@
   </div>
 </div>
 
-<div id="numQA" *ngIf="isLastQuesiton">
+
+<div id="numQA" *ngIf="isResourceQuestion">
   <!-- ask question to select number of resources -->
-
-</div>
-
-
-
-
-
-
-
-
-
-
-<!--
-
-      <div class="col-md-4">
-        <a href="">
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/black.jpg'); margin-left: 5px;">
-              <div class="card-body">
-                      <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Quality Assurance</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/qa-icon.png" style="width:82px;height:82px;" alt="QA icon">
-
-              </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="">
-
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/black.jpg');">
-              <div class="card-body">
-                      <h3 class="card-title"  style="color:white; font-weight:bolder;"><strong>Software Development</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/dev-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-              </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="">
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/black.jpg'); margin-right: 5px;">
-              <div class="card-body">
-
-                      <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Monitoring</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/monitoring-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-
-              </div>
-          </div>
-        </a>
-
-      </div>
-      <div class="col-md-4">
-        <a href="">
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/black.jpg'); margin-left: 5px;" [style.border]="isSelected ? '5px solid blue' : 'none'">
-              <div class="card-body">
-                      <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Quality Assurance</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/qa-icon.png" style="width:82px;height:82px;" alt="QA icon">
-
-              </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-<!-- <div id="QA Categories">
-  <hr/>
-  <div class="text-center" style="color:white">
-    <h3 style="font-weight:bolder">What kind(s) of QA do you need?</h3>
-  <br/>
   <div class="row">
-      <div class="col-md-4">
-        <a href="">
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/blue.jpg'); margin-left: 5px;">
-              <div class="card-body">
-
-                      <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Manual</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/qa-icon.png" style="width:82px;height:82px;" alt="QA icon">
-
-              </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="">
-
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/blue.jpg');">
-              <div class="card-body">
-                      <h3 class="card-title"  style="color:white; font-weight:bolder;"><strong>Automation</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/dev-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-              </div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-4">
-        <a href="">
-          <div class="card" data-background="image" style="height:300px; background-image: url('assets/img/blue.jpg'); margin-right: 5px;">
-              <div class="card-body">
-
-                      <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Load</strong></h3>
-                      <br/>
-                      <br/>
-                      <img src="../../assets/img/monitoring-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-
-              </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-
-
-
-
-<!--
-<div class="text-center" style="color:white">
-  <div class="row">
-      <div class="col-md-3">
-          <button class="btn btn-neutral btn-round mr-auto ml-auto">< Previous</button>
-      </div>
-      <div class="col-md-6">
-        <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;">Where can we help? <small> - 10%</small></button>
-
-    </div>
     <div class="col-md-3">
-        <button class="btn btn-neutral btn-round mr-auto ml-auto"> Next ></button>
+    </div>
+    <div class="col-md-6">
+    <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{resourcesQuestion.name}} </button>
+
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="resourcesNextClicked(resourcesQuestion)">Next ></button>
+  </div>
+  </div>
+  <br/>
+
+  <div class="row">
+    <div class="col-md-6" *ngFor="let choice of resourcesQuestion.choices" (click)="toggleSelected(choice, firstQuestion)">
+        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+            <div class="card-body">
+                    <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                    <!-- <br/>
+                    <br/>
+                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div *ngIf="isResourceHelp">
+  <div id="service categories" *ngFor="let question of myResourceQuestions">
+      <div *ngIf=question.isVisible>
+      <div class="text-center" style="color:white">
+      <div class="row">
+          <div class="col-md-3">
+            <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="previousQuestion(question)">< Previous</button>
+          </div>
+          <div class="col-md-6">
+          <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{question.name}} <small *ngIf="question.id !=1"> - {{completed | number:'2.0-0'}}%</small></button>
+
+        </div>
+        <div class="col-md-3">
+          <button *ngIf="question.id != resourceLastQuestionId" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextQuestionResources(question)">Next ></button>
+          <button *ngIf="isSelectNext" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextResourceHelp(question)">Next ></button>
+        </div>
+      </div>
+      <br/>
+
+      <div class="row">
+
+
+
+
+        <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(choice, question)">
+            <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+                <div class="card-body">
+                        <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                        <!-- <br/>
+                        <br/>
+                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    </div>
     </div>
   </div>
 </div>
 
-<div class="cards_wrapper">
-    <div class="center_wrapper">
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/black.jpg');">
-          <div class="card-body">
-            <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Quality Assurance</strong></h3>
-            <br/>
-            <br/>
-            <img src="../../assets/img/qa-icon.png" style="width:82px;height:82px;" alt="QA icon">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/black.jpg');" [style.border]="isSelected ? '5px solid blue' : 'none'">
-        <div class="card-body">
-        <h3 class="card-title"  style="color:white; font-weight:bolder;"><strong>Software Development</strong></h3>
-        <br/>
-        <br/>
-        <img src="../../assets/img/dev-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-      </div>
+
+<div id="numQA" *ngIf="isSelectResources">
+  <!-- ask question to select number of resources -->
+    <div class="text-center">
+    <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="resourcesSelected()">Select Resources </button>
+  </div>
+  <br/>
+
+  <div class='row'>
+    <div class="col-md-4">
+      <h2>QA Resources</h2>
     </div>
-    <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/black.jpg');">
-      <div class="card-body">
-
-      <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Monitoring</strong></h3>
-      <br/>
-      <br/>
-      <img src="../../assets/img/monitoring-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-
+    <div class="col-md-4">
+      <h2>Dev Resources</h2>
     </div>
-      </div>
-        <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-            <div class="card-body">
-              <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Manual</strong></h3>
-              <br/>
-              <br/>
-              <img src="../../assets/img/qa-icon.png" style="width:82px;height:82px;" alt="QA icon">
-          </div>
-        </div>
-        <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-          <div class="card-body">
-          <h3 class="card-title"  style="color:white; font-weight:bolder;"><strong>Automation</strong></h3>
-          <br/>
-          <br/>
-          <img src="../../assets/img/dev-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-        <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Load Testing</strong></h3>
-        <br/>
-        <br/>
-        <img src="../../assets/img/monitoring-icon.png" style="width:82px;height:82px;" alt="Dev icon">
-
-      </div>
-        </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-          <div class="card-body">
-
-            <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Smoke</strong></h3>
-
-            <img src="">
-          </div>
-        </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Acceptance</strong></h3>
-
-          <img src="">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Regression</strong></h3>
-
-          <img src="">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Regression</strong></h3>
-
-          <img src="">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Mobile Automation</strong></h3>
-
-          <img src="">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Web Automation</strong></h3>
-
-          <img src="">
-        </div>
-      </div>
-      <div class="card1 card" data-background="image" style="height:300px; width:400px; background-image: url('assets/img/blue.jpg');">
-        <div class="card-body">
-
-          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>Other</strong></h3>
-
-          <img src="">
-        </div>
-      </div>
+    <div class="col-md-4">
+      <h2>Monitoring Resources</h2>
     </div>
-</div> -->
+  </div>
+
+  <div class="text-center">
+  <!-- <h1>You're all set!</h1> -->
+  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button>
+  <h4 style="color:white"> We'll reach out shortly to schedule a setup call and answer any questions. Don't worry, you're not committing to anything yet.</h4>
+</div>
+</div>
+
+
+
+<div id="numQA" *ngIf="isLastQuestion">
+  <!-- ask question to select number of resources -->
+  <div class="text-center">
+  <h1>You're all set!</h1>
+  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button>
+</div>
+
+  <div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+
+  </div>
+  <div class="col-md-3">
+  </div>
+  </div>
+  <br/>
+
+
+</div>

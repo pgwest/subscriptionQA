@@ -1,15 +1,14 @@
 import { Choice } from './choice';
 import { Question } from './question';
 
-export const devQuestions: Question[] = [
+export const resourceQuestions: Question[] = [
     {
       'id': 1,
       'choices': [
-          new Choice(0, 'Quality Assurance', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
-          new Choice(1, 'Software Development', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
-          new Choice(2, 'Monitoring', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
+          new Choice(0, 'I\'d like help deciding.', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
+          new Choice(1, 'I know what I want', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false)
       ],
-      'name': 'Are you dev?',
+      'name': 'How many QA resources do you have?',
       'completed': 10,
       'isVisible': true
     },
@@ -23,7 +22,7 @@ export const devQuestions: Question[] = [
           new Choice(4, 'Smoke', 'assets/img/blue.jpg', '../../assets/img/monitoring-icon.png', false),
           new Choice(5, 'Acceptance', 'assets/img/blue.jpg', '../../assets/img/dev-icon.png', false)
       ],
-      'name': 'What kind(s) of Dev do you need?',
+      'name': 'How many dev Resources have?',
       'completed': 10,
       'isVisible': false
     }
