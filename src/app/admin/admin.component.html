@@ -4,22 +4,22 @@
         <div class="row">
             <div class="col-md-11 ml-auto mr-auto text-center">
                 <h1 class="title">Admin Dashboard</h1>
-
+<!--
 <div class="filter1">
-</div>
-
-
-
+</div> -->
 <div class="row">
     <div class="col-md-8 ml-auto mr-auto">
         <h2 class="title" style="color:white">
             Standard Pricing
         </h2>
 
-        <button type="button" class="btn btn-primary btn-round" (click)="open(Login)">
-            Add Service
-        </button>
-        <br/><br/>
+        <button type="button" class="btn btn-primary btn-round" (click)="open(Login)">Add Service</button><br/><br/>
+
+
+
+
+
+
         <div class="table-responsive text-center" style="color:white; font-weight:bolder;">
             <table class="table">
                 <thead>
@@ -99,7 +99,7 @@
               </div>
               <div class="form-group">
                   <label>Price</label>
-                  <input type="number" value="" placeholder={{modalData.price}} class="form-control"  [(ngModel)]="updatedPrice" name="price"/>
+                  <input type="number" value="" placeholder={{modalPrice.price}} class="form-control"  [(ngModel)]="updatedPrice" name="price"/>
               </div>
               <button class="btn btn-block btn-round" (click)="d('save');updatePrice()">Save</button>
           </div>

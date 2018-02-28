@@ -1,53 +1,81 @@
-<div id="service categories" *ngFor="let question of questions">
-  <div *ngIf=question.isVisible>
-  <div class="text-center" style="color:white">
+
+  <div *ngIf=isFirstQuestion class="text-center" style="color:white">
   <div class="row">
     <div class="col-md-3">
-      <button class="btn btn-neutral btn-round mr-auto ml-auto">< Previous</button>
     </div>
     <div class="col-md-6">
-    <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{question.name}} <small> - {{question.completed}}%</small></button>
+    <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{firstQuestion.name}} </button>
 
   </div>
   <div class="col-md-3">
-    <button class="btn btn-neutral btn-round mr-auto ml-auto">Next ></button>
+    <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="firstQuestionNext()">Next ></button>
   </div>
   </div>
   <br/>
 
   <div class="row">
-
-
-
-
-    <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(question.id,choice.id)">
-        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:300px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+    <div class="col-md-4" *ngFor="let choice of firstQuestion.choices" (click)="toggleSelected(choice, firstQuestion)">
+        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
             <div class="card-body">
                     <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                    <!-- <br/>
                     <br/>
-                    <br/>
-                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
+                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
 
             </div>
         </div>
     </div>
-
-
-
-</div>
-</div>
 </div>
 </div>
 
-<div id="numQA" *ngIf="isLastQA">
+<div *ngIf="!isFirstQuestion && !isLastQuesiton">
+  <div id="service categories" *ngFor="let question of questions">
+      <div *ngIf=question.isVisible>
+      <div class="text-center" style="color:white">
+      <div class="row">
+        <div class="col-md-3">
+          <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="previousQuestion(question)">< Previous</button>
+        </div>
+        <div class="col-md-6">
+        <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{question.name}} <small *ngIf="question.id !=1"> - {{completed | number:'2.0-0'}}%</small></button>
+
+      </div>
+      <div class="col-md-3">
+        <button *ngIf="question.id != lastQuestionId" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextQuestion(question)">Next ></button>
+      </div>
+      </div>
+      <br/>
+
+      <div class="row">
+
+
+
+
+        <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(choice, question)">
+            <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+                <div class="card-body">
+                        <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                        <!-- <br/>
+                        <br/>
+                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="numQA" *ngIf="isLastQuesiton">
   <!-- ask question to select number of resources -->
+
 </div>
-<div id="numDev" *ngIf="isLastDev">
-  <!-- ask question to select number of resources -->
-</div>
-<div id="numMon" *ngIf="isLastMon">
-  <!-- ask question to select number of resources -->
-</div>
+
 
 
 

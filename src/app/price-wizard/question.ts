@@ -1,9 +1,9 @@
-import { choice } from './choice';
+import { Choice } from './choice';
 
-export class question {
+export class Question {
   constructor(
     public id: number,
-    public choices: choice[],
+    public choices: Choice[],
     public name: string,
     public completed: number,
     public isVisible: boolean

@@ -38,7 +38,7 @@ export class AdminComponent implements OnInit {
 
       modalPrice: Price;
 
- 
+
       constructor(private afs: AngularFirestore, private modalService: NgbModal) {
         this.priceCollectionRef = this.afs.collection<Price>('prices');
         // this.price$ = this.priceCollectionRef.valueChanges();
@@ -93,55 +93,16 @@ export class AdminComponent implements OnInit {
 };
     }
 
-    modalData(price: Price, content, type) {
+    modalData(price: Price, content) {
       this.modalPrice = price;
-      if (type === 'sm') {
-          console.log('aici');
-          this.modalService.open(content, { size: 'sm' }).result.then((result) => {
-              this.closeResult = `Closed with: ${result}`;
-              // console.log(this.closeResult);
-          }, (reason) => {
-              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-              // console.log(this.closeResult);
 
-          });
-      } else {
-          this.modalService.open(content).result.then((result) => {
-              this.closeResult = `Closed with: ${result}`;
-              // console.log(this.closeResult);
-
-          }, (reason) => {
-              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-              // console.log(this.closeResult);
-
-          });
-      }
+          this.modalService.open(content);
     }
 
 
 
-    open(content, type) {
-    if (type === 'sm') {
-        console.log('aici');
-        this.modalService.open(content, { size: 'sm' }).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-            // console.log(this.closeResult);
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            // console.log(this.closeResult);
-
-        });
-    } else {
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-            // console.log(this.closeResult);
-
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            // console.log(this.closeResult);
-
-        });
-    }
+    open(content) {
+        this.modalService.open(content);
 }
 
 
