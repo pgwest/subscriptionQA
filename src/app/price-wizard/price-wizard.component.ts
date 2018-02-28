@@ -42,10 +42,13 @@ export class PriceWizardComponent implements OnInit {
   isQuestions : boolean;
   isSelectNext: boolean;
   myResourceQuestions = resourceQuestions;
+  myDevQuestions = devQuestions;
+  myMonitoringQuestions = monitoringQuestions;
+
 
   // resourceQuestions : resourceQuestions;
   // answers: Answer[];
-  answer: Answer;
+  // answer: Answer;
 
   firstQuestion : Question =
     {
@@ -80,13 +83,32 @@ export class PriceWizardComponent implements OnInit {
       this.completed = 0;
       this.isFirstQuestion = true;
       console.log("constructor called");
+      this.lastQuestionId = -1;
+      this.isLastQuestion = false;
+      this.isFirstQuestion = true;
+      this.expectedTotal = 100;
+      this.qaSelected = false;
+      this.devSelected = false;
+      this.monitoringSelected = false;
+      this.isResourceQuestion = false;
+      this.isResourceQuestionNext = false;
+      this.isResourceHelp  =false;
+      this.isSelectResources = false;
+      this.resourceLastQuestionId = resourceQuestions.length;
+      this.isQuestions = false;
+      this.isSelectNext = false;
+      this.myResourceQuestions = resourceQuestions;
+      this.myDevQuestions = devQuestions;
+      this.myMonitoringQuestions = monitoringQuestions;
+      this.questions = qaQuestions;
+
     }
 
     ngOnInit() {
-      this.isFirstQuestion = true;
-      this.questions = qaQuestions;
-      this.resourceLastQuestionId = resourceQuestions.length;
-      console.log("init called");
+      // this.isFirstQuestion = true;
+      // this.questions = qaQuestions;
+      // this.resourceLastQuestionId = resourceQuestions.length;
+      // console.log("init called");
 
     }
 
@@ -125,52 +147,65 @@ export class PriceWizardComponent implements OnInit {
     }
 
     firstQuestionNext() {
+      console.log("is first question!");
       this.isQuestions = true;
       if (!this.isFirstQuestion){
         this.questions[0].isVisible = true;
-        console.log("questions 0 is visible");
+        // console.log("questions 0 is visible");
       }
       else {
         if (this.qaSelected) {
           // console.log("qaSelected");
-          devQuestions[0].isVisible = true;
-          monitoringQuestions[0].isVisible = true;
+          //devQuestions[0].isVisible = true;
+        //  monitoringQuestions[0].isVisible = true;
           this.questions = qaQuestions;
           // console.log(qaQuestions);
           if(this.devSelected){
-            devQuestions[0].isVisible = false;
-            this.questions = this.questions.concat(devQuestions);
+            this.myDevQuestions = devQuestions;
+            this.myDevQuestions[0].isVisible = false;
+            this.questions = this.questions.concat(this.myDevQuestions);
 
-            this.updateIds();
+            // this.updateIds();
           }
           if(this.monitoringSelected){
-            monitoringQuestions[0].isVisible = false;
-            this.questions = this.questions.concat(monitoringQuestions);
+            this.myMonitoringQuestions = monitoringQuestions;
+            this.myMonitoringQuestions[0].isVisible = false;
+            // monitoringQuestions[0].isVisible = false;
+            this.questions = this.questions.concat(this.myMonitoringQuestions);
             // this.questions[qaQuestions.length + devQuestions.length ].isVisible = false;
-            this.updateIds();
+            // this.updateIds();
 
             // console.log(this.questions);
           }
+          this.updateIds();
+
         }
         else if (this.devSelected) {
           // console.log("devSelected");
-          devQuestions[0].isVisible = true;
+          // devQuestions[0].isVisible = true;
+          this.myDevQuestions = devQuestions;
           this.questions = devQuestions;
           // console.log(this.questions);
           if(this.monitoringSelected){
-            monitoringQuestions[0].isVisible = false;
-            this.questions = this.questions.concat(monitoringQuestions);
-            this.updateIds();
+            // monitoringQuestions[0].isVisible = false;
+            this.myMonitoringQuestions = monitoringQuestions;
+            this.myMonitoringQuestions[0].isVisible = false;
+            this.questions = this.questions.concat(this.myMonitoringQuestions);
+            // this.updateIds();
 
             // console.log(this.questions);
             // this.questions[devQuestions.length].isVisible = false;
           }
+          this.updateIds();
+
         }
         else if (this.monitoringSelected) {
           // console.log("monitoringSelected");
-          monitoringQuestions[0].isVisible = true;
+          // monitoringQuestions[0].isVisible = true;
 
           this.questions = monitoringQuestions;
+          this.updateIds();
+
           // console.log(this.questions);
         }
         if (!this.qaSelected && !this.devSelected && !this.monitoringSelected){
@@ -188,6 +223,10 @@ export class PriceWizardComponent implements OnInit {
     }
 
     nextQuestion(question) {
+      // console.log("nextQuestion logs");
+      // console.log(question);
+      // console.log(this.questions);
+
       if (question.id !== this.lastQuestionId){
         question.isVisible = false;
         this.questions[question.id].isVisible = true;
@@ -201,6 +240,7 @@ export class PriceWizardComponent implements OnInit {
     }
 
     nextQuestionResources(question) {
+      console.log("nextQuestionResources");
       if (question.id !== this.resourceLastQuestionId){
         question.isVisible = false;
         this.myResourceQuestions[question.id].isVisible = true;
@@ -208,8 +248,10 @@ export class PriceWizardComponent implements OnInit {
       }
       if (question.id == this.resourceLastQuestionId-1){
         this.isSelectNext = true;
+
         console.log("is last resource question, select next true");
       }
+      console.log("nextQuestionResources");
       console.log(question);
       console.log(question.id);
     }
@@ -220,15 +262,22 @@ export class PriceWizardComponent implements OnInit {
       }
       else {
         this.isResourceQuestion = false;
-        question.isVisible = false;
+        // question.isVisible = false;
         if(question.choices[0].isSelected){
           console.log("first choice selected");
-          // this.resourceQuestions = resourceQuestions;
+          this.myResourceQuestions = resourceQuestions;
+          this.myResourceQuestions[0].isVisible = true;
+          for ( var i = 1, len = this.myResourceQuestions.length; i < len; i++ )
+          {
+            this.myResourceQuestions[i].isVisible = false;
+            // console.log("for loop");
+            // console.log(this.questions[i]);
+          }
           console.log(this.myResourceQuestions);
           this.isResourceHelp = true;
         }
         else {
-          console.log("first choice selected");
+          console.log("second choice selected");
           this.isSelectResources = true;
         }
       }
@@ -252,7 +301,7 @@ export class PriceWizardComponent implements OnInit {
 
 
     nextResources(question) {
-      console.log("ResourceQuestionNext clicked");
+      // console.log("ResourceQuestionNext clicked");
       this.isResourceQuestion = true;
       question.isVisible = false;
       // this.questions[question.id].isVisible = true;
@@ -300,7 +349,8 @@ export class PriceWizardComponent implements OnInit {
       {
         this.questions[i].id = i+1;
       }
-      console.log(this.questions);
+      // console.log("ids updated");
+      // console.log(this.questions);
     }
 
 }

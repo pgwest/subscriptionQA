@@ -104,6 +104,9 @@
 
 </div>
 
+
+
+
 <div *ngIf="isResourceHelp">
   <div id="service categories" *ngFor="let question of myResourceQuestions">
       <div *ngIf=question.isVisible>
@@ -113,12 +116,12 @@
             <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="previousQuestion(question)">< Previous</button>
           </div>
           <div class="col-md-6">
-          <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{question.name}} <small *ngIf="question.id !=1"> - {{completed | number:'2.0-0'}}%</small></button>
+          <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{question.name}}</button>
 
         </div>
         <div class="col-md-3">
           <button *ngIf="question.id != resourceLastQuestionId" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextQuestionResources(question)">Next ></button>
-          <button *ngIf="isSelectNext" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextResourceHelp(question)">Next ></button>
+          <button *ngIf="isSelectNext || question.id == resourceLastQuestionId" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="nextResourceHelp(question)">Next ></button>
         </div>
       </div>
       <br/>
@@ -156,22 +159,25 @@
   </div>
   <br/>
 
-  <div class='row'>
+  <div class='row text-center' style="color:white">
     <div class="col-md-4">
       <h2>QA Resources</h2>
+      <br/>
     </div>
     <div class="col-md-4">
       <h2>Dev Resources</h2>
+      <br/>
     </div>
     <div class="col-md-4">
       <h2>Monitoring Resources</h2>
+      <br/>
     </div>
   </div>
 
   <div class="text-center">
   <!-- <h1>You're all set!</h1> -->
   <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button>
-  <h4 style="color:white"> We'll reach out shortly to schedule a setup call and answer any questions. Don't worry, you're not committing to anything yet.</h4>
+  <h4 style="color:white"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
 </div>
 </div>
 
@@ -181,7 +187,8 @@
   <!-- ask question to select number of resources -->
   <div class="text-center">
   <h1>You're all set!</h1>
-  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button>
+  <br/>
+  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">View Dashboard ></button>
 </div>
 
   <div class="row">
