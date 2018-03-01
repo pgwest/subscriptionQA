@@ -45,6 +45,7 @@ export class PriceWizardComponent implements OnInit {
   myDevQuestions = devQuestions;
   myMonitoringQuestions = monitoringQuestions;
   isOurRecommendation : boolean;
+  showAlert : boolean;
 
   // resourceQuestions : resourceQuestions;
   // answers: Answer[];
@@ -84,7 +85,6 @@ export class PriceWizardComponent implements OnInit {
       this.expectedTotal = 100;
       this.completed = 0;
       this.isFirstQuestion = true;
-      console.log("constructor called");
       this.lastQuestionId = -1;
       this.isLastQuestion = false;
       this.isFirstQuestion = true;
@@ -105,7 +105,7 @@ export class PriceWizardComponent implements OnInit {
       this.questions = qaQuestions;
       this.completed = 0;
       this.isOurRecommendation = false;
-
+      this.showAlert = false;
     }
 
     ngOnInit() {
@@ -113,10 +113,14 @@ export class PriceWizardComponent implements OnInit {
       // this.questions = qaQuestions;
       // this.resourceLastQuestionId = resourceQuestions.length;
       // console.log("init called");
-
+      // this._flashMessagesService.grayOut(true);
     }
 
+
+
+
     toggleSelected(choice, question) {
+      this.showAlert = false;
       if(!choice.isSelected){
         if(!question.isMultipleChoice){
           for(var otherChoice in question.choices){
@@ -201,7 +205,8 @@ export class PriceWizardComponent implements OnInit {
           // console.log(this.questions);
         }
         if (!this.qaSelected && !this.devSelected && !this.monitoringSelected){
-          console.log("nothing selected");
+          // console.log("nothing selected");
+          this.showAlert = true;
         }
         else {
           this.isQuestions = true;
@@ -234,7 +239,7 @@ export class PriceWizardComponent implements OnInit {
     }
 
     nextQuestionResources(question) {
-      console.log("nextQuestionResources");
+      // console.log("nextQuestionResources");
       if (question.id !== this.resourceLastQuestionId){
         question.isVisible = false;
         this.myResourceQuestions[question.id].isVisible = true;
@@ -243,22 +248,23 @@ export class PriceWizardComponent implements OnInit {
       if (question.id == this.resourceLastQuestionId-1){
         this.isSelectNext = true;
 
-        console.log("is last resource question, select next true");
+        // console.log("is last resource question, select next true");
       }
-      console.log("nextQuestionResources");
-      console.log(question);
-      console.log(question.id);
+      // console.log("nextQuestionResources");
+      // console.log(question);
+      // console.log(question.id);
     }
 
     resourcesNextClicked(question) {
       if (!question.choices[0].isSelected && !question.choices[1].isSelected){
-        console.log('nothing selected');
+        // console.log('nothing selected');
+        this.showAlert = true;
       }
       else {
         this.isResourceQuestion = false;
         // question.isVisible = false;
         if(question.choices[0].isSelected){
-          console.log("first choice selected");
+          // console.log("first choice selected");
           this.myResourceQuestions = resourceQuestions;
           this.myResourceQuestions[0].isVisible = true;
           for ( var i = 1, len = this.myResourceQuestions.length; i < len; i++ )
@@ -267,12 +273,12 @@ export class PriceWizardComponent implements OnInit {
             // console.log("for loop");
             // console.log(this.questions[i]);
           }
-          console.log(this.myResourceQuestions);
+          // console.log(this.myResourceQuestions);
           this.isResourceHelp = true;
           this.isOurRecommendation = true;
         }
         else {
-          console.log("second choice selected");
+          // console.log("second choice selected");
           this.isSelectResources = true;
         }
       }
@@ -292,7 +298,7 @@ export class PriceWizardComponent implements OnInit {
     }
 
     previousQuestionResources(question){
-      console.log("previousQuestionResources");
+      // console.log("previousQuestionResources");
       question.isVisible = false;
       this.myResourceQuestions[question.id-2].isVisible = true;
       this.isSelectNext = false;
@@ -333,7 +339,7 @@ export class PriceWizardComponent implements OnInit {
           this.isResourceQuestionNext = false;
         }
         else {
-          console.log("no question found");
+          // console.log("no question found");
         }
       this.completed -= question.completed/this.expectedTotal*100;
       // this.isQuestions = true;
@@ -343,10 +349,10 @@ export class PriceWizardComponent implements OnInit {
           question.isVisible = false;
         }
         else {
-          console.log("no question found 1");
+          // console.log("no question found 1");
         }
         this.isFirstQuestion = !this.isFirstQuestion;
-        console.log("first question true?");
+        // console.log("first question true?");
         console.log(this.isFirstQuestion);
         this.questions = qaQuestions;
         this.isQuestions = false;
