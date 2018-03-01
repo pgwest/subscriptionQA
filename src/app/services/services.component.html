@@ -1,9 +1,9 @@
-<div style="background-image: url('../assets/img/polygon.png');">
+<div style="background-image: url('../assets/img/polygon.png');background-repeat:no-repeat;">
   <!-- <div style="background-image: url('../assets/img/polygon.png'); background-repeat:no-repeat;"> -->
 
-<div>
-              <div class="row fixed-top serviceSum">
-                <div class="col-md-4 col-sm-5">
+<!-- <div>
+                <div class="row fixed-top serviceSum" style="height: 50px;">
+                <div class="col-md-4 col-sm-5" >
                 <div class="card card-plain">
                       <div class="card-body">
                   <app-resource-summary></app-resource-summary>
@@ -24,35 +24,82 @@
             </div>
           </div>
 
-    </div>
+    </div> -->
+    <br/>
+    <div>
+      <br/>
+      <br/>
+      <br/>
+            <div class="row">
+              <div class="col-md-4 col-sm-4" >
+                    <div class="card card-plain">
+                          <div class="card-body">
+                      <app-resource-summary></app-resource-summary>
 
-    <div >
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4" >
+                <div >
+                              <!-- <br/>
+                              <br/> -->
+                              <!-- <br/>
+                              <br/> -->
+                              <h1 class="text-center" style="color:white; font-weight:bold; z-index:2;">Services & Pricing</h1>
+                              <h3 class="text-center" style="color:white; font-weight:bolder;"> Select services to see pricing. </h3>
+                              <!-- <br/> -->
+                              <!-- <br/> -->
+                                <!-- <hr/> -->
+                                <ngb-tabset type="pills" class="nav nav-pills nav-pills-danger justify-content-center">
+                                    <ngb-tab title="Monthly">
+                                        <ng-template ngbTabContent>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <ngb-tab title="Weekly">
+                                        <ng-template ngbTabContent>
+                                        </ng-template>
+                                      </ngb-tab>
+                                    </ngb-tabset>
+
+                    </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4">
+                  <!-- <div class="col-md-4 col-sm-6"> -->
+                    <div class="card card-plain">
+                        <div class="card-body">
+                      <app-cost-summary></app-cost-summary>
+
+                    </div>
+                  </div>
+                <!-- </div> -->
+              </div>
+            </div>
+
+        </div>
+    <!-- <div >
 
                   <br/>
                   <br/>
                   <br/>
                   <br/>
-                  <!-- <br/> -->
                   <h1 class="text-center" style="color:white; font-weight:bold; z-index:2;">Services-Pricing</h1>
-                  <!-- <br/> -->
                   <h3 class="text-center" style="color:white; font-weight:bolder;"> Select services to see pricing. </h3>
                   <br/>
                   <br/>
-                  <!-- <br/>
-                  <br/> -->
                     <hr/>
-                  <!-- <br/>
-                  <br/> -->
 
-        </div>
+        </div> -->
         <app-price-wizard></app-price-wizard>
 
 
         <div class="row" id="price-wizard">
           <div class="column-md-12 ml-auto mr-auto">
             <hr/>
-              <h1 style="font-weight:bolder;">Full Services Summary</h1>
-              <br/>
+              <!-- <h1 style="font-weight:bolder; color:white">Full Services Summary</h1>
+              <br/> -->
+              <app-full-service-summary></app-full-service-summary>
           </div>
         </div>
 

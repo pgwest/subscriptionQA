@@ -12,17 +12,28 @@
     </div>
 </div> -->
 
-<div class="card" data-background="image" style="background-image: url('assets/img/sections/mika-matin.jpg')">
-    <!-- <div class="card-body"> -->
+<!-- <div class="card" data-background="image" style="background-image: url('assets/img/sections/mika-matin.jpg'); height:200px;"> -->
+<!-- <div class="card" data-background="image" data-color="red" style="height:180px;">
+
       <div class="card-body">
-        <!-- <h4 class="card-category">Pricing</h4> -->
-        <!-- <h3 class="card-title">$5800</h3> -->
-        <h3 ><b>Price: <strong>{{total | currency:'USD':true:'2.0-0'}}</strong></b>{{frequency}}</h3>
+        <h3 ><b>Price: <strong>{{total | currency:'USD':true:'2.0-0'}}</strong></b><small>{{frequency}}</small></h3>
         <ul>
-            <li><b><strong>{{hourly | currency:'USD':true:'2.2-4'}}</strong></b> Hourly Per Resource Equivalent</li>
-            <li><b><strong>{{monthly | currency:'USD':true:'2.0-0'}}</strong></b> Monthly Per Resource Equivalent</li>
-            <li><b><strong>{{annual | currency:'USD':true:'2.0-0'}}</strong></b> Annual Per Resource Equivalent</li>
+            <li><strong>{{hourly | currency:'USD':true:'2.2-4'}}</strong> Hourly Per Resource Equivalent</li>
+            <li><strong>{{monthly | currency:'USD':true:'2.0-0'}}</strong> Monthly Per Resource Equivalent</li>
+            <li><strong>{{annual | currency:'USD':true:'2.0-0'}}</strong> Annual Per Resource Equivalent</li>
         </ul>
 
     </div>
+</div> -->
+
+<div class="card text-center" style="height:180px;">
+    <!-- <div class="card-body"> -->
+        <h2 class="card-title">Price: <strong>{{total | currency:'USD':true:'2.0-0'}}</strong><small>{{frequency}}</small></h2>
+        <ul>
+            <li><b>{{hourly | currency:'USD':true:'2.2-4'}}</b> Hourly Per Resource Equivalent</li>
+            <li><b>{{monthly | currency:'USD':true:'2.0-0'}}</b> Monthly Per Resource Equivalent</li>
+            <li><b>{{annual | currency:'USD':true:'2.0-0'}}</b> Annual Per Resource Equivalent</li>
+        </ul>
+        <!-- <a href="#pablo" class="btn btn-primary btn-round">Free download</a> -->
+    <!-- </div> -->
 </div>

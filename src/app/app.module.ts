@@ -50,7 +50,7 @@ import { SupportComponent } from './support/support.component';
 
 //ServicesModule
 
-import {AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 import { AdminComponent } from './admin/admin.component';
 
 
@@ -66,7 +66,7 @@ import { AdminComponent } from './admin/admin.component';
     // CostSummaryComponent,
     // ResourceSummaryComponent,
     // PriceWizardComponent,
-    FullServiceSummaryComponent,
+    // FullServiceSummaryComponent,
     ImpactComponent,
     AboutComponent,
     BlogpostComponent,
