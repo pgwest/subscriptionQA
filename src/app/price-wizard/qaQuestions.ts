@@ -11,7 +11,8 @@ export const qaQuestions: Question[] = [
       ],
       'name': 'Are you sure?',
       'completed': 10,
-      'isVisible': true
+      'isVisible': true,
+      'isMultipleChoice': true
     },
     {
       'id': 2,
@@ -25,7 +26,8 @@ export const qaQuestions: Question[] = [
       ],
       'name': 'What kind(s) of QA do you need?',
       'completed': 10,
-      'isVisible': false
+      'isVisible': false,
+      'isMultipleChoice': true
     },
     {
       'id': 3,
@@ -39,6 +41,7 @@ export const qaQuestions: Question[] = [
       ],
       'name': 'What platforms do you need tested?',
       'completed': 10,
-      'isVisible': false
+      'isVisible': false,
+      'isMultipleChoice': true
     }
   ];

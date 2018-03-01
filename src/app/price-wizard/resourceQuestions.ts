@@ -10,7 +10,8 @@ export const resourceQuestions: Question[] = [
       ],
       'name': 'How many QA resources do you have?',
       'completed': 10,
-      'isVisible': true
+      'isVisible': true,
+      'isMultipleChoice': true
     },
     {
       'id': 2,
@@ -24,6 +25,7 @@ export const resourceQuestions: Question[] = [
       ],
       'name': 'How many dev Resources have?',
       'completed': 10,
-      'isVisible': false
+      'isVisible': false,
+      'isMultipleChoice': true
     }
   ];

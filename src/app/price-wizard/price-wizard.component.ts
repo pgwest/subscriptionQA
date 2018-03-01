@@ -44,7 +44,7 @@ export class PriceWizardComponent implements OnInit {
   myResourceQuestions = resourceQuestions;
   myDevQuestions = devQuestions;
   myMonitoringQuestions = monitoringQuestions;
-
+  isOurRecommendation : boolean;
 
   // resourceQuestions : resourceQuestions;
   // answers: Answer[];
@@ -60,7 +60,8 @@ export class PriceWizardComponent implements OnInit {
       ],
       'name': 'Where can we help?',
       'completed': 10,
-      'isVisible': true
+      'isVisible': true,
+      'isMultipleChoice': true
     };
 
     resourcesQuestion : Question =
@@ -72,7 +73,8 @@ export class PriceWizardComponent implements OnInit {
             ],
       'name': "How many resources do you need?",
       'completed': 10,
-      'isVisible': false
+      'isVisible': false,
+      'isMultipleChoice': false
     };
 
 
@@ -101,6 +103,8 @@ export class PriceWizardComponent implements OnInit {
       this.myDevQuestions = devQuestions;
       this.myMonitoringQuestions = monitoringQuestions;
       this.questions = qaQuestions;
+      this.completed = 0;
+      this.isOurRecommendation = false;
 
     }
 
@@ -113,29 +117,18 @@ export class PriceWizardComponent implements OnInit {
     }
 
     toggleSelected(choice, question) {
-      choice.isSelected = !choice.isSelected;
-      // this.answers = new Answer(question.id, question.name, choice.id, choice.name, choice.isselected);
-      // console.log(question.id);
-      if (question.id == 0 ){
-        // this.answers = new Answer[0] = new Answer(-1,"",[-1],[""],false);
-
+      if(!choice.isSelected){
+        if(!question.isMultipleChoice){
+          for(var otherChoice in question.choices){
+            question.choices[otherChoice].isSelected = false;
+          }
+        }
       }
-      // this.answers[question.id] = new Answer(-1,"",[-1],[""],false);
-      // this.answers[question.id].questionId = question.id;
-      // this.answers[question.id].questionName = question.name;
-      // this.answers[question.id].answerIds[choice.id] = choice.id;
-      // this.answers[question.id].answerNames[choice.id] = choice.name;
-      // this.answers[question.id].answerSelected = true;
-      // this.answers[question.id][choice.id].answerSelected = choice.isSelected;
-
-      // this.answers.push(this.answer);
+      choice.isSelected = !choice.isSelected;
 
       if(question.id == 0 ){
         if (choice.id == 0){
           this.qaSelected = choice.isSelected;
-          // if(this.qaSelected){
-          //
-          // }
         }
         else if (choice.id == 1){
           this.devSelected = choice.isSelected;
@@ -148,7 +141,6 @@ export class PriceWizardComponent implements OnInit {
 
     firstQuestionNext() {
       console.log("is first question!");
-      this.isQuestions = true;
       if (!this.isFirstQuestion){
         this.questions[0].isVisible = true;
         // console.log("questions 0 is visible");
@@ -212,10 +204,12 @@ export class PriceWizardComponent implements OnInit {
           console.log("nothing selected");
         }
         else {
+          this.isQuestions = true;
           this.isFirstQuestion = !this.isFirstQuestion;
           // this.lastQuestionId = this.questions[this.questions.length-1].id;
           this.lastQuestionId = this.questions.length;
           this.expectedTotal = (this.lastQuestionId)*10;
+          this.completed = 0;
           this.questions[0].isVisible = true;
 
         }
@@ -275,6 +269,7 @@ export class PriceWizardComponent implements OnInit {
           }
           console.log(this.myResourceQuestions);
           this.isResourceHelp = true;
+          this.isOurRecommendation = true;
         }
         else {
           console.log("second choice selected");
@@ -283,10 +278,31 @@ export class PriceWizardComponent implements OnInit {
       }
     }
 
+    resourcesBackClicked(question) {
+        this.isResourceQuestion = false;
+        this.isQuestions = true;
+        this.questions[this.questions.length-1].isVisible = true;
+        // this.isOurRecommendation = false;
+    }
+
     nextResourceHelp(){
       //show select resources?
       this.isSelectResources = true;
       this.isResourceHelp = false;
+    }
+
+    previousQuestionResources(question){
+      console.log("previousQuestionResources");
+      question.isVisible = false;
+      this.myResourceQuestions[question.id-2].isVisible = true;
+      this.isSelectNext = false;
+    }
+
+    previousToResourceQuestion(question) {
+      this.isResourceQuestion = true;
+      this.isResourceHelp = false;
+      this.isOurRecommendation = false;
+
     }
 
     resourcesSelected(){
@@ -314,6 +330,7 @@ export class PriceWizardComponent implements OnInit {
         if(question){
           question.isVisible = false;
           this.questions[question.id - 2].isVisible = true;
+          this.isResourceQuestionNext = false;
         }
         else {
           console.log("no question found");

@@ -6,6 +6,7 @@ export class Question {
     public choices: Choice[],
     public name: string,
     public completed: number,
-    public isVisible: boolean
+    public isVisible: boolean,
+    public isMultipleChoice: boolean
   ) { }
 }

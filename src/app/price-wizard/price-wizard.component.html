@@ -75,8 +75,9 @@
 
 <div id="numQA" *ngIf="isResourceQuestion">
   <!-- ask question to select number of resources -->
-  <div class="row">
+  <div class="row text-center">
     <div class="col-md-3">
+      <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="resourcesBackClicked(resourcesQuestion)">< Previous</button>
     </div>
     <div class="col-md-6">
     <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{resourcesQuestion.name}} </button>
@@ -89,7 +90,7 @@
   <br/>
 
   <div class="row">
-    <div class="col-md-6" *ngFor="let choice of resourcesQuestion.choices" (click)="toggleSelected(choice, firstQuestion)">
+    <div class="col-md-6" *ngFor="let choice of resourcesQuestion.choices" (click)="toggleSelected(choice, resourcesQuestion)">
         <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
             <div class="card-body">
                     <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
@@ -113,7 +114,8 @@
       <div class="text-center" style="color:white">
       <div class="row">
           <div class="col-md-3">
-            <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="previousQuestion(question)">< Previous</button>
+            <button *ngIf="question.id != 1" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="previousQuestionResources(question)">< Previous</button>
+            <button *ngIf="question.id == 1" class="btn btn-neutral btn-round mr-auto ml-auto" (click)="previousToResourceQuestion(question)">< Previous</button>
           </div>
           <div class="col-md-6">
           <button class="mr-auto ml-auto btn-sm" style="font-weight:bold; font-size:2em; background-color:Transparent; outline:none; border:none; color:white;"> {{question.name}}</button>
@@ -154,12 +156,13 @@
 
 <div id="numQA" *ngIf="isSelectResources">
   <!-- ask question to select number of resources -->
-    <div class="text-center">
+    <!-- <div class="text-center">
     <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="resourcesSelected()">Select Resources </button>
+  </div> -->
+  <div *ngIf="isOurRecommendation">
+    <h3 class="text-center" style="color:white; font-weight:bolder" >We recommend: </h3>
   </div>
-  <br/>
-
-  <div class='row text-center' style="color:white">
+  <div class='row text-center' style="color:white; font-weight:bolder;">
     <div class="col-md-4">
       <h2>QA Resources</h2>
       <br/>
@@ -177,7 +180,7 @@
   <div class="text-center">
   <!-- <h1>You're all set!</h1> -->
   <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button>
-  <h4 style="color:white"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
+  <h4 style="color:white; font-weight:bolder;"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
 </div>
 </div>
 

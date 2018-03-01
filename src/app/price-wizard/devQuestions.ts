@@ -11,7 +11,8 @@ export const devQuestions: Question[] = [
       ],
       'name': 'Are you dev?',
       'completed': 10,
-      'isVisible': true
+      'isVisible': true,
+      'isMultipleChoice': false
     },
     {
       'id': 2,
@@ -25,6 +26,7 @@ export const devQuestions: Question[] = [
       ],
       'name': 'What kind(s) of Dev do you need?',
       'completed': 10,
-      'isVisible': false
+      'isVisible': false,
+      'isMultipleChoice': true
     }
   ];

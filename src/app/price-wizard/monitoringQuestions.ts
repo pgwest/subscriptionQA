@@ -11,7 +11,8 @@ export const monitoringQuestions: Question[] = [
       ],
       'name': 'Are you monitoring?',
       'completed': 10,
-      'isVisible': true
+      'isVisible': true,
+      'isMultipleChoice': false
     },
     {
       'id': 2,
@@ -25,6 +26,7 @@ export const monitoringQuestions: Question[] = [
       ],
       'name': 'What kind(s) of monitoring do you need?',
       'completed': 10,
-      'isVisible': false
-    }   
+      'isVisible': false,
+      'isMultipleChoice': true
+    }
   ];
