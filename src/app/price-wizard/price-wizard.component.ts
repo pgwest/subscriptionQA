@@ -29,6 +29,7 @@ export class PriceWizardComponent implements OnInit {
 
   lastQuestionId : number;
   completed : number;
+  completedSoFar: number;
   isLastQuestion: boolean;
   isFirstQuestion: boolean;
   expectedTotal : number;
@@ -100,6 +101,7 @@ export class PriceWizardComponent implements OnInit {
 
       this.expectedTotal = 100;
       this.completed = 0;
+      this.completedSoFar = 0;
       this.data.changeCompleted(this.completed);
       this.isFirstQuestion = true;
       this.lastQuestionId = -1;
@@ -249,8 +251,9 @@ export class PriceWizardComponent implements OnInit {
           this.isFirstQuestion = !this.isFirstQuestion;
           // this.lastQuestionId = this.questions[this.questions.length-1].id;
           this.lastQuestionId = this.questions.length;
-          this.expectedTotal = (this.lastQuestionId)*10 + 10;
-          this.completed = 10;
+          this.expectedTotal = (this.lastQuestionId)*10 + 20;
+          this.completedSoFar = 10;
+          this.completed = this.completedSoFar/this.expectedTotal*100;
           this.data.changeCompleted(this.completed);
           this.questions[0].isVisible = true;
 
@@ -266,7 +269,8 @@ export class PriceWizardComponent implements OnInit {
       if (question.id !== this.lastQuestionId){
         question.isVisible = false;
         this.questions[question.id].isVisible = true;
-        this.completed += question.completed/this.expectedTotal*100;
+        this.completedSoFar += 10;
+        this.completed = this.completedSoFar/this.expectedTotal*100;
         this.data.changeCompleted(this.completed);
         // console.log("this.completed");
         // console.log(this.completed);
@@ -290,7 +294,8 @@ export class PriceWizardComponent implements OnInit {
 
         // console.log("is last resource question, select next true");
       }
-      this.completed += question.completed/this.expectedTotal*100;
+      this.completedSoFar += 10;
+      this.completed = this.completedSoFar/this.expectedTotal*100;
       this.data.changeCompleted(this.completed);
 
 
@@ -312,6 +317,8 @@ export class PriceWizardComponent implements OnInit {
         // question.isVisible = false;
         if(question.choices[0].isSelected){
           // console.log("first choice selected");
+          this.expectedTotal += this.myResourceQuestions.length*10;
+
           this.myResourceQuestions = resourceQuestions;
           this.myResourceQuestions[0].isVisible = true;
           for ( var i = 1, len = this.myResourceQuestions.length; i < len; i++ )
@@ -328,9 +335,12 @@ export class PriceWizardComponent implements OnInit {
           // console.log("second choice selected");
           this.isSelectResources = true;
         }
+
+              this.completedSoFar += 10;
+              this.completed = this.completedSoFar/this.expectedTotal*100;
+              this.data.changeCompleted(this.completed);
       }
-      this.completed += question.completed/this.expectedTotal*100;
-      this.data.changeCompleted(this.completed);
+
 
 
     }
@@ -339,15 +349,22 @@ export class PriceWizardComponent implements OnInit {
         this.isResourceQuestion = false;
         this.isQuestions = true;
         this.questions[this.questions.length-1].isVisible = true;
-        this.completed -= question.completed/this.expectedTotal*100;
+        this.completedSoFar -= 10;
+        this.completed = this.completedSoFar/this.expectedTotal*100;
         this.data.changeCompleted(this.completed);
+        this.expectedTotal -= this.myResourceQuestions.length*10;
+
 
 
         // this.isOurRecommendation = false;
     }
 
     nextResourceHelp(){
-      //show select resources?
+      //show select resources
+      console.log("nextResourcehelp");
+      this.completedSoFar += 10;
+      this.completed = this.completedSoFar/this.expectedTotal*100;
+      this.data.changeCompleted(this.completed);
       this.isSelectResources = true;
       this.isResourceHelp = false;
     }
@@ -357,7 +374,8 @@ export class PriceWizardComponent implements OnInit {
       question.isVisible = false;
       this.myResourceQuestions[question.id-2].isVisible = true;
       this.isSelectNext = false;
-      this.completed -= question.completed/this.expectedTotal*100;
+      this.completedSoFar -= 10;
+      this.completed = this.completedSoFar/this.expectedTotal*100;
       this.data.changeCompleted(this.completed);
 
     }
@@ -385,7 +403,8 @@ export class PriceWizardComponent implements OnInit {
       this.isResourceQuestion = true;
       question.isVisible = false;
       // this.questions[question.id].isVisible = true;
-      this.completed += question.completed/this.expectedTotal*100;
+      this.completedSoFar += 10;
+      this.completed = this.completedSoFar/this.expectedTotal*100;
       this.data.changeCompleted(this.completed);
 
       this.isQuestions = false;
@@ -402,8 +421,9 @@ export class PriceWizardComponent implements OnInit {
         else {
           // console.log("no question found");
         }
-      this.completed -= question.completed/this.expectedTotal*100;
-      this.data.changeCompleted(this.completed);
+        this.completedSoFar -= 10;
+        this.completed = this.completedSoFar/this.expectedTotal*100;
+        this.data.changeCompleted(this.completed);
 
       // this.isQuestions = true;
       }

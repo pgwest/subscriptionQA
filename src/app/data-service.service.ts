@@ -50,7 +50,7 @@ export class DataService {
 
     changeCompleted(completed: number) {
       this.percentageCompleted.next(completed);
-      console.log(this.percentageCompleted);
+      // console.log(this.percentageCompleted);
     }
 
 

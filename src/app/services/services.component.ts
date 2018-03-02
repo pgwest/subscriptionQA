@@ -25,7 +25,7 @@ export class ServicesComponent implements OnInit {
     // this.data.currentMessage.subscribe(message => this.message = message);
     this.data.currentBillingFrequency.subscribe(frequency => this.frequency = frequency);
     this.data.currentCompleted.subscribe(percentageCompleted => this.completed = percentageCompleted);
-    console.log(this.completed);
+    // console.log(this.completed);
   }
 
   billingTimeframe(event: any){
