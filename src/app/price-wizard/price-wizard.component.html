@@ -1,6 +1,11 @@
-<div class="alert alert-warning text-center" *ngIf="showAlert">
+<!-- <div class="alert alert-warning text-center  alert-dismissible" *ngIf="showAlert">
+  <strong>Please select at least one!</strong>
+</div> -->
+<div class="alert alert-warning text-center alert-dismissible" *ngIf="showAlert">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Please select at least one!</strong>
 </div>
+
 
 
   <div *ngIf=isFirstQuestion class="text-center" style="color:white">
@@ -19,12 +24,12 @@
 
   <div class="row">
     <div class="col-md-4" *ngFor="let choice of firstQuestion.choices" (click)="toggleSelected(choice, firstQuestion)">
-        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+        <div class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
             <div class="card-body">
                     <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
-                    <!-- <br/>
                     <br/>
-                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+                    <br/>
+                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
 
             </div>
         </div>
@@ -60,9 +65,9 @@
             <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
                 <div class="card-body">
                         <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
-                        <!-- <br/>
                         <br/>
-                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+                        <br/>
+                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
 
                 </div>
             </div>
@@ -98,9 +103,9 @@
         <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
             <div class="card-body">
                     <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
-                    <!-- <br/>
                     <br/>
-                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+                    <br/>
+                    <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
 
             </div>
         </div>
@@ -141,9 +146,9 @@
             <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
                 <div class="card-body">
                         <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
-                        <!-- <br/>
                         <br/>
-                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon"> -->
+                        <br/>
+                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
 
                 </div>
             </div>

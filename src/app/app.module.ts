@@ -47,11 +47,12 @@ import { TermsComponent } from './terms/terms.component';
 import { PlatformToolsComponent } from './platform-tools/platform-tools.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SupportComponent } from './support/support.component';
+import { AdminComponent } from './admin/admin.component';
 
 //ServicesModule
 
 import { AuthService } from './auth.service';
-import { AdminComponent } from './admin/admin.component';
+import { DataService } from './data-service.service';
 
 
 @NgModule({
@@ -88,7 +89,7 @@ import { AdminComponent } from './admin/admin.component';
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [AuthService],
+  providers: [AuthService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

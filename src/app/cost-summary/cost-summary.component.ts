@@ -7,6 +7,8 @@ import { ServicesModule } from '../services/services.module';
 import { costCalculations } from './costCalculations';
 import { CurrencyPipe } from '@angular/common';
 
+import { DataService } from '../data-service.service';
+
 export interface Price {
   id?: string;
   price: number;
@@ -27,12 +29,12 @@ export class CostSummaryComponent implements OnInit {
     annual : number;
     total  : number;
     frequency : string;
-
+    message : string;
 
     priceCollectionRef: AngularFirestoreCollection<Price>;
     price$: Observable<Price[]>;
 
-    constructor(private afs: AngularFirestore) {
+    constructor(private afs: AngularFirestore, private data : DataService) {
       this.priceCollectionRef = this.afs.collection<Price>('prices');
       // this.price$ = this.priceCollectionRef.valueChanges();
       this.price$ = this.priceCollectionRef.snapshotChanges().map(actions => {
@@ -53,6 +55,8 @@ export class CostSummaryComponent implements OnInit {
 
 
   ngOnInit() {
+    this.data.currentMessage.subscribe(message => this.message = message);
+    this.data.currentBillingFrequency.subscribe(frequency => this.frequency = frequency);
   }
 
 }

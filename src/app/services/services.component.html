@@ -1,4 +1,8 @@
-<div style="background-image: url('../assets/img/polygon.png');background-repeat:no-repeat;">
+<!-- <div style="background-image: url('../assets/img/polygon.png');background-repeat:no-repeat; z-index:-20;"> -->
+  <div style="background-image: url('../assets/img/gradientBlue.svg');background-repeat:no-repeat; z-index:-20;">
+
+  <div class="filter1" style="z-index:-10">
+  </div>
   <!-- <div style="background-image: url('../assets/img/polygon.png'); background-repeat:no-repeat;"> -->
 
 <!-- <div>
@@ -32,11 +36,11 @@
       <br/>
             <div class="row">
               <div class="col-md-4 col-sm-4" >
-                    <div class="card card-plain">
-                          <div class="card-body">
+                    <div class="card card-plain cardMargin">
+                          <!-- <div class="card-body"> -->
                       <app-resource-summary></app-resource-summary>
 
-                  </div>
+                  <!-- </div> -->
                 </div>
               </div>
 
@@ -46,12 +50,13 @@
                               <br/> -->
                               <!-- <br/>
                               <br/> -->
-                              <h1 class="text-center" style="color:white; font-weight:bold; z-index:2;">Services & Pricing</h1>
-                              <h3 class="text-center" style="color:white; font-weight:bolder;"> Select services to see pricing. </h3>
+                              <h2 class="text-center" style="color:white; font-weight:bold; z-index:2;">Services & Pricing</h2>
+                              <br/>
+                              <h6 class="text-center" style="color:white; font-weight:bolder;"><strong> Select weekly or monthly pricing.</strong> </h6>
                               <!-- <br/> -->
                               <!-- <br/> -->
                                 <!-- <hr/> -->
-                                <ngb-tabset type="pills" class="nav nav-pills nav-pills-danger justify-content-center">
+                                <ngb-tabset type="pills" class="nav nav-pills justify-content-center" (tabChange)="billingTimeframe($event)">
                                     <ngb-tab title="Monthly">
                                         <ng-template ngbTabContent>
                                         </ng-template>
@@ -61,23 +66,26 @@
                                         </ng-template>
                                       </ngb-tab>
                                     </ngb-tabset>
+                                    <br/>
+                                    <hr/>
 
                     </div>
               </div>
 
               <div class="col-md-4 col-sm-4">
                   <!-- <div class="col-md-4 col-sm-6"> -->
-                    <div class="card card-plain">
-                        <div class="card-body">
+                    <div class="card card-plain cardMargin">
+                        <!-- <div class="card-body"> -->
                       <app-cost-summary></app-cost-summary>
 
-                    </div>
+                    <!-- </div> -->
                   </div>
                 <!-- </div> -->
               </div>
             </div>
 
         </div>
+
     <!-- <div >
 
                   <br/>

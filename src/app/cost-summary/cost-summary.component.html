@@ -26,13 +26,14 @@
     </div>
 </div> -->
 
-<div class="card text-center" style="height:180px;">
+<div class="card text-center" style="opacity:0.9; height:180px;">
     <!-- <div class="card-body"> -->
         <h2 class="card-title">Price: <strong>{{total | currency:'USD':true:'2.0-0'}}</strong><small>{{frequency}}</small></h2>
-        <ul>
-            <li><b>{{hourly | currency:'USD':true:'2.2-4'}}</b> Hourly Per Resource Equivalent</li>
-            <li><b>{{monthly | currency:'USD':true:'2.0-0'}}</b> Monthly Per Resource Equivalent</li>
-            <li><b>{{annual | currency:'USD':true:'2.0-0'}}</b> Annual Per Resource Equivalent</li>
+        <br/>
+        <ul style="list-style: none;">
+            <li><strong><b>{{hourly | currency:'USD':true:'2.2-4'}} Hourly</b></strong> Per Resource Equivalent</li>
+            <li><b><strong>{{monthly | currency:'USD':true:'2.0-0'}} Monthly</strong></b> Per Resource Equivalent</li>
+            <li><b><strong>{{annual | currency:'USD':true:'2.0-0'}} Annual</strong></b> Per Resource Equivalent</li>
         </ul>
         <!-- <a href="#pablo" class="btn btn-primary btn-round">Free download</a> -->
     <!-- </div> -->
