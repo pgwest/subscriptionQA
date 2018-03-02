@@ -9,13 +9,15 @@ import { Choice } from './choice';
 import { Question } from './question';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { Answer } from './answer';
-// import { Answers } from './answers';
 import { qaQuestions } from './qaQuestions';
 import { devQuestions } from './devQuestions';
 import { monitoringQuestions } from './monitoringQuestions';
 import { resourceQuestions } from './resourceQuestions';
 
-// import { Answers } from './answers';
+
+//Services
+import { DataService } from '../data-service.service';
+
 
 
 @Component({
@@ -49,9 +51,13 @@ export class PriceWizardComponent implements OnInit {
 
   disabled: boolean = false;
   singleSlider = 0;
+
   monitoringResources : number;
   devResources : number;
   qaResources : number;
+  monitoringSlider : number;
+  devSlider : number;
+  qaSlider : number;
 
     // resourceQuestions : resourceQuestions;
   // answers: Answer[];
@@ -85,17 +91,16 @@ export class PriceWizardComponent implements OnInit {
     };
 
 
-    constructor(private ref: ApplicationRef) {
+    constructor(private ref: ApplicationRef, private data : DataService) {
 
-      this.monitoringResources = 0;
-      this.devResources = 0;
-      this.qaResources = 0;
-
-
+      this.monitoringSlider = 0;
+      this.devSlider = 0;
+      this.qaSlider = 0;
       this.lastQuestionId = 5;
 
       this.expectedTotal = 100;
       this.completed = 0;
+      this.data.changeCompleted(this.completed);
       this.isFirstQuestion = true;
       this.lastQuestionId = -1;
       this.isLastQuestion = false;
@@ -115,17 +120,20 @@ export class PriceWizardComponent implements OnInit {
       this.myDevQuestions = devQuestions;
       this.myMonitoringQuestions = monitoringQuestions;
       this.questions = qaQuestions;
-      this.completed = 0;
       this.isOurRecommendation = false;
       this.showAlert = false;
     }
 
     ngOnInit() {
-      // this.isFirstQuestion = true;
-      // this.questions = qaQuestions;
-      // this.resourceLastQuestionId = resourceQuestions.length;
-      // console.log("init called");
-      // this._flashMessagesService.grayOut(true);
+      this.data.currentQa.subscribe(qaResources => this.qaResources = qaResources);
+      this.data.currentDev.subscribe(devResources => this.devResources = devResources);
+      this.data.currentMonitoring.subscribe(monitoringResources => this.monitoringResources = monitoringResources);
+      this.data.currentCompleted.subscribe(percentageCompleted => this.completed = percentageCompleted);
+
+      this.monitoringSlider = this.monitoringResources;
+      this.devSlider = this.devResources;
+      this.qaSlider = this.qaResources;
+      // console.log(this.qaResources);
     }
 
 
@@ -156,22 +164,29 @@ export class PriceWizardComponent implements OnInit {
     }
 
     firstQuestionNext() {
-      console.log("is first question!");
+      // console.log("is first question!");
+
       if (!this.isFirstQuestion){
         this.questions[0].isVisible = true;
         // console.log("questions 0 is visible");
       }
       else {
+        this.data.changeQaResources(2);
+        this.data.changeMonitoringResources(0);
+        this.data.changeDevResources(0);
         if (this.qaSelected) {
           // console.log("qaSelected");
           //devQuestions[0].isVisible = true;
         //  monitoringQuestions[0].isVisible = true;
           this.questions = qaQuestions;
+
+
           // console.log(qaQuestions);
           if(this.devSelected){
             this.myDevQuestions = devQuestions;
             this.myDevQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myDevQuestions);
+            this.data.changeDevResources(2);
 
             // this.updateIds();
           }
@@ -180,6 +195,8 @@ export class PriceWizardComponent implements OnInit {
             this.myMonitoringQuestions[0].isVisible = false;
             // monitoringQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myMonitoringQuestions);
+            this.data.changeMonitoringResources(2);
+
             // this.questions[qaQuestions.length + devQuestions.length ].isVisible = false;
             // this.updateIds();
 
@@ -191,6 +208,10 @@ export class PriceWizardComponent implements OnInit {
         else if (this.devSelected) {
           // console.log("devSelected");
           // devQuestions[0].isVisible = true;
+          this.data.changeQaResources(0);
+          this.data.changeDevResources(2);
+          this.data.changeMonitoringResources(0);
+
           this.myDevQuestions = devQuestions;
           this.questions = devQuestions;
           // console.log(this.questions);
@@ -200,6 +221,7 @@ export class PriceWizardComponent implements OnInit {
             this.myMonitoringQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myMonitoringQuestions);
             // this.updateIds();
+            this.data.changeMonitoringResources(2);
 
             // console.log(this.questions);
             // this.questions[devQuestions.length].isVisible = false;
@@ -210,6 +232,8 @@ export class PriceWizardComponent implements OnInit {
         else if (this.monitoringSelected) {
           // console.log("monitoringSelected");
           // monitoringQuestions[0].isVisible = true;
+          this.data.changeQaResources(0);
+          this.data.changeMonitoringResources(2);
 
           this.questions = monitoringQuestions;
           this.updateIds();
@@ -225,8 +249,9 @@ export class PriceWizardComponent implements OnInit {
           this.isFirstQuestion = !this.isFirstQuestion;
           // this.lastQuestionId = this.questions[this.questions.length-1].id;
           this.lastQuestionId = this.questions.length;
-          this.expectedTotal = (this.lastQuestionId)*10;
-          this.completed = 0;
+          this.expectedTotal = (this.lastQuestionId)*10 + 10;
+          this.completed = 10;
+          this.data.changeCompleted(this.completed);
           this.questions[0].isVisible = true;
 
         }
@@ -242,6 +267,9 @@ export class PriceWizardComponent implements OnInit {
         question.isVisible = false;
         this.questions[question.id].isVisible = true;
         this.completed += question.completed/this.expectedTotal*100;
+        this.data.changeCompleted(this.completed);
+        // console.log("this.completed");
+        // console.log(this.completed);
       }
       if (question.id == this.lastQuestionId - 1){
         this.isResourceQuestionNext = true;
@@ -262,12 +290,19 @@ export class PriceWizardComponent implements OnInit {
 
         // console.log("is last resource question, select next true");
       }
+      this.completed += question.completed/this.expectedTotal*100;
+      this.data.changeCompleted(this.completed);
+
+
       // console.log("nextQuestionResources");
       // console.log(question);
       // console.log(question.id);
     }
 
     resourcesNextClicked(question) {
+      this.monitoringSlider = this.monitoringResources;
+      this.devSlider = this.devResources;
+      this.qaSlider = this.qaResources;
       if (!question.choices[0].isSelected && !question.choices[1].isSelected){
         // console.log('nothing selected');
         this.showAlert = true;
@@ -294,12 +329,20 @@ export class PriceWizardComponent implements OnInit {
           this.isSelectResources = true;
         }
       }
+      this.completed += question.completed/this.expectedTotal*100;
+      this.data.changeCompleted(this.completed);
+
+
     }
 
     resourcesBackClicked(question) {
         this.isResourceQuestion = false;
         this.isQuestions = true;
         this.questions[this.questions.length-1].isVisible = true;
+        this.completed -= question.completed/this.expectedTotal*100;
+        this.data.changeCompleted(this.completed);
+
+
         // this.isOurRecommendation = false;
     }
 
@@ -314,6 +357,9 @@ export class PriceWizardComponent implements OnInit {
       question.isVisible = false;
       this.myResourceQuestions[question.id-2].isVisible = true;
       this.isSelectNext = false;
+      this.completed -= question.completed/this.expectedTotal*100;
+      this.data.changeCompleted(this.completed);
+
     }
 
     previousToResourceQuestion(question) {
@@ -330,7 +376,7 @@ export class PriceWizardComponent implements OnInit {
     }
 
     logger(question){
-      console.log(question);
+      // console.log(question);
     }
 
 
@@ -340,7 +386,10 @@ export class PriceWizardComponent implements OnInit {
       question.isVisible = false;
       // this.questions[question.id].isVisible = true;
       this.completed += question.completed/this.expectedTotal*100;
+      this.data.changeCompleted(this.completed);
+
       this.isQuestions = false;
+      // console.log(this.completed);
     }
 
     previousQuestion(question) {
@@ -354,6 +403,8 @@ export class PriceWizardComponent implements OnInit {
           // console.log("no question found");
         }
       this.completed -= question.completed/this.expectedTotal*100;
+      this.data.changeCompleted(this.completed);
+
       // this.isQuestions = true;
       }
       else {
@@ -365,7 +416,7 @@ export class PriceWizardComponent implements OnInit {
         }
         this.isFirstQuestion = !this.isFirstQuestion;
         // console.log("first question true?");
-        console.log(this.isFirstQuestion);
+        // console.log(this.isFirstQuestion);
         this.questions = qaQuestions;
         this.isQuestions = false;
 
@@ -374,16 +425,21 @@ export class PriceWizardComponent implements OnInit {
 
     }
 
-    onChangeSliderMonitoring($event){
-      this.monitoringResources = $event;
+    onChangeSliderQa($event){
+      // this.monitoringResources = $event;
+      this.data.changeQaResources($event);
     }
 
     onChangeSliderDev($event){
-      this.devResources = $event;
+      // this.devResources = $event;
+      this.data.changeDevResources($event);
+
     }
 
-    onChangeSliderQa($event){
-      this.qaResources = $event;
+    onChangeSliderMonitoring($event){
+      // this.qaResources = $event;
+      this.data.changeMonitoringResources($event);
+
     }
 
     lastQuestion(){

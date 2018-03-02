@@ -180,7 +180,7 @@
         <div class="container">
           <h2><b>QA <br/>Resources</b></h2>
 
-          <nouislider class="slider slider-warning" (change)="onChangeSliderQa($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="singleSlider" [disabled]="disabled"></nouislider>
+          <nouislider class="slider slider-warning" (change)="onChangeSliderQa($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="qaSlider" [disabled]="disabled"></nouislider>
           <!-- <nouislider [min]="0" [max]="10" [step]="1" [(ngModel)]="someSlider" (ngModelChange)="onChange($event)" [disabled]="disabled"></nouislider> -->
           <h2><strong>{{qaResources}}</strong> <small>Engineer(s)</small></h2>
           <br/>
@@ -193,7 +193,7 @@
       <div class="card" style="border-radius:50px; margin-right: 10px; margin-left: 10px; height:230px; opacity:.85;">
         <div class="container">
           <h2><b>Dev<br/> Resources</b></h2>
-          <nouislider class="slider slider-warning" (change)="onChangeSliderDev($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="singleSlider" [disabled]="disabled"></nouislider>
+          <nouislider class="slider slider-warning" (change)="onChangeSliderDev($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="devSlider" [disabled]="disabled"></nouislider>
           <!-- <nouislider [min]="0" [max]="10" [step]="1" [(ngModel)]="someSlider" (ngModelChange)="onChange($event)" [disabled]="disabled"></nouislider> -->
           <h2><strong>{{devResources}}</strong> <small>Engineer(s)</small></h2>
           <br/>
@@ -207,7 +207,7 @@
       <div class="card" style="border-radius:50px; margin-right: 10px; height:230px; opacity:.85;">
         <div class="container">
           <h2><b>Monitoring <br/>Resources</b></h2>
-          <nouislider class="slider slider-warning" (change)="onChangeSliderMonitoring($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="singleSlider" [disabled]="disabled"></nouislider>
+          <nouislider class="slider slider-warning" (change)="onChangeSliderMonitoring($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="monitoringSlider" [disabled]="disabled"></nouislider>
           <!-- <nouislider [min]="0" [max]="10" [step]="1" [(ngModel)]="someSlider" (ngModelChange)="onChange($event)" [disabled]="disabled"></nouislider> -->
           <h2><strong>{{monitoringResources}}</strong> <small>Engineer(s)</small></h2>
           <br/>

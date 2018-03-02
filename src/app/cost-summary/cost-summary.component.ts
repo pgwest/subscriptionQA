@@ -31,6 +31,9 @@ export class CostSummaryComponent implements OnInit {
     total  : number;
     frequency : string;
     message : string;
+    qaResources: number;
+    devResources: number;
+    monitoringResources: number;
 
     priceCollectionRef: AngularFirestoreCollection<Price>;
     price$: Observable<Price[]>;
@@ -50,7 +53,7 @@ export class CostSummaryComponent implements OnInit {
       this.monthly = 2600;
       this.weekly = 605;
       this.hourly = 14.77;
-      this.annual = 31200; 
+      this.annual = 31200;
       this.frequency = " (monthly)";
 
     }
@@ -59,6 +62,11 @@ export class CostSummaryComponent implements OnInit {
   ngOnInit() {
     this.data.currentMessage.subscribe(message => this.message = message);
     this.data.currentBillingFrequency.subscribe(frequency => this.frequency = frequency);
+    this.data.currentQa.subscribe(qaResources => this.qaResources = qaResources);
+    this.data.currentDev.subscribe(devResources => this.devResources = devResources);
+    this.data.currentMonitoring.subscribe(monitoringResources => this.monitoringResources = monitoringResources);
+
+
   }
 
 }

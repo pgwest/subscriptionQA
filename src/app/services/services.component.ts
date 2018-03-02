@@ -18,12 +18,14 @@ export class ServicesComponent implements OnInit {
   completed : number;
 
   constructor(private data: DataService) {
-    this.completed = 0;
+    // this.completed = 0;
   }
 
   ngOnInit() {
     // this.data.currentMessage.subscribe(message => this.message = message);
     this.data.currentBillingFrequency.subscribe(frequency => this.frequency = frequency);
+    this.data.currentCompleted.subscribe(percentageCompleted => this.completed = percentageCompleted);
+    console.log(this.completed);
   }
 
   billingTimeframe(event: any){
