@@ -1,40 +1,9 @@
-<!-- <div class="card">
-    <div class="text-center">
-        <h3>
-            Cost Summary - <strong><em>$5800</em></strong> (monthly)
-        </h3>
-        <div>
-            <p>Hourly Per Resource Equivalent : $16.48 </p>
-            <p>Monthly Per Resource Equivalent : $2900</p>
-            <p>Annual Per Resource Equivalent : $34,800</p>
-        </div>
-
-    </div>
-</div> -->
-
-<!-- <div class="card" data-background="image" style="background-image: url('assets/img/sections/mika-matin.jpg'); height:200px;"> -->
-<!-- <div class="card" data-background="image" data-color="red" style="height:180px;">
-
-      <div class="card-body">
-        <h3 ><b>Price: <strong>{{total | currency:'USD':true:'2.0-0'}}</strong></b><small>{{frequency}}</small></h3>
-        <ul>
-            <li><strong>{{hourly | currency:'USD':true:'2.2-4'}}</strong> Hourly Per Resource Equivalent</li>
-            <li><strong>{{monthly | currency:'USD':true:'2.0-0'}}</strong> Monthly Per Resource Equivalent</li>
-            <li><strong>{{annual | currency:'USD':true:'2.0-0'}}</strong> Annual Per Resource Equivalent</li>
-        </ul>
-
-    </div>
-</div> -->
-
 <div class="card text-center" style="opacity:0.9; height:180px;">
-    <!-- <div class="card-body"> -->
         <h2 class="card-title">Price: <strong>{{total | currency:'USD':true:'2.0-0'}}</strong><small>{{frequency}}</small></h2>
-        <br/>
         <ul style="list-style: none;">
             <li><strong><b>{{hourly | currency:'USD':true:'2.2-4'}} Hourly</b></strong> Per Resource Equivalent</li>
+            <li><b><strong>{{weekly | currency:'USD':true:'2.0-0'}} Weekly</strong></b> Per Resource Equivalent</li>
             <li><b><strong>{{monthly | currency:'USD':true:'2.0-0'}} Monthly</strong></b> Per Resource Equivalent</li>
             <li><b><strong>{{annual | currency:'USD':true:'2.0-0'}} Annual</strong></b> Per Resource Equivalent</li>
         </ul>
-        <!-- <a href="#pablo" class="btn btn-primary btn-round">Free download</a> -->
-    <!-- </div> -->
 </div>

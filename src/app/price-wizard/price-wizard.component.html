@@ -7,7 +7,7 @@
 </div>
 
 
-
+<!-- <div *ngIf=isFirstQuestion1 class="text-center" style="color:white"> -->
   <div *ngIf=isFirstQuestion class="text-center" style="color:white">
   <div class="row">
     <div class="col-md-3">
@@ -62,7 +62,7 @@
 
 
         <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(choice, question)">
-            <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+          <div class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
                 <div class="card-body">
                         <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
                         <br/>
@@ -100,7 +100,7 @@
 
   <div class="row">
     <div class="col-md-6" *ngFor="let choice of resourcesQuestion.choices" (click)="toggleSelected(choice, resourcesQuestion)">
-        <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+      <div class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
             <div class="card-body">
                     <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
                     <br/>
@@ -143,7 +143,7 @@
 
 
         <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(choice, question)">
-            <div class="card" data-background="image" [ngStyle]="{ 'background-image': 'url(' + choice.backgroundImage + ')' }" style="height:150px; margin-left: 2em; margin-right: 2em;" [style.border]="choice.isSelected ? '5px solid blue' : 'none'" id="cardId">
+          <div class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
                 <div class="card-body">
                         <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
                         <br/>
@@ -164,24 +164,56 @@
 
 
 <div id="numQA" *ngIf="isSelectResources">
+  <!-- <div id="numQA"> -->
   <!-- ask question to select number of resources -->
     <!-- <div class="text-center">
     <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="resourcesSelected()">Select Resources </button>
   </div> -->
+
   <div *ngIf="isOurRecommendation">
-    <h3 class="text-center" style="color:white; font-weight:bolder" >We recommend: </h3>
+    <h2 class="text-center" style="color:white; font-weight:bolder" >We recommend: </h2>
+    <br/>
   </div>
-  <div class='row text-center' style="color:white; font-weight:bolder;">
+  <div class='row text-center' style="font-weight:bolder;">
     <div class="col-md-4">
-      <h2>QA Resources</h2>
+      <div class="card" style="border-radius:50px; margin-left: 10px; height:230px; opacity:.85;">
+        <div class="container">
+          <h2><b>QA <br/>Resources</b></h2>
+
+          <nouislider class="slider slider-warning" (change)="onChangeSliderQa($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="singleSlider" [disabled]="disabled"></nouislider>
+          <!-- <nouislider [min]="0" [max]="10" [step]="1" [(ngModel)]="someSlider" (ngModelChange)="onChange($event)" [disabled]="disabled"></nouislider> -->
+          <h2><strong>{{qaResources}}</strong> <small>Engineer(s)</small></h2>
+          <br/>
+        </div>
+      <!-- <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="10" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="true"></nouislider> -->
+        </div>
       <br/>
     </div>
     <div class="col-md-4">
-      <h2>Dev Resources</h2>
+      <div class="card" style="border-radius:50px; margin-right: 10px; margin-left: 10px; height:230px; opacity:.85;">
+        <div class="container">
+          <h2><b>Dev<br/> Resources</b></h2>
+          <nouislider class="slider slider-warning" (change)="onChangeSliderDev($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="singleSlider" [disabled]="disabled"></nouislider>
+          <!-- <nouislider [min]="0" [max]="10" [step]="1" [(ngModel)]="someSlider" (ngModelChange)="onChange($event)" [disabled]="disabled"></nouislider> -->
+          <h2><strong>{{devResources}}</strong> <small>Engineer(s)</small></h2>
+          <br/>
+        </div>
+      <!-- <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="10" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="true"></nouislider> -->
+        </div>
       <br/>
     </div>
     <div class="col-md-4">
-      <h2>Monitoring Resources</h2>
+      <!-- <div data-background="image" class="card" style="border-radius:border-radius-extreme"> -->
+      <div class="card" style="border-radius:50px; margin-right: 10px; height:230px; opacity:.85;">
+        <div class="container">
+          <h2><b>Monitoring <br/>Resources</b></h2>
+          <nouislider class="slider slider-warning" (change)="onChangeSliderMonitoring($event)" [min]="0" [max]="10" [step]="1" [(ngModel)]="singleSlider" [disabled]="disabled"></nouislider>
+          <!-- <nouislider [min]="0" [max]="10" [step]="1" [(ngModel)]="someSlider" (ngModelChange)="onChange($event)" [disabled]="disabled"></nouislider> -->
+          <h2><strong>{{monitoringResources}}</strong> <small>Engineer(s)</small></h2>
+          <br/>
+        </div>
+      <!-- <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="10" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="true"></nouislider> -->
+        </div>
       <br/>
     </div>
   </div>

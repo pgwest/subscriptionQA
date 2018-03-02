@@ -47,7 +47,13 @@ export class PriceWizardComponent implements OnInit {
   isOurRecommendation : boolean;
   showAlert : boolean;
 
-  // resourceQuestions : resourceQuestions;
+  disabled: boolean = false;
+  singleSlider = 0;
+  monitoringResources : number;
+  devResources : number;
+  qaResources : number;
+
+    // resourceQuestions : resourceQuestions;
   // answers: Answer[];
   // answer: Answer;
 
@@ -80,6 +86,12 @@ export class PriceWizardComponent implements OnInit {
 
 
     constructor(private ref: ApplicationRef) {
+
+      this.monitoringResources = 0;
+      this.devResources = 0;
+      this.qaResources = 0;
+
+
       this.lastQuestionId = 5;
 
       this.expectedTotal = 100;
@@ -360,6 +372,18 @@ export class PriceWizardComponent implements OnInit {
         // this.firstQuestionNext();
       }
 
+    }
+
+    onChangeSliderMonitoring($event){
+      this.monitoringResources = $event;
+    }
+
+    onChangeSliderDev($event){
+      this.devResources = $event;
+    }
+
+    onChangeSliderQa($event){
+      this.qaResources = $event;
     }
 
     lastQuestion(){

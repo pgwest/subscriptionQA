@@ -25,6 +25,7 @@ export interface Price {
 export class CostSummaryComponent implements OnInit {
 
     hourly : number;
+    weekly: number;
     monthly: number;
     annual : number;
     total  : number;
@@ -47,8 +48,9 @@ export class CostSummaryComponent implements OnInit {
 
       this.total = 5200;
       this.monthly = 2600;
+      this.weekly = 605;
       this.hourly = 14.77;
-      this.annual = 31200;
+      this.annual = 31200; 
       this.frequency = " (monthly)";
 
     }

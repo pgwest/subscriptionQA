@@ -9,7 +9,7 @@ export class DataService {
     private messageSource = new BehaviorSubject<string>("default message");
     currentMessage = this.messageSource.asObservable();
 
-    private billingFrequency = new BehaviorSubject<string>("Monthly");
+    private billingFrequency = new BehaviorSubject<string>("monthly");
     currentBillingFrequency = this.billingFrequency.asObservable();
 
     constructor() { }

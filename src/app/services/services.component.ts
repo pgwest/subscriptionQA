@@ -15,8 +15,11 @@ export class ServicesComponent implements OnInit {
 
   // message: string;
   frequency : string;
+  completed : number;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService) {
+    this.completed = 0;
+  }
 
   ngOnInit() {
     // this.data.currentMessage.subscribe(message => this.message = message);
