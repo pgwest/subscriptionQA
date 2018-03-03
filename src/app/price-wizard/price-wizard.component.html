@@ -164,12 +164,6 @@
 
 
 <div id="numQA" *ngIf="isSelectResources">
-  <!-- <div id="numQA"> -->
-  <!-- ask question to select number of resources -->
-    <!-- <div class="text-center">
-    <button class="btn btn-neutral btn-round mr-auto ml-auto" (click)="resourcesSelected()">Select Resources </button>
-  </div> -->
-
   <div *ngIf="isOurRecommendation">
     <h2 class="text-center" style="color:white; font-weight:bolder" >We recommend: </h2>
     <br/>
@@ -220,7 +214,40 @@
 
   <div class="text-center">
   <!-- <h1>You're all set!</h1> -->
-  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button>
+  <!-- <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">Create Account and Save ></button> -->
+  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="save(); viewDashboard();" *ngIf="(authService.user | async); else saveLogin">Save and View Dashboard></button>
+  <ng-template #saveLogin>
+      <button type="button" class="btn btn-warning btn-round" (click)="open(Login)">
+        Create Account and Save
+    </button>
+  </ng-template>
+
+  <ng-template #Login let-c="close" let-d="dismiss">
+      <div class="modal-header modal-register no-border-header text-center">
+          <button type="button" class="close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h6 class="text-muted">Welcome</h6>
+          <h3 class="modal-title text-center">SubscriptionQA</h3>
+          <p>Create an account to save selections. We'll reach out to answer questions, and help you get started if/when you're ready.</p>
+      </div>
+      <div class="alert alert-warning text-center alert-dismissible" *ngIf="showAlertLogin">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Password must be at least 6 characters!</strong>
+      </div>
+      <div class="modal-body">
+        <form class="register-form" *ngIf="!(authService.user | async)">
+            <label>Email</label>
+            <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
+
+            <label>Password</label>
+            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+            <!-- <a href="/dashboard" class="btn btn-danger btn-block btn-round" (click)="login()"  *ngIf="!(user | async)?.uid">Login</a> -->
+        </form>
+        <br/>
+          <button class="btn btn-block btn-round" (click)="signup(); goToLastQuestion();">Create Account</button>
+      </div>
+  </ng-template>
   <h4 style="color:white; font-weight:bolder;"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
 </div>
 </div>
@@ -231,6 +258,8 @@
   <!-- ask question to select number of resources -->
   <div class="text-center">
   <h1>You're all set!</h1>
+  <br/>
+  <h4 style="color:white; font-weight:bolder;"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
   <br/>
   <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">View Dashboard ></button>
 </div>

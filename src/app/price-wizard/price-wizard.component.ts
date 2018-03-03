@@ -14,6 +14,8 @@ import { devQuestions } from './devQuestions';
 import { monitoringQuestions } from './monitoringQuestions';
 import { resourceQuestions } from './resourceQuestions';
 
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../auth.service';
 
 //Services
 import { DataService } from '../data-service.service';
@@ -49,6 +51,7 @@ export class PriceWizardComponent implements OnInit {
   myMonitoringQuestions = monitoringQuestions;
   isOurRecommendation : boolean;
   showAlert : boolean;
+  showAlertLogin : boolean;
 
   disabled: boolean = false;
   singleSlider = 0;
@@ -59,6 +62,10 @@ export class PriceWizardComponent implements OnInit {
   monitoringSlider : number;
   devSlider : number;
   qaSlider : number;
+
+  closeResult : string;
+  email: string;
+  password: string;
 
     // resourceQuestions : resourceQuestions;
   // answers: Answer[];
@@ -92,7 +99,7 @@ export class PriceWizardComponent implements OnInit {
     };
 
 
-    constructor(private ref: ApplicationRef, private data : DataService) {
+    constructor(private ref: ApplicationRef, private data : DataService, private modalService: NgbModal,  public authService: AuthService) {
 
       this.monitoringSlider = 0;
       this.devSlider = 0;
@@ -124,6 +131,7 @@ export class PriceWizardComponent implements OnInit {
       this.questions = qaQuestions;
       this.isOurRecommendation = false;
       this.showAlert = false;
+      this.showAlertLogin = false;
     }
 
     ngOnInit() {
@@ -445,6 +453,18 @@ export class PriceWizardComponent implements OnInit {
 
     }
 
+    goToLastQuestion() {
+      // console.log("ResourceQuestionNext clicked");
+      this.isResourceQuestion = false;
+      this.isLastQuestion = true;
+      // this.questions[question.id].isVisible = true;
+      this.completedSoFar += 10;
+      this.completed = 100;
+      this.data.changeCompleted(this.completed);
+
+      // console.log(this.completed);
+    }
+
     onChangeSliderQa($event){
       // this.monitoringResources = $event;
       this.data.changeQaResources($event);
@@ -466,6 +486,32 @@ export class PriceWizardComponent implements OnInit {
         console.log("last question");
     }
 
+    open(content, type) {
+        if (type === 'sm') {
+            console.log('aici');
+            this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+        } else {
+            this.modalService.open(content).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+            }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+        }
+    }
+
+    private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return  `with: ${reason}`;
+        }
+    }
 
     updateIds(){
       for ( var i = 0, len = this.questions.length; i < len; i++ )
@@ -475,5 +521,23 @@ export class PriceWizardComponent implements OnInit {
       // console.log("ids updated");
       // console.log(this.questions);
     }
+
+    save(){
+      console.log("save");
+    }
+
+    viewDashboard(){
+      console.log("view dashboard");
+    }
+
+
+    signup() {
+      if(this.password.length < 6){
+        this.showAlertLogin = true;
+      }
+      this.authService.signup(this.email, this.password);
+      this.email = this.password = '';
+    }
+
 
 }
