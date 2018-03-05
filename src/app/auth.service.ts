@@ -7,14 +7,22 @@ import { Observable } from 'rxjs/Observable';
 // import { Routes, RouterModule } from '@angular/router';
 import {Router } from '@angular/router';
 
+import { DataService } from './data-service.service';
+
+
 @Injectable()
 export class AuthService {
   user: Observable<firebase.User>;
   router: Router
+  loginAlert: string;
+  loginFailure: boolean;
+  loginSuccess: boolean;
 
-  constructor(private firebaseAuth: AngularFireAuth, router : Router) {
+
+  constructor(private firebaseAuth: AngularFireAuth, router : Router,  private data : DataService) {
     this.user = firebaseAuth.authState;
     this.router = router;
+    this.loginFailure = false;
   }
 
   signup(email: string, password: string) {
@@ -22,11 +30,16 @@ export class AuthService {
       .auth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
+        this.data.changeLoginFailure(false);
         console.log('Success!', value);
         this.router.navigate(['./dashboard']);
+        this.data.changeLoginSuccess(true);
       })
       .catch(err => {
         console.log('Something went wrong:',err.message);
+        this.data.changeLoginFailure(true);
+        this.data.changeLoginMessage(err.message);
+        this.data.changeLoginSuccess(false);
       });
   }
 
@@ -35,12 +48,19 @@ export class AuthService {
       .auth
       .signInWithEmailAndPassword(email, password)
       .then(value => {
+        this.data.changeLoginFailure(false);
         console.log('Nice, it worked!');
         this.router.navigate(['./dashboard']);
+        this.data.changeLoginSuccess(true);
+
 
       })
       .catch(err => {
         console.log('Something went wrong:',err.message);
+        this.data.changeLoginFailure(true);
+        this.data.changeLoginMessage(err.message);
+        this.data.changeLoginSuccess(false);
+
       });
   }
 
@@ -50,6 +70,18 @@ export class AuthService {
       .signOut();
       this.router.navigate(['./home']);
 
+  }
+
+  getAuthStatus(){
+    this.firebaseAuth.authState.subscribe(res => {
+        if (res && res.uid) {
+          // console.log('user is logged in');
+          this.data.changeLoggedIn(true);
+        } else {
+          // console.log('user not logged in');
+          this.data.changeLoggedIn(false);
+        }
+      });
   }
 
 }

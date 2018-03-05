@@ -5,7 +5,10 @@
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>Please select at least one!</strong>
 </div>
-
+<div class="alert alert-warning text-center alert-dismissible" *ngIf="showAlertLogin">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{loginAlertMessage}}</strong>
+</div>
 
 <!-- <div *ngIf=isFirstQuestion1 class="text-center" style="color:white"> -->
   <div *ngIf=isFirstQuestion class="text-center" style="color:white">
@@ -222,7 +225,8 @@
     </button>
   </ng-template>
 
-  <ng-template #Login let-c="close" let-d="dismiss">
+  <!-- <ng-template #Login let-c="close" let-d="dismiss" *ngIf="!loginSuccess"> -->
+    <ng-template #Login let-c="close" let-d="dismiss" >
       <div class="modal-header modal-register no-border-header text-center">
           <button type="button" class="close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
@@ -233,7 +237,7 @@
       </div>
       <div class="alert alert-warning text-center alert-dismissible" *ngIf="showAlertLogin">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Password must be at least 6 characters!</strong>
+        <strong>{{loginAlertMessage}}</strong>
       </div>
       <div class="modal-body">
         <form class="register-form" *ngIf="!(authService.user | async)">

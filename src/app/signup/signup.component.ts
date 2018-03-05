@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import {AuthService} from '../auth.service';
+import { DataService } from '../data-service.service';
 
 
 @Component({
@@ -14,17 +15,49 @@ import {AuthService} from '../auth.service';
 export class SignupComponent implements OnInit {
   email: string;
   password: string;
+  showAlertLogin : boolean;
+  loginAlertMessage : string;s
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private data : DataService) {}
+
+
+  ngOnInit() {
+      this.data.currentLoginFailure.subscribe(loginFailure => this.showAlertLogin = loginFailure);
+      this.data.currentLoginAlertMessage.subscribe(loginAlertMessage => this.loginAlertMessage = loginAlertMessage);
+
+  }
 
   signup() {
     this.authService.signup(this.email, this.password);
     this.email = this.password = '';
+
+    if(this.authService.loginFailure){
+      console.log(this.authService.loginAlert);
+      this.loginAlertMessage = this.authService.loginAlert;
+      this.showAlertLogin = true;
+
+    }
+    else{
+      this.showAlertLogin = false;
+      console.log("success! on login");
+    }
+
   }
 
   login() {
     this.authService.login(this.email, this.password);
     this.email = this.password = '';
+
+    if(this.authService.loginFailure){
+      console.log(this.authService.loginAlert);
+      this.loginAlertMessage = this.authService.loginAlert;
+      this.showAlertLogin = true;
+
+    }
+    else{
+      this.showAlertLogin = false;
+      console.log("success! on login");
+    }
   }
 
   logout() {
@@ -81,5 +114,4 @@ export class SignupComponent implements OnInit {
 //         this.msgVal = '';
 //     }
 
-    ngOnInit() {}
 }

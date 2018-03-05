@@ -6,14 +6,17 @@
                     <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                         <div class="card card-register"  style="background-color: #ff9966;">
                             <h2 class="title"  style="font-weight: bolder">Login</h2>
-
+                            <div class="alert alert-warning text-center alert-dismissible" *ngIf="showAlertLogin">
+                              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>{{loginAlertMessage}}</strong>
+                            </div>
                             <form class="register-form">
                                 <label>Email</label>
                                 <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
 
                                 <label>Password</label>
                                 <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
-                                <!-- <a href="/dashboard" class="btn btn-danger btn-block btn-round" (click)="login()"  *ngIf="!(user | async)?.uid">Login</a> -->
+                                <a href="/dashboard" class="btn btn-danger btn-block btn-round" (click)="login()" >Login</a>
                                 <a class="btn btn-danger btn-block btn-round" (click)="signup()"  >Create Account</a>
                             </form>
                             <button (click)="logout()" *ngIf="(authService.user | async)">Logout</button>

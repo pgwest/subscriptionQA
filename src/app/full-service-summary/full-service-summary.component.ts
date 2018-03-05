@@ -2,6 +2,30 @@ import { Component, OnInit } from '@angular/core';
 
 import { ServicesModule } from '../services/services.module';
 
+import { Choice } from '../price-wizard/choice';
+import { Question } from '../price-wizard/question';
+import { Answer } from '../price-wizard/answer';
+import { qaQuestions } from '../price-wizard/qaQuestions';
+import { devQuestions } from '../price-wizard/devQuestions';
+import { monitoringQuestions } from '../price-wizard/monitoringQuestions';
+import { resourceQuestions } from '../price-wizard/resourceQuestions';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
+
+//Services
+import { DataService } from '../data-service.service';
+import {AuthService} from '../auth.service';
+
+export interface fixedPrice {
+  id?: string;
+  weeklyPrice: number;
+  monthlyPrice: number;
+}
 
 @Component({
   selector: 'app-full-service-summary',
@@ -10,9 +34,114 @@ import { ServicesModule } from '../services/services.module';
 })
 export class FullServiceSummaryComponent implements OnInit {
 
-  constructor() { }
+  loggedIn : boolean;
+
+  frequency : string;
+  weekly : boolean;
+
+  qaWeekly : number;
+  qaMonthly : number;
+  devWeekly : number;
+  devMonthly : number;
+  monitoringWeekly : number;
+  monitoringMonthly : number;
+  questions: Question[];
+
+  fixedPriceCollectionRef: AngularFirestoreCollection<fixedPrice>;
+  fixedPrice$: Observable<fixedPrice[]>;
+
+  firstQuestion : Question =
+    {
+      'id': 0,
+      'choices': [
+          new Choice(0, 'Quality Assurance', '', '../../assets/img/qa-icon.png', false),
+          new Choice(1, 'Software Development', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
+          new Choice(2, 'Monitoring', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
+      ],
+      'name': 'Where can we help?',
+      'completed': 10,
+      'isVisible': true,
+      'isMultipleChoice': true
+    };
+
+    resourcesQuestion : Question =
+    {
+      'id': 12,
+      'choices': [
+          new Choice(0, 'Help me choose.', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
+          new Choice(1, 'I know what I need.', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false),
+            ],
+      'name': "How many resources do you need?",
+      'completed': 10,
+      'isVisible': false,
+      'isMultipleChoice': false
+    };
+
+  constructor(private data : DataService, public authService: AuthService, private afs: AngularFirestore) {
+    this.fixedPriceCollectionRef = this.afs.collection<fixedPrice>('fixedPrices');
+    // this.price$ = this.priceCollectionRef.valueChanges();
+    this.fixedPrice$ = this.fixedPriceCollectionRef.snapshotChanges().map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as fixedPrice;
+        const id = action.payload.doc.id;
+        return { id, ...data };
+      });
+    });
+
+    this.questions = qaQuestions;
+    this.questions.unshift(this.firstQuestion);
+    // this.questions = this.questions.concat(qaQuestions);
+    this.questions = this.questions.concat(devQuestions);
+    this.questions = this.questions.concat(monitoringQuestions);
+    this.questions = this.questions.concat(this.resourcesQuestion);
+    this.questions = this.questions.concat(resourceQuestions);
+   }
 
   ngOnInit() {
+    this.data.currentBillingFrequency.subscribe(frequency => {this.frequency = frequency; this.getPricing();});
+    this.data.currentLoggedIn.subscribe(loggedIn => {this.loggedIn = loggedIn; this.refreshQuestions();});
+    this.data.currentQuestions.subscribe(questions => {this.questions = questions;});
+
+    this.fixedPrice$.subscribe(val => {this.qaWeekly = val[2].weeklyPrice; this.getPricing();});
+    this.fixedPrice$.subscribe(val => {this.qaMonthly = val[2].monthlyPrice; this.getPricing();});
+    this.fixedPrice$.subscribe(val => {this.devWeekly = val[0].weeklyPrice; this.getPricing();});
+    this.fixedPrice$.subscribe(val => {this.devMonthly = val[0].monthlyPrice; this.getPricing();});
+    this.fixedPrice$.subscribe(val => {this.monitoringWeekly = val[1].weeklyPrice; this.getPricing();});
+    this.fixedPrice$.subscribe(val => {this.monitoringMonthly = val[1].monthlyPrice; this.getPricing();});
+
+
+    this.authService.getAuthStatus();
+
+
   }
+
+  refreshQuestions(){
+      if(this.loggedIn){
+        //pull from database and update selected questions
+
+        
+      }
+      else {
+        // this.questions = qaQuestions;
+        // this.questions.unshift(this.firstQuestion);
+        // this.questions = this.questions.concat(devQuestions);
+        // this.questions = this.questions.concat(monitoringQuestions);
+        // this.questions = this.questions.concat(this.resourcesQuestion);
+        // this.questions = this.questions.concat(resourceQuestions);
+        // this.data.changeQuestions(this.questions);
+      }
+  }
+
+  getPricing(){
+    if (this.frequency == "monthly"){
+      this.weekly = false;
+    }
+    else{
+      this.weekly = true;
+    }
+  }
+
+
+
 
 }

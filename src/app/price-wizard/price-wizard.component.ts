@@ -14,11 +14,11 @@ import { devQuestions } from './devQuestions';
 import { monitoringQuestions } from './monitoringQuestions';
 import { resourceQuestions } from './resourceQuestions';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import {AuthService} from '../auth.service';
+import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 //Services
 import { DataService } from '../data-service.service';
+import {AuthService} from '../auth.service';
 
 
 
@@ -46,12 +46,17 @@ export class PriceWizardComponent implements OnInit {
   resourceLastQuestionId : number;
   isQuestions : boolean;
   isSelectNext: boolean;
+  myQaQuestions = qaQuestions;
   myResourceQuestions = resourceQuestions;
   myDevQuestions = devQuestions;
   myMonitoringQuestions = monitoringQuestions;
   isOurRecommendation : boolean;
+
+  private modalRef: NgbModalRef;
   showAlert : boolean;
   showAlertLogin : boolean;
+  loginAlertMessage : string;
+  loginSuccess : boolean;
 
   disabled: boolean = false;
   singleSlider = 0;
@@ -66,6 +71,8 @@ export class PriceWizardComponent implements OnInit {
   closeResult : string;
   email: string;
   password: string;
+
+  loggedIn : boolean;
 
     // resourceQuestions : resourceQuestions;
   // answers: Answer[];
@@ -106,6 +113,8 @@ export class PriceWizardComponent implements OnInit {
       this.qaSlider = 0;
       this.lastQuestionId = 5;
 
+      this.loginSuccess = false;
+
       this.expectedTotal = 100;
       this.completed = 0;
       this.completedSoFar = 0;
@@ -132,6 +141,7 @@ export class PriceWizardComponent implements OnInit {
       this.isOurRecommendation = false;
       this.showAlert = false;
       this.showAlertLogin = false;
+      this.loggedIn = false;
     }
 
     ngOnInit() {
@@ -139,6 +149,19 @@ export class PriceWizardComponent implements OnInit {
       this.data.currentDev.subscribe(devResources => this.devResources = devResources);
       this.data.currentMonitoring.subscribe(monitoringResources => this.monitoringResources = monitoringResources);
       this.data.currentCompleted.subscribe(percentageCompleted => this.completed = percentageCompleted);
+
+      this.data.currentLoginFailure.subscribe(loginFailure => this.showAlertLogin = loginFailure);
+      this.data.currentLoginAlertMessage.subscribe(loginAlertMessage => this.loginAlertMessage = loginAlertMessage);
+
+      this.data.currentLoginSuccess.subscribe(loginSuccess => this.loginSuccess = loginSuccess);
+
+      // this.data.currentQuestions.subscribe(questions => {this.questions = questions;});
+      this.data.currentQaQuestions.subscribe(qaQuestions => {this.myQaQuestions = qaQuestions;});
+      this.data.currentDevQuestions.subscribe(devQuestions => {this.myDevQuestions = devQuestions;});
+      this.data.currentMonitoringQuestions.subscribe(monitoringQuestions => {this.myMonitoringQuestions = monitoringQuestions;});
+      this.data.currentResourceQuestions.subscribe(resourceQuestions => {this.myResourceQuestions = resourceQuestions;});
+      this.data.currentLoggedIn.subscribe(loggedIn => this.loggedIn = loggedIn);
+
 
       this.monitoringSlider = this.monitoringResources;
       this.devSlider = this.devResources;
@@ -188,12 +211,12 @@ export class PriceWizardComponent implements OnInit {
           // console.log("qaSelected");
           //devQuestions[0].isVisible = true;
         //  monitoringQuestions[0].isVisible = true;
-          this.questions = qaQuestions;
+          this.questions = this.myQaQuestions;
 
 
           // console.log(qaQuestions);
           if(this.devSelected){
-            this.myDevQuestions = devQuestions;
+            // this.myDevQuestions = devQuestions;
             this.myDevQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myDevQuestions);
             this.data.changeDevResources(2);
@@ -201,7 +224,7 @@ export class PriceWizardComponent implements OnInit {
             // this.updateIds();
           }
           if(this.monitoringSelected){
-            this.myMonitoringQuestions = monitoringQuestions;
+            // this.myMonitoringQuestions = monitoringQuestions;
             this.myMonitoringQuestions[0].isVisible = false;
             // monitoringQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myMonitoringQuestions);
@@ -222,12 +245,12 @@ export class PriceWizardComponent implements OnInit {
           this.data.changeDevResources(2);
           this.data.changeMonitoringResources(0);
 
-          this.myDevQuestions = devQuestions;
-          this.questions = devQuestions;
+          // this.myDevQuestions = devQuestions;
+          this.questions = this.myDevQuestions;
           // console.log(this.questions);
           if(this.monitoringSelected){
             // monitoringQuestions[0].isVisible = false;
-            this.myMonitoringQuestions = monitoringQuestions;
+            // this.myMonitoringQuestions = monitoringQuestions;
             this.myMonitoringQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myMonitoringQuestions);
             // this.updateIds();
@@ -245,7 +268,7 @@ export class PriceWizardComponent implements OnInit {
           this.data.changeQaResources(0);
           this.data.changeMonitoringResources(2);
 
-          this.questions = monitoringQuestions;
+          this.questions = this.myMonitoringQuestions;
           this.updateIds();
 
           // console.log(this.questions);
@@ -487,20 +510,25 @@ export class PriceWizardComponent implements OnInit {
     }
 
     open(content, type) {
-        if (type === 'sm') {
-            console.log('aici');
-            this.modalService.open(content, { size: 'sm' }).result.then((result) => {
-                this.closeResult = `Closed with: ${result}`;
-            }, (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
-        } else {
-            this.modalService.open(content).result.then((result) => {
-                this.closeResult = `Closed with: ${result}`;
-            }, (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
-        }
+        this.modalRef = this.modalService.open(content);
+        // this.modalref.result((result)) => {
+        //   this.closeResu
+        // }
+
+        // if (type === 'sm') {
+        //     console.log('aici');
+        //     this.modalRef = this.modalService.open(content, { size: 'sm' }).result.then((result) => {
+        //         this.closeResult = `Closed with: ${result}`;
+        //     }, (reason) => {
+        //         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        //     });
+        // } else {
+        //     this.modalRef = this.modalService.open(content).result.then((result) => {
+        //         this.closeResult = `Closed with: ${result}`;
+        //     }, (reason) => {
+        //         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        //     });
+        // }
     }
 
     private getDismissReason(reason: any): string {
@@ -532,11 +560,25 @@ export class PriceWizardComponent implements OnInit {
 
 
     signup() {
-      if(this.password.length < 6){
-        this.showAlertLogin = true;
-      }
+
       this.authService.signup(this.email, this.password);
       this.email = this.password = '';
+      console.log(this.loginSuccess);
+      if(this.loginSuccess){
+        console.log("successful login, modal to be dismissed");
+        this.modalRef.close();
+      }
+
+      // if(this.authService.loginFailure){
+      //   console.log(this.authService.loginAlert);
+      //   this.loginAlertMessage = this.authService.loginAlert;
+      //   this.showAlertLogin = true;
+      //
+      // }
+      // else{
+      //   this.showAlertLogin = false;
+      //   console.log("success! on login");
+      // }
     }
 
 

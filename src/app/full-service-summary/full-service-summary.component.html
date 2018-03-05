@@ -11,7 +11,8 @@
                             <span class="icon-simple"><i class="nc-icon nc-zoom-split"></i><h1 style="color:white">QA</h1></span>
                               <!-- <span class="icon-simple"><i class="nc-icon nc-basket"></i><h1 style="color:white">QA</h1></span> -->
                           </div>
-                          <h3 class="card-title">$2600/Engineer</h3>
+                          <h3 class="card-title" *ngIf="weekly">$ {{qaWeekly}}/Engineer</h3>
+                          <h3 class="card-title" *ngIf="!weekly">$ {{qaMonthly}}/Engineer</h3>
 
                           <p class="card-description" style="font-weight:bold">
                               Engineers with CS/IT degrees with dedicated training and vast experience in QA.
@@ -30,8 +31,9 @@
                           <div class="card-icon">
                               <span class="icon-simple"><i class="nc-icon nc-settings"></i><h1 style="color:white">Dev</h1></span>
                           </div>
-                          <h3 class="card-title">$2900/Engineer</h3>
-
+                          <!-- <h3 class="card-title">$2900/Engineer</h3> -->
+                          <h3 class="card-title" *ngIf="weekly">$ {{devWeekly}}/Engineer</h3>
+                          <h3 class="card-title" *ngIf="!weekly">$ {{devMonthly}}/Engineer</h3>
                           <p class="card-description"  style="font-weight:bold">
                               Developers with CS/IT degrees. Need a specific language/framework? We have someone who can do it.
                           </p>
@@ -49,7 +51,9 @@
                           <div class="card-icon">
                               <span class="icon-simple"><i class="nc-icon nc-watch-time"></i><h1 style="color:white">Monitoring</h1></span>
                           </div>
-                          <h3 class="card-title">$2000/Engineer</h3>
+                          <!-- <h3 class="card-title">$2000/Engineer</h3> -->
+                          <h3 class="card-title" *ngIf="weekly">$ {{monitoringWeekly}}/Engineer</h3>
+                          <h3 class="card-title" *ngIf="!weekly">$ {{monitoringMonthly}}/Engineer</h3>
 
                           <p class="card-description" style="font-weight:bold">
                               Implement state of the art monitoring tools. We can help continue monitoring them as well if you'd like.
@@ -61,20 +65,27 @@
                   </div>
               </div>
 
-              <!-- <div class="col-md-3">
-                  <div class="card card-pricing" data-color="blue">
-                      <div class="card-body">
-                          <div class="card-icon">
-                              <span class="icon-simple"><i class="nc-icon nc-istanbul"></i></span>
-                          </div>
-                          <h3 class="card-title">$599</h3>
 
-                          <p class="card-description">
-                              This is good if your company size is between 160 and 299 employees.
-                          </p>
-                      </div>
-                  </div>
-              </div> -->
           </div>
       </div>
   <!-- </div> -->
+  <div >
+      <h1 class="text-center" style="color:white">Your Selections</h1>
+      <hr/>
+    <div id="service categories" *ngFor="let question of questions">
+        <div class="text-center" style="color:white">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(choice, question)">
+            <div *ngIf="choice.isSelected" class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
+                  <div class="card-body">
+                          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                          <br/>
+                          <br/>
+                          <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+  </div>
