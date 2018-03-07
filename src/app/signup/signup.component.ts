@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
     }
     else{
       this.showAlertLogin = false;
-      console.log("success! on login");
+
     }
 
   }
@@ -56,7 +56,8 @@ export class SignupComponent implements OnInit {
     }
     else{
       this.showAlertLogin = false;
-      console.log("success! on login");
+      // console.log("success! on login");
+      // console.log(this.authService.user);
     }
   }
 

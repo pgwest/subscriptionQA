@@ -16,7 +16,7 @@
 
                                 <label>Password</label>
                                 <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
-                                <a href="/dashboard" class="btn btn-danger btn-block btn-round" (click)="login()" >Login</a>
+                                <a class="btn btn-danger btn-block btn-round" (click)="login()" >Login</a>
                                 <a class="btn btn-danger btn-block btn-round" (click)="signup()"  >Create Account</a>
                             </form>
                             <button (click)="logout()" *ngIf="(authService.user | async)">Logout</button>

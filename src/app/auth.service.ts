@@ -13,7 +13,7 @@ import { DataService } from './data-service.service';
 @Injectable()
 export class AuthService {
   user: Observable<firebase.User>;
-  router: Router
+  router: Router;
   loginAlert: string;
   loginFailure: boolean;
   loginSuccess: boolean;
@@ -60,6 +60,7 @@ export class AuthService {
         this.data.changeLoginFailure(true);
         this.data.changeLoginMessage(err.message);
         this.data.changeLoginSuccess(false);
+        console.log("login failure");
 
       });
   }
@@ -75,10 +76,10 @@ export class AuthService {
   getAuthStatus(){
     this.firebaseAuth.authState.subscribe(res => {
         if (res && res.uid) {
-          // console.log('user is logged in');
+          console.log('user is logged in');
           this.data.changeLoggedIn(true);
         } else {
-          // console.log('user not logged in');
+          console.log('user not logged in');
           this.data.changeLoggedIn(false);
         }
       });
