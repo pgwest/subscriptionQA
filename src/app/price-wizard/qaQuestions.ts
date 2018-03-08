@@ -5,9 +5,9 @@ export const qaQuestions: Question[] = [
     {
       'id': 1,
       'choices': [
-          new Choice(0, 'Quality Assurance', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
-          new Choice(1, 'Software Development', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
-          new Choice(2, 'Monitoring', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
+          new Choice(0, 'Yes, help me', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
+          new Choice(1, 'Maybe', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
+          new Choice(2, 'No', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
       ],
       'name': 'Are you sure?',
       'completed': 10,

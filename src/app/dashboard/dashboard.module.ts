@@ -8,6 +8,8 @@ import { SupportModule } from '../support/support.module';
 
 import { ResourceSummaryModule } from '../resource-summary/resource-summary.module';
 import { CostSummaryModule } from '../cost-summary/cost-summary.module';
+import { FullServiceSummaryModule } from '../full-service-summary/full-service-summary.module';
+
 
 import {DashboardComponent } from './dashboard.component';
 
@@ -19,7 +21,8 @@ import {DashboardComponent } from './dashboard.component';
     NgbModule,
     SupportModule,
     ResourceSummaryModule,
-    CostSummaryModule
+    CostSummaryModule,
+    FullServiceSummaryModule
 
   ],
   declarations: [DashboardComponent],

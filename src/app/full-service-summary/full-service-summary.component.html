@@ -1,4 +1,6 @@
 <!-- <div class="pricing-1 section"> -->
+<!-- <div style="background-image: url('../assets/img/gradientBlue.svg'); z-index:-20;"> -->
+
       <div class="container">
         <h3 class="text-center" style="color:white; font-weight:bolder;"><em><b>Pricing</b></em></h3>
         <br/>
@@ -69,13 +71,13 @@
           </div>
       </div>
   <!-- </div> -->
-  <div >
+  <!-- <div >
       <h1 class="text-center" style="color:white">Your Selections</h1>
       <hr/>
     <div id="service categories" *ngFor="let question of questions">
         <div class="text-center" style="color:white">
         <div class="row">
-          <div class="col-md-4" *ngFor="let choice of question.choices" (click)="toggleSelected(choice, question)">
+          <div class="col-md-4" *ngFor="let choice of question.choices">
             <div *ngIf="choice.isSelected" class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
                   <div class="card-body">
                           <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
@@ -88,4 +90,62 @@
       </div>
       </div>
       </div>
-  </div>
+  </div> -->
+
+  <!-- <div >
+      <h1 class="text-center" style="color:white">Your Selections</h1>
+      <hr/>
+    <div id="service categories" *ngFor="let question of questions">
+        <div class="text-center" style="color:white">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let choice of question.choices">
+            <div *ngIf="choice.isSelected" class="card" data-background="image" data-color="white"  style="height:270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #c8f442' : 'none'" id="cardId">
+                  <div class="card-body">
+                          <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                          <br/>
+                          <br/>
+                          <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+      </div>
+  </div> -->
+  <h1 class="text-center" style="color:white; font-weight: bolder;">Your Selections</h1>
+  <hr/>
+    <div class="cards_wrapper">
+      <!-- <div class="center_wrapper"> -->
+        <div *ngFor="let question of questions">
+          <div class="row" >
+            <!-- <div class="col-md-1"> -->
+            <!-- </div> -->
+            <div class="col-md-12">
+              <h2 class="text-center" style="color:white; text-decoration: underline;">{{question.name}}</h2>
+              <br>
+            </div>
+            <!-- <div class="col-md-1"> -->
+            <!-- </div> -->
+          </div>
+              <div class="row center_wrapper" >
+              <div *ngFor="let choice of question.choices" >
+                <div *ngIf="choice.isSelected">
+                  <div class="card1 card"  data-background="image" data-color="white"  style="height:270px; width: 270px; margin-left: 2em; margin-right: 2em; border-radius: $border-radius-extreme;;" [style.border]="choice.isSelected ? '3px solid #ffffff' : 'none'" id="cardId">
+
+                      <div class="card-body">
+                        <h3 class="card-title" style="color:white; font-weight:bolder;"><strong>{{choice.name}}</strong></h3>
+                        <br/>
+                        <br/>
+                        <img src={{choice.icon}} style="width:82px;height:82px;" alt="QA icon">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+        </div>
+      <!-- </div> -->
+    </div>
+
+
+<!-- </div> -->

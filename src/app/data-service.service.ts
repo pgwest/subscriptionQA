@@ -61,6 +61,8 @@ export class DataService {
 
     changeQuestions(questionSet: Question[]) {
       this.questions.next(questionSet);
+      // console.log("quesitons updated");
+      // console.log(this.questions);
     }
 
 

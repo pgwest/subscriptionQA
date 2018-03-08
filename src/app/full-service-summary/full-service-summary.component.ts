@@ -45,37 +45,12 @@ export class FullServiceSummaryComponent implements OnInit {
   devMonthly : number;
   monitoringWeekly : number;
   monitoringMonthly : number;
-  questions: Question[];
+  questions: Question[] = [];
 
   fixedPriceCollectionRef: AngularFirestoreCollection<fixedPrice>;
   fixedPrice$: Observable<fixedPrice[]>;
 
-  firstQuestion : Question =
-    {
-      'id': 0,
-      'choices': [
-          new Choice(0, 'Quality Assurance', '', '../../assets/img/qa-icon.png', false),
-          new Choice(1, 'Software Development', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
-          new Choice(2, 'Monitoring', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
-      ],
-      'name': 'Where can we help?',
-      'completed': 10,
-      'isVisible': true,
-      'isMultipleChoice': true
-    };
 
-    resourcesQuestion : Question =
-    {
-      'id': 12,
-      'choices': [
-          new Choice(0, 'Help me choose.', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
-          new Choice(1, 'I know what I need.', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false),
-            ],
-      'name': "How many resources do you need?",
-      'completed': 10,
-      'isVisible': false,
-      'isMultipleChoice': false
-    };
 
   constructor(private data : DataService, public authService: AuthService, private afs: AngularFirestore) {
     this.fixedPriceCollectionRef = this.afs.collection<fixedPrice>('fixedPrices');
@@ -88,13 +63,15 @@ export class FullServiceSummaryComponent implements OnInit {
       });
     });
 
-    this.questions = qaQuestions;
-    this.questions.unshift(this.firstQuestion);
+
+    // this.questions = qaQuestions;
+    // this.questions.unshift(this.firstQuestion);
+    // // this.questions = this.questions.concat(qaQuestions);
     // this.questions = this.questions.concat(qaQuestions);
-    this.questions = this.questions.concat(devQuestions);
-    this.questions = this.questions.concat(monitoringQuestions);
-    this.questions = this.questions.concat(this.resourcesQuestion);
-    this.questions = this.questions.concat(resourceQuestions);
+    // this.questions = this.questions.concat(devQuestions);
+    // this.questions = this.questions.concat(monitoringQuestions);
+    // this.questions = this.questions.concat(this.resourcesQuestion);
+    // this.questions = this.questions.concat(resourceQuestions);
    }
 
   ngOnInit() {
@@ -107,6 +84,7 @@ export class FullServiceSummaryComponent implements OnInit {
     this.fixedPrice$.subscribe(val => {this.devWeekly = val[0].weeklyPrice; this.getPricing();});
     this.fixedPrice$.subscribe(val => {this.devMonthly = val[0].monthlyPrice; this.getPricing();});
     this.fixedPrice$.subscribe(val => {this.monitoringWeekly = val[1].weeklyPrice; this.getPricing();});
+    // this.fixedPrice$.subscribe(val => {this.monitoringMonthly = val[1].monthlyPrice; this.getPricing(); console.log(val);});
     this.fixedPrice$.subscribe(val => {this.monitoringMonthly = val[1].monthlyPrice; this.getPricing();});
 
 
@@ -116,10 +94,9 @@ export class FullServiceSummaryComponent implements OnInit {
   }
 
   refreshQuestions(){
-      if(this.loggedIn){
+      if(this.authService.user){
         //pull from database and update selected questions
-
-        
+        // this.databaseQuestions =
       }
       else {
         // this.questions = qaQuestions;

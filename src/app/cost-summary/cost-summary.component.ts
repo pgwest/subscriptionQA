@@ -131,12 +131,23 @@ export class CostSummaryComponent implements OnInit {
 
 
   getPricing(){
+    // console.log(this.frequency);
+    var totalResources = 0;
+    totalResources = this.qaResources + this.devResources + this.monitoringResources;
     if(this.frequency =="monthly")
     {
       this.total = this.qaResources*this.qaMonthly + this.devResources*this.devMonthly + this.monitoringResources*this.monitoringMonthly;
+      this.monthly = this.total/totalResources;
+      this.weekly = this.total/4.3/totalResources;
+      this.hourly = this.total/22/8/totalResources;
+      this.annual = this.total*12/totalResources;
     }
     else{
       this.total = this.qaResources*this.qaWeekly + this.devResources*this.devWeekly + this.monitoringResources*this.monitoringWeekly;
+      this.monthly = this.total/totalResources*4.3;
+      this.weekly = this.total/totalResources;
+      this.hourly = this.total/8/5/totalResources;
+      this.annual = this.total*12*4.3/totalResources;
     }
     // console.log(this.total);
   }

@@ -74,6 +74,9 @@ export class PriceWizardComponent implements OnInit {
 
   loggedIn : boolean;
 
+  questionsToBeSaved: Question[] = [];
+
+
     // resourceQuestions : resourceQuestions;
   // answers: Answer[];
   // answer: Answer;
@@ -134,6 +137,7 @@ export class PriceWizardComponent implements OnInit {
       this.resourceLastQuestionId = resourceQuestions.length;
       this.isQuestions = false;
       this.isSelectNext = false;
+      this.myQaQuestions = qaQuestions;
       this.myResourceQuestions = resourceQuestions;
       this.myDevQuestions = devQuestions;
       this.myMonitoringQuestions = monitoringQuestions;
@@ -142,6 +146,8 @@ export class PriceWizardComponent implements OnInit {
       this.showAlert = false;
       this.showAlertLogin = false;
       this.loggedIn = false;
+
+      this.questionsToBeSaved.push(this.firstQuestion);
     }
 
     ngOnInit() {
@@ -173,6 +179,7 @@ export class PriceWizardComponent implements OnInit {
 
 
     toggleSelected(choice, question) {
+
       this.showAlert = false;
       if(!choice.isSelected){
         if(!question.isMultipleChoice){
@@ -181,7 +188,39 @@ export class PriceWizardComponent implements OnInit {
           }
         }
       }
+      // console.log(question);
       choice.isSelected = !choice.isSelected;
+      // this.questionsToBeSaved.push(question);
+      // var myObject = this.questionsToBeSaved.filter(e => e.name == question.name);
+      // console.log(myObject);
+      // console.log(this.questionsToBeSaved);
+
+      var questionIndex = this.questionsToBeSaved.findIndex(e => e.name == question.name);
+      if(questionIndex != -1){
+        // console.log("found question");
+        // console.log("question updated");
+        // index = this.questionsToBeSaved.findIndex(x => x.name == quesiton.name);
+        // var myChoice = this.questionsToBeSaved.choices.filter(e => e.name == choice.name);
+        var choiceIndex = this.questionsToBeSaved[questionIndex].choices.findIndex(e => e.name == choice.name);
+        // console.log(myChoice);
+        if(choiceIndex != -1){
+          // console.log("found choice");
+          this.questionsToBeSaved[questionIndex].choices[choiceIndex].isSelected = choice.isSelected;
+          // console.log(this.questionsToBeSaved);
+        }
+        else {
+          // console.log("need to add choie");
+          this.questionsToBeSaved[questionIndex].choices.push(choice);
+
+        }
+      }
+      else {
+        // console.log("length not greater than 0");
+        this.questionsToBeSaved.push(question);
+        // console.log("new question added");
+        // console.log(this.questionsToBeSaved);
+      }
+      this.data.changeQuestions(this.questionsToBeSaved);
 
       if(question.id == 0 ){
         if (choice.id == 0){
@@ -212,7 +251,8 @@ export class PriceWizardComponent implements OnInit {
           //devQuestions[0].isVisible = true;
         //  monitoringQuestions[0].isVisible = true;
           this.questions = this.myQaQuestions;
-
+          // console.log(this.questions);
+          // console.log(this.myQaQuestions);
 
           // console.log(qaQuestions);
           if(this.devSelected){
