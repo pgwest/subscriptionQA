@@ -81,7 +81,7 @@ export class CostSummaryComponent implements OnInit {
         });
       });
 
-      this.total = 5200;
+      this.total = 5500;
       this.monthly = 2600;
       this.weekly = 605;
       this.hourly = 14.77;

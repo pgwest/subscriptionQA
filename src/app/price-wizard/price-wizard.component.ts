@@ -3,6 +3,8 @@ import {Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import {ApplicationRef } from '@angular/core';
 import {DecimalPipe} from '@angular/common';
+import {Router } from '@angular/router';
+
 
 import { ServicesModule } from '../services/services.module';
 import { Choice } from './choice';
@@ -137,7 +139,7 @@ export class PriceWizardComponent implements OnInit {
     // };
 
 
-    constructor(private ref: ApplicationRef, private data : DataService, private modalService: NgbModal,  public authService: AuthService, private sessionService: SessionService) {
+    constructor(private router : Router, private ref: ApplicationRef, private data : DataService, private modalService: NgbModal,  public authService: AuthService, private sessionService: SessionService) {
 
       this.monitoringSlider = 0;
       this.devSlider = 0;
@@ -215,6 +217,7 @@ export class PriceWizardComponent implements OnInit {
       this.devSlider = this.devResources;
       this.qaSlider = this.qaResources;
       // console.log(this.qaResources);
+
     }
 
 
@@ -233,8 +236,13 @@ export class PriceWizardComponent implements OnInit {
       // console.log(question);
       choice.isSelected = !choice.isSelected;
 
-      var questionIndex = this.questionsToBeSaved.findIndex(e => e.uid == question.uid);
-
+      if(this.questionsToBeSaved){
+        var questionIndex = this.questionsToBeSaved.findIndex(e => e.uid == question.uid);
+      }
+      else{
+        var questionIndex = -1;
+        this.questionsToBeSaved = [];
+      }
       if(questionIndex != -1){
         var choiceIndex = this.questionsToBeSaved[questionIndex].choices.findIndex(e => e.name == choice.name);
         if(choiceIndex != -1){
@@ -622,6 +630,7 @@ export class PriceWizardComponent implements OnInit {
     goToLastQuestion() {
       // console.log("ResourceQuestionNext clicked");
       this.isResourceQuestion = false;
+      this.isSelectResources = false;
       this.isLastQuestion = true;
       // this.questions[question.id].isVisible = true;
       this.completedSoFar += 10;
@@ -701,6 +710,7 @@ export class PriceWizardComponent implements OnInit {
 
     viewDashboard(){
       console.log("view dashboard");
+      this.router.navigate(['./dashboard']);
     }
 
 
@@ -708,22 +718,13 @@ export class PriceWizardComponent implements OnInit {
 
       this.authService.signup(this.email, this.password);
       this.email = this.password = '';
-      console.log(this.loginSuccess);
+      // console.log(this.loginSuccess);
       if(this.loginSuccess){
-        console.log("successful login, modal to be dismissed");
+        // console.log("successful login, modal to be dismissed");
         this.modalRef.close();
       }
 
-      // if(this.authService.loginFailure){
-      //   console.log(this.authService.loginAlert);
-      //   this.loginAlertMessage = this.authService.loginAlert;
-      //   this.showAlertLogin = true;
-      //
-      // }
-      // else{
-      //   this.showAlertLogin = false;
-      //   console.log("success! on login");
-      // }
+
     }
 
 

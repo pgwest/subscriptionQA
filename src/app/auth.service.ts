@@ -181,62 +181,63 @@ export class AuthService {
 
   retrieveDatabaseInfo(){
     // var userData;
+    if(this.user){
+    // console.log("pulling database info");
+      const document: AngularFirestoreDocument<User> = this.afs.collection('users').doc(this.uid);
+      const document$: Observable<User> = document.valueChanges()
+      document$.subscribe(data => {
+        // console.log(data)
+        // console.log("updating data");
+        this.data.changeUid(data.uid);
+        this.data.changeEmail(data.email);
+        this.data.changePhotoUrl(data.photoUrl);
+        this.data.changeJobTitle(data.jobTitle);
+        this.data.changeDescription(data.description);
+        this.data.changeFrequency(data.billingTimeframe);
+        this.data.changeAccountContactPreference(data.accountContactPreference);
+        this.data.changeCommentsForManager(data.commentsForManager);
+        this.data.changeWeeklyupdates(data.weeklyUpdates);
+        this.data.changeMonthlyUpdates(data.monthlyUpdates);
+        this.data.changeRegularMeetings(data.regularMeetings);
+        this.data.changeTermsAccepted(data.termsAccepted);
+        this.data.changeDevResources(data.devResources);
+        this.data.changeQaResources(data.qaResources);
+        this.data.changeMonitoringResources(data.monitoringResources);
+        // this.data.changeQuestions(data.questions);
+        // console.log(data.questions);
 
-    const document: AngularFirestoreDocument<User> = this.afs.collection('users').doc(this.uid);
-    const document$: Observable<User> = document.valueChanges()
-    document$.subscribe(data => {
-      // console.log(data)
-      // console.log("updating data");
-      this.data.changeUid(data.uid);
-      this.data.changeEmail(data.email);
-      this.data.changePhotoUrl(data.photoUrl);
-      this.data.changeJobTitle(data.jobTitle);
-      this.data.changeDescription(data.description);
-      this.data.changeFrequency(data.billingTimeframe);
-      this.data.changeAccountContactPreference(data.accountContactPreference);
-      this.data.changeCommentsForManager(data.commentsForManager);
-      this.data.changeWeeklyupdates(data.weeklyUpdates);
-      this.data.changeMonthlyUpdates(data.monthlyUpdates);
-      this.data.changeRegularMeetings(data.regularMeetings);
-      this.data.changeTermsAccepted(data.termsAccepted);
-      this.data.changeDevResources(data.devResources);
-      this.data.changeQaResources(data.qaResources);
-      this.data.changeMonitoringResources(data.monitoringResources);
-      // this.data.changeQuestions(data.questions);
-      // console.log(data.questions);
-
-      var i=0;
-      while(data.questions[i]){
-        // console.log(data.questions[i]);
-        this.questionArray.push(data.questions[i]);
-        i++;
-      }
-      // console.log(this.questionArray);
-
-      this.data.changeQaQuestions(qaQuestions);
-      this.data.changeQaQuestions(qaQuestions);
-      this.data.changeQaQuestions(qaQuestions);
-      this.data.changeQuestions(this.questionArray);
-      // console.log(this.questions);
-
-      for (var i = 0; i < this.questions.length; i++){
-        var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
-        if(questionIndex != -1){
-          qaQuestions[questionIndex] = this.questions[i];
+        var i=0;
+        while(data.questions[i]){
+          // console.log(data.questions[i]);
+          this.questionArray.push(data.questions[i]);
+          i++;
         }
-        var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
-        if(questionIndex != -1){
-          devQuestions[questionIndex] = this.questions[i];
-        }
-        var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
-        if(questionIndex != -1){
-          monitoringQuestions[questionIndex] = this.questions[i];
-        }
-      }
-      // console.log(this.questions);
+        // console.log(this.questionArray);
 
-    });
+        this.data.changeQaQuestions(qaQuestions);
+        this.data.changeQaQuestions(qaQuestions);
+        this.data.changeQaQuestions(qaQuestions);
+        this.data.changeQuestions(this.questionArray);
+        // console.log(this.questions);
 
+        for (var i = 0; i < this.questions.length; i++){
+          var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
+          if(questionIndex != -1){
+            qaQuestions[questionIndex] = this.questions[i];
+          }
+          var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
+          if(questionIndex != -1){
+            devQuestions[questionIndex] = this.questions[i];
+          }
+          var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
+          if(questionIndex != -1){
+            monitoringQuestions[questionIndex] = this.questions[i];
+          }
+        }
+        // console.log(this.questions);
+
+      });
+    }
   }
 
 
@@ -247,14 +248,17 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
         this.data.changeLoginFailure(false);
-        console.log('Success!', value);
-        console.log('Nice, it worked!');
-        console.log("uid is ", value.uid)
+        // console.log('Success!', value);
+        // console.log('Nice, it worked!');
+        // console.log("uid is ", value.uid)
         this.data.changeUid(value.uid);
         this.data.changeEmail(value.email);
         this.userKey = value.uid;
+        this.updateUserData();
         this.storeSessionData();
-        this.router.navigate(['./dashboard']);
+        if(this.router.url == "/signup"){
+          this.router.navigate(['./dashboard']);
+        }
         this.data.changeLoginSuccess(true);
       })
       .catch(err => {
@@ -271,8 +275,8 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(value => {
         this.data.changeLoginFailure(false);
-        console.log('Nice, it worked!');
-        console.log("uid is ", value.uid)
+        // console.log('Nice, it worked!');
+        // console.log("uid is ", value.uid)
         this.userKey = value.uid;
         this.data.changeEmail(value.email);
         this.data.changeUid(value.uid);
@@ -280,6 +284,7 @@ export class AuthService {
 
         this.router.navigate(['./dashboard']);
         this.data.changeLoginSuccess(true);
+        this.retrieveDatabaseInfo();
 
 
       })
@@ -288,12 +293,13 @@ export class AuthService {
         this.data.changeLoginFailure(true);
         this.data.changeLoginMessage(err.message);
         this.data.changeLoginSuccess(false);
-        console.log("login failure");
+        // console.log("login failure");
 
       });
   }
 
   logout() {
+    this.sessionService.cleanAll();
     this.firebaseAuth
       .auth
       .signOut();
@@ -306,9 +312,12 @@ export class AuthService {
         if (res && res.uid) {
           // console.log('user is logged in');
           this.data.changeLoggedIn(true);
+          // console.log("user is logged in");
+          this.retrieveDatabaseInfo();
         } else {
           // console.log('user not logged in');
           this.data.changeLoggedIn(false);
+          // console.log("not logged in");
         }
       });
   }

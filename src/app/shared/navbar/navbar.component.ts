@@ -22,24 +22,12 @@ export class NavbarComponent implements OnInit {
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
         // console.log(this.authService.user);
         this.updateSessionData();
-        this.authService.retrieveDatabaseInfo();
-        // this.data.currentEmail.subscribe(email => this.email = email);
-        // this.data.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
-        // this.data.currentJobTitle.subscribe(jobTitle => this.jobTitle = jobTitle);
-        // this.data.currentDescription.subscribe(description => this.description = description);
-        // this.data.currentBillingFrequency.subscribe(billingFrequency => this.billingTimeframe = billingFrequency);
-        // this.data.currentBillingEmail.subscribe(billingEmail => this.billingEmail = billingEmail);
-        // this.data.currentAccountContactPreference.subscribe(accountContactPreference => this.accountContactPreference = accountContactPreference);
-        // this.data.currentCommentsForManager.subscribe(commentsForManager => this.commentsForManager = commentsForManager);
-        // this.data.currentWeeklyUpdates.subscribe(weeklyUpdates => this.weeklyUpdates = weeklyUpdates);
-        // this.data.currentMonthlyUpdates.subscribe(monthlyUpdates => this.monthlyUpdates = monthlyUpdates);
-        // this.data.currentRegularMeetings.subscribe(regularMeetings => this.regularMeetings = regularMeetings);
-        // this.data.currentTermsAccepted.subscribe(termsAccepted => this.termsAccepted = termsAccepted);
-        // this.data.currentQuestions.subscribe(questions => this.questions = questions);
-        // this.data.currentQa.subscribe(qaResources => this.qaResources = qaResources);
-        // this.data.currentDev.subscribe(devResources => this.devResources = devResources);
-        // this.data.currentMonitoring.subscribe(monitoringResources => this.monitoringResources = monitoringResources);
-        // this.data.currentUid.subscribe(uid => this.uid = uid);
+
+        this.authService.getAuthStatus();
+          // this.authService.retrieveDatabaseInfo();
+
+
+
     }
 
     updateSessionData(){

@@ -263,11 +263,11 @@
 <div id="numQA" *ngIf="isLastQuestion">
   <!-- ask question to select number of resources -->
   <div class="text-center">
-  <h1>You're all set!</h1>
+  <h1 style="color:white">You're all set!</h1>
   <br/>
   <h4 style="color:white; font-weight:bolder;"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
   <br/>
-  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="lastQuestion()">View Dashboard ></button>
+  <button class="btn btn-warning btn-round mr-auto ml-auto" (click)="viewDashboard()">View Dashboard ></button>
 </div>
 
   <div class="row">
@@ -289,5 +289,5 @@
   <strong>Your changes will not be saved until you hit save!</strong>
 </div> -->
 <div class="ml-auto mr-auto text-center">
-<button class="btn btn-neutral btn-round mr-auto ml-auto text-center" (click)="save();" *ngIf="(authService.user | async) && !isSelectResources">Save Changes</button>
+<button class="btn btn-neutral btn-round mr-auto ml-auto text-center" (click)="save();" *ngIf="(authService.user | async) && !isSelectResources && !isLastQuestion">Save Changes</button>
 </div>

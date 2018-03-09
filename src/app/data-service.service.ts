@@ -10,7 +10,7 @@ import { resourceQuestions } from './price-wizard/resourceQuestions';
 @Injectable()
 export class DataService {
 
-    private uid = new BehaviorSubject<string>('');
+    private uid = new BehaviorSubject<string>('tempUid');
     currentUid = this.uid.asObservable();
 
     private questions = new BehaviorSubject<Question[]>(null);
