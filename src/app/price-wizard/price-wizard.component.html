@@ -223,6 +223,7 @@
       <button type="button" class="btn btn-warning btn-round" (click)="open(Login)">
         Create Account and Save
     </button>
+    <h4 style="color:white; font-weight:bolder;"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
   </ng-template>
 
   <!-- <ng-template #Login let-c="close" let-d="dismiss" *ngIf="!loginSuccess"> -->
@@ -252,7 +253,8 @@
           <button class="btn btn-block btn-round" (click)="signup(); goToLastQuestion(); save();">Create Account</button>
       </div>
   </ng-template>
-  <h4 style="color:white; font-weight:bolder;"> We'll reach out shortly to schedule a setup call and answer any questions. <br/>Don't worry, you're not committing to anything yet.</h4>
+  <h4 *ngIf="(authService.user | async)" style="color:white; font-weight:bolder;"> We'll reach out shortly to confirm any changes and answer any questions. </h4>
+
 </div>
 </div>
 
@@ -280,4 +282,12 @@
   <br/>
 
 
+</div>
+
+<!-- <div class="alert alert-warning text-center alert-dismissible ml-auto mr-auto" style="width:40%; border-radius:25px;" *ngIf="(authService.user | async)">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Your changes will not be saved until you hit save!</strong>
+</div> -->
+<div class="ml-auto mr-auto text-center">
+<button class="btn btn-neutral btn-round mr-auto ml-auto text-center" (click)="save();" *ngIf="(authService.user | async) && !isSelectResources">Save Changes</button>
 </div>

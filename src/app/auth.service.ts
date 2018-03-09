@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -17,6 +17,11 @@ import { SessionService } from './session-service.service';
 
 import { Question } from './price-wizard/question';
 import { Choice } from './price-wizard/choice';
+
+import { qaQuestions } from './price-wizard/qaQuestions';
+import { devQuestions } from './price-wizard/devQuestions';
+import { monitoringQuestions } from './price-wizard/monitoringQuestions';
+
 
 
 interface User {
@@ -43,6 +48,8 @@ interface User {
 
 @Injectable()
 export class AuthService {
+
+  questionArray : Question[] = [];
 
   user: Observable<firebase.User>;
   router: Router;
@@ -147,23 +154,92 @@ export class AuthService {
 
      retrieveSessionData() {
         const userData: User = this.sessionService.getUserSettings();
-        console.log(userData);
-        this.data.changeUid(userData.uid);
-        this.data.changeEmail(userData.email);
-        this.data.changePhotoUrl(userData.photoUrl);
-        this.data.changeJobTitle(userData.jobTitle);
-        this.data.changeDescription(userData.description);
-        this.data.changeFrequency(userData.billingTimeframe);
-        this.data.changeAccountContactPreference(userData.accountContactPreference);
-        this.data.changeCommentsForManager(userData.commentsForManager);
-        this.data.changeWeeklyupdates(userData.weeklyUpdates);
-        this.data.changeMonthlyUpdates(userData.monthlyUpdates);
-        this.data.changeRegularMeetings(userData.regularMeetings);
-        this.data.changeTermsAccepted(userData.termsAccepted);
-        this.data.changeDevResources(userData.devResources);
-        this.data.changeQaResources(userData.qaResources);
-        this.data.changeMonitoringResources(userData.monitoringResources);
+        // console.log(userData);
+        if(userData == null){
+
+        }
+        else {
+          this.data.changeUid(userData.uid);
+          this.data.changeEmail(userData.email);
+          this.data.changePhotoUrl(userData.photoUrl);
+          this.data.changeJobTitle(userData.jobTitle);
+          this.data.changeDescription(userData.description);
+          this.data.changeFrequency(userData.billingTimeframe);
+          this.data.changeAccountContactPreference(userData.accountContactPreference);
+          this.data.changeCommentsForManager(userData.commentsForManager);
+          this.data.changeWeeklyupdates(userData.weeklyUpdates);
+          this.data.changeMonthlyUpdates(userData.monthlyUpdates);
+          this.data.changeRegularMeetings(userData.regularMeetings);
+          this.data.changeTermsAccepted(userData.termsAccepted);
+          this.data.changeDevResources(userData.devResources);
+          this.data.changeQaResources(userData.qaResources);
+          this.data.changeMonitoringResources(userData.monitoringResources);
+        }
     }
+
+
+
+  retrieveDatabaseInfo(){
+    // var userData;
+
+    const document: AngularFirestoreDocument<User> = this.afs.collection('users').doc(this.uid);
+    const document$: Observable<User> = document.valueChanges()
+    document$.subscribe(data => {
+      // console.log(data)
+      // console.log("updating data");
+      this.data.changeUid(data.uid);
+      this.data.changeEmail(data.email);
+      this.data.changePhotoUrl(data.photoUrl);
+      this.data.changeJobTitle(data.jobTitle);
+      this.data.changeDescription(data.description);
+      this.data.changeFrequency(data.billingTimeframe);
+      this.data.changeAccountContactPreference(data.accountContactPreference);
+      this.data.changeCommentsForManager(data.commentsForManager);
+      this.data.changeWeeklyupdates(data.weeklyUpdates);
+      this.data.changeMonthlyUpdates(data.monthlyUpdates);
+      this.data.changeRegularMeetings(data.regularMeetings);
+      this.data.changeTermsAccepted(data.termsAccepted);
+      this.data.changeDevResources(data.devResources);
+      this.data.changeQaResources(data.qaResources);
+      this.data.changeMonitoringResources(data.monitoringResources);
+      // this.data.changeQuestions(data.questions);
+      // console.log(data.questions);
+
+      var i=0;
+      while(data.questions[i]){
+        // console.log(data.questions[i]);
+        this.questionArray.push(data.questions[i]);
+        i++;
+      }
+      // console.log(this.questionArray);
+
+      this.data.changeQaQuestions(qaQuestions);
+      this.data.changeQaQuestions(qaQuestions);
+      this.data.changeQaQuestions(qaQuestions);
+      this.data.changeQuestions(this.questionArray);
+      // console.log(this.questions);
+
+      for (var i = 0; i < this.questions.length; i++){
+        var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
+        if(questionIndex != -1){
+          qaQuestions[questionIndex] = this.questions[i];
+        }
+        var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
+        if(questionIndex != -1){
+          devQuestions[questionIndex] = this.questions[i];
+        }
+        var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
+        if(questionIndex != -1){
+          monitoringQuestions[questionIndex] = this.questions[i];
+        }
+      }
+      // console.log(this.questions);
+
+    });
+
+  }
+
+
 
   signup(email: string, password: string) {
     this.firebaseAuth

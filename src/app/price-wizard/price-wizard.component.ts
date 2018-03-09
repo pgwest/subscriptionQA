@@ -73,6 +73,7 @@ export class PriceWizardComponent implements OnInit {
   password: string;
 
   loggedIn : boolean;
+  resourceChangeAlert : boolean;
 
   questionsToBeSaved: Question[] = [];
 
@@ -143,6 +144,7 @@ export class PriceWizardComponent implements OnInit {
       this.qaSlider = 0;
       this.lastQuestionId = 5;
 
+      this.resourceChangeAlert = false;
       this.loginSuccess = false;
 
       this.expectedTotal = 100;
@@ -173,13 +175,14 @@ export class PriceWizardComponent implements OnInit {
       this.loggedIn = false;
 
       if(this.questionsToBeSaved.length == 0){
-        console.log("no user");
+        // console.log("no user");
         this.questionsToBeSaved.push(this.firstQuestion);
-        this.data.changeQuestions(this.questionsToBeSaved);
+        // this.data.changeQuestions(this.questionsToBeSaved);
       }
       else{
-        console.log("user");
-        console.log(this.questionsToBeSaved);
+        // console.log("user");
+        // console.log(this.questionsToBeSaved);
+
       }
 
       this.qaSelected = false;
@@ -189,9 +192,9 @@ export class PriceWizardComponent implements OnInit {
 
     ngOnInit() {
 
-      this.data.currentQa.subscribe(qaResources => this.qaResources = qaResources);
-      this.data.currentDev.subscribe(devResources => this.devResources = devResources);
-      this.data.currentMonitoring.subscribe(monitoringResources => this.monitoringResources = monitoringResources);
+      this.data.currentQa.subscribe(qaResources => {this.qaResources = qaResources; this.setFirstQuestion();});
+      this.data.currentDev.subscribe(devResources => {this.devResources = devResources; this.setFirstQuestion();});
+      this.data.currentMonitoring.subscribe(monitoringResources => {this.monitoringResources = monitoringResources; this.setFirstQuestion();});
       this.data.currentCompleted.subscribe(percentageCompleted => this.completed = percentageCompleted);
 
       this.data.currentLoginFailure.subscribe(loginFailure => this.showAlertLogin = loginFailure);
@@ -206,7 +209,7 @@ export class PriceWizardComponent implements OnInit {
       this.data.currentResourceQuestions.subscribe(resourceQuestions => {this.myResourceQuestions = resourceQuestions;});
       this.data.currentLoggedIn.subscribe(loggedIn => this.loggedIn = loggedIn);
 
-      this.data.currentQuestions.subscribe(questions => {this.questionsToBeSaved = questions;});
+      this.data.currentQuestions.subscribe(questions => {this.questionsToBeSaved = questions; this.setFirstQuestion();});
 
       this.monitoringSlider = this.monitoringResources;
       this.devSlider = this.devResources;
@@ -253,12 +256,45 @@ export class PriceWizardComponent implements OnInit {
       if(question.id == 0 ){
         if (choice.id == 0){
           this.qaSelected = choice.isSelected;
+          if(!this.qaSelected){
+            this.data.changeQaResources(0);
+          } else if (this.qaResources == 0){
+            this.data.changeQaResources(2);
+          }
         }
         else if (choice.id == 1){
           this.devSelected = choice.isSelected;
+          if(!this.devSelected){
+            this.data.changeDevResources(0);
+          } else if (this.devResources == 0){
+            this.data.changeDevResources(2);
+          }
         }
         else if (choice.id == 2){
           this.monitoringSelected = choice.isSelected;
+          if(!this.monitoringSelected){
+            this.data.changeMonitoringResources(0);
+          } else if (this.monitoringResources == 0){
+            this.data.changeMonitoringResources(2);
+          }
+        }
+      }
+    }
+
+    setFirstQuestion() {
+      if(this.firstQuestion.choices[0].isSelected){
+        this.qaSelected = true;
+      }
+      if(this.firstQuestion.choices[1].isSelected){
+        this.devSelected = true;
+      }
+      if(this.firstQuestion.choices[2].isSelected){
+        this.monitoringSelected = true;
+      }
+      if(this.questionsToBeSaved){
+        var questionIndex = this.questionsToBeSaved.findIndex(e => e.uid == this.firstQuestion.uid);
+        if(questionIndex != -1){
+          this.firstQuestion = this.questionsToBeSaved[questionIndex];
         }
       }
     }
@@ -271,9 +307,15 @@ export class PriceWizardComponent implements OnInit {
         // console.log("questions 0 is visible");
       }
       else {
-        this.data.changeQaResources(2);
-        this.data.changeMonitoringResources(0);
-        this.data.changeDevResources(0);
+        if(!this.authService.user){
+          this.data.changeQaResources(2);
+          this.data.changeMonitoringResources(0);
+          this.data.changeDevResources(0);
+        }
+        else{
+          this.setFirstQuestion();
+          // this.firstQuestion = questionsToBeSaved[0];
+        }
         if (this.qaSelected) {
           // console.log("qaSelected");
           //devQuestions[0].isVisible = true;
@@ -287,7 +329,7 @@ export class PriceWizardComponent implements OnInit {
             // this.myDevQuestions = devQuestions;
             this.myDevQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myDevQuestions);
-            this.data.changeDevResources(2);
+            // this.data.changeDevResources(2);
 
             // this.updateIds();
           }
@@ -296,7 +338,7 @@ export class PriceWizardComponent implements OnInit {
             this.myMonitoringQuestions[0].isVisible = false;
             // monitoringQuestions[0].isVisible = false;
             this.questions = this.questions.concat(this.myMonitoringQuestions);
-            this.data.changeMonitoringResources(2);
+            // this.data.changeMonitoringResources(2);
 
             // this.questions[qaQuestions.length + devQuestions.length ].isVisible = false;
             // this.updateIds();
@@ -355,6 +397,39 @@ export class PriceWizardComponent implements OnInit {
           this.completed = this.completedSoFar/this.expectedTotal*100;
           this.data.changeCompleted(this.completed);
           this.questions[0].isVisible = true;
+          // if(!this.qaSelected){
+          //   if(this.qaResources>0){
+          //     this.resourceChangeAlert = true;
+          //   }
+          //   else{
+          //     this.resourceChangeAlert = false;
+          //   }
+          // }
+          // if(!this.devSelected){
+          //   if(this.devResources>0){
+          //     this.resourceChangeAlert = true;
+          //   }
+          //   else{
+          //     this.resourceChangeAlert = false;
+          //   }
+          // }
+          // if(!this.monitoringSelected){
+          //   if(this.monitoringResources>0){
+          //     this.resourceChangeAlert = true;
+          //   }
+          //   else{
+          //     this.resourceChangeAlert = false;
+          //   }
+          // }
+          // if(!this.qaSelected){
+          //   this.data.changeQaResources(0);
+          // }
+          // if(!this.devSelected){
+          //   this.data.changeDevResources(0);
+          // }
+          // if(!this.monitoringSelected){
+          //   this.data.changeMonitoringResources(0);
+          // }
 
         }
       }

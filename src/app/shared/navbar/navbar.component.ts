@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
         // console.log(this.authService.user);
         this.updateSessionData();
+        this.authService.retrieveDatabaseInfo();
         // this.data.currentEmail.subscribe(email => this.email = email);
         // this.data.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
         // this.data.currentJobTitle.subscribe(jobTitle => this.jobTitle = jobTitle);
