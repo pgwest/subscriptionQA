@@ -53,6 +53,7 @@ import { AdminComponent } from './admin/admin.component';
 
 import { AuthService } from './auth.service';
 import { DataService } from './data-service.service';
+import { SessionService } from './session-service.service';
 
 
 @NgModule({
@@ -89,7 +90,7 @@ import { DataService } from './data-service.service';
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [AuthService, DataService],
+  providers: [AuthService, DataService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

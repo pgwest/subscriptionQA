@@ -12,6 +12,9 @@ import {Router } from '@angular/router';
 
 import { DataService } from './data-service.service';
 
+import { SessionService } from './session-service.service';
+
+
 import { Question } from './price-wizard/question';
 import { Choice } from './price-wizard/choice';
 
@@ -65,7 +68,7 @@ export class AuthService {
   devResources: number;
   monitoringResources: number;
 
-  constructor(private firebaseAuth: AngularFireAuth, private afs: AngularFirestore, router : Router,  private data : DataService) {
+  constructor(private firebaseAuth: AngularFireAuth, private afs: AngularFirestore, router : Router,  private data : DataService, private sessionService: SessionService) {
     this.user = firebaseAuth.authState;
     this.router = router;
     this.loginFailure = false;
@@ -92,6 +95,7 @@ export class AuthService {
 
    updateUserData() {
       const userRef: AngularFirestoreDocument<any> = this.afs.collection('users').doc(`${this.uid}`);
+      this.storeSessionData();
 
       const userData: User = {
           uid: this.uid,
@@ -117,6 +121,50 @@ export class AuthService {
   }
 
 
+    storeSessionData() {
+       const userData: User = {
+           uid: this.uid,
+           email: this.email,
+           photoUrl: this.photoUrl,
+           jobTitle: this.jobTitle,
+           description: this.description,
+           billingTimeframe: this.billingTimeframe,
+           billingEmail: this.billingEmail,
+           accountContactPreference: this.accountContactPreference,
+           commentsForManager: this.commentsForManager,
+           weeklyUpdates: this.weeklyUpdates,
+           monthlyUpdates: this.monthlyUpdates,
+           regularMeetings: this.regularMeetings,
+           termsAccepted: this.termsAccepted,
+           questions: Object.assign({}, this.questions),
+           qaResources: this.qaResources,
+           devResources: this.devResources,
+           monitoringResources: this.monitoringResources
+       }
+
+         this.sessionService.setSettings(userData);
+     }
+
+     retrieveSessionData() {
+        const userData: User = this.sessionService.getUserSettings();
+        console.log(userData);
+        this.data.changeUid(userData.uid);
+        this.data.changeEmail(userData.email);
+        this.data.changePhotoUrl(userData.photoUrl);
+        this.data.changeJobTitle(userData.jobTitle);
+        this.data.changeDescription(userData.description);
+        this.data.changeFrequency(userData.billingTimeframe);
+        this.data.changeAccountContactPreference(userData.accountContactPreference);
+        this.data.changeCommentsForManager(userData.commentsForManager);
+        this.data.changeWeeklyupdates(userData.weeklyUpdates);
+        this.data.changeMonthlyUpdates(userData.monthlyUpdates);
+        this.data.changeRegularMeetings(userData.regularMeetings);
+        this.data.changeTermsAccepted(userData.termsAccepted);
+        this.data.changeDevResources(userData.devResources);
+        this.data.changeQaResources(userData.qaResources);
+        this.data.changeMonitoringResources(userData.monitoringResources);
+    }
+
   signup(email: string, password: string) {
     this.firebaseAuth
       .auth
@@ -129,6 +177,7 @@ export class AuthService {
         this.data.changeUid(value.uid);
         this.data.changeEmail(value.email);
         this.userKey = value.uid;
+        this.storeSessionData();
         this.router.navigate(['./dashboard']);
         this.data.changeLoginSuccess(true);
       })
@@ -151,6 +200,8 @@ export class AuthService {
         this.userKey = value.uid;
         this.data.changeEmail(value.email);
         this.data.changeUid(value.uid);
+        this.storeSessionData();
+
         this.router.navigate(['./dashboard']);
         this.data.changeLoginSuccess(true);
 

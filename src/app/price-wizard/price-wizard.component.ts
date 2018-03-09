@@ -19,7 +19,7 @@ import { NgbModal, ModalDismissReasons, NgbActiveModal, NgbModalRef } from '@ng-
 //Services
 import { DataService } from '../data-service.service';
 import {AuthService} from '../auth.service';
-
+import { SessionService } from '../session-service.service';
 
 
 @Component({
@@ -136,7 +136,7 @@ export class PriceWizardComponent implements OnInit {
     // };
 
 
-    constructor(private ref: ApplicationRef, private data : DataService, private modalService: NgbModal,  public authService: AuthService) {
+    constructor(private ref: ApplicationRef, private data : DataService, private modalService: NgbModal,  public authService: AuthService, private sessionService: SessionService) {
 
       this.monitoringSlider = 0;
       this.devSlider = 0;
@@ -154,9 +154,7 @@ export class PriceWizardComponent implements OnInit {
       this.isLastQuestion = false;
       this.isFirstQuestion = true;
       this.expectedTotal = 100;
-      this.qaSelected = false;
-      this.devSelected = false;
-      this.monitoringSelected = false;
+
       this.isResourceQuestion = false;
       this.isResourceQuestionNext = false;
       this.isResourceHelp  =false;
@@ -174,10 +172,23 @@ export class PriceWizardComponent implements OnInit {
       this.showAlertLogin = false;
       this.loggedIn = false;
 
-      this.questionsToBeSaved.push(this.firstQuestion);
+      if(this.questionsToBeSaved.length == 0){
+        console.log("no user");
+        this.questionsToBeSaved.push(this.firstQuestion);
+        this.data.changeQuestions(this.questionsToBeSaved);
+      }
+      else{
+        console.log("user");
+        console.log(this.questionsToBeSaved);
+      }
+
+      this.qaSelected = false;
+      this.devSelected = false;
+      this.monitoringSelected = false;
     }
 
     ngOnInit() {
+
       this.data.currentQa.subscribe(qaResources => this.qaResources = qaResources);
       this.data.currentDev.subscribe(devResources => this.devResources = devResources);
       this.data.currentMonitoring.subscribe(monitoringResources => this.monitoringResources = monitoringResources);
@@ -195,6 +206,7 @@ export class PriceWizardComponent implements OnInit {
       this.data.currentResourceQuestions.subscribe(resourceQuestions => {this.myResourceQuestions = resourceQuestions;});
       this.data.currentLoggedIn.subscribe(loggedIn => this.loggedIn = loggedIn);
 
+      this.data.currentQuestions.subscribe(questions => {this.questionsToBeSaved = questions;});
 
       this.monitoringSlider = this.monitoringResources;
       this.devSlider = this.devResources;
