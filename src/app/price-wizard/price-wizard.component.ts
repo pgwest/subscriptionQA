@@ -82,31 +82,58 @@ export class PriceWizardComponent implements OnInit {
   // answer: Answer;
 
   firstQuestion : Question =
-    {
-      'id': 0,
-      'choices': [
-          new Choice(0, 'Quality Assurance', '', '../../assets/img/qa-icon.png', false),
-          new Choice(1, 'Software Development', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
-          new Choice(2, 'Monitoring', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
-      ],
-      'name': 'Where can we help?',
-      'completed': 10,
-      'isVisible': true,
-      'isMultipleChoice': true
-    };
+  {
+    'id': 0,
+    'choices': [
+        {"id": 0, "name": 'Quality Assurance', "backgroundImage": 'assets/img/black.jpg', "icon" : '../../assets/img/qa-icon.png', "isSelected":false},
+        {"id": 1, "name": 'Software Development', "backgroundImage" : 'assets/img/black.jpg', "icon" : '../../assets/img/dev-icon.png', "isSelected": false},
+        {"id": 2, "name": 'Monitoring', "backgroundImage" : 'assets/img/black.jpg', "icon": '../../assets/img/monitoring-icon.png', "isSelected": false}
+    ],
+    'name': 'Where can we help?',
+    'completed': 10,
+    'isVisible': true,
+    'isMultipleChoice': true,
+    'uid': 'f1'
+  };
+    // {
+    //   'id': 0,
+    //   'choices': [
+    //       new Choice(0, 'Quality Assurance', '', '../../assets/img/qa-icon.png', false),
+    //       new Choice(1, 'Software Development', 'assets/img/black.jpg', '../../assets/img/dev-icon.png', false),
+    //       new Choice(2, 'Monitoring', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false)
+    //   ],
+    //   'name': 'Where can we help?',
+    //   'completed': 10,
+    //   'isVisible': true,
+    //   'isMultipleChoice': true,
+    //   'uid': 'f1'
+    // };
 
     resourcesQuestion : Question =
     {
       'id': 12,
       'choices': [
-          new Choice(0, 'Help me choose.', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
-          new Choice(1, 'I know what I need.', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false),
-            ],
-      'name': "How many resources do you need?",
+          {"id": 0, "name": 'Help me choose', "backgroundImage": 'assets/img/black.jpg', "icon" : '../../assets/img/qa-icon.png', "isSelected":false},
+          {"id": 1, "name": 'I know what I need', "backgroundImage" : 'assets/img/black.jpg', "icon" : '../../assets/img/dev-icon.png', "isSelected": false}
+      ],
+      'name': 'How many resources do you need?',
       'completed': 10,
       'isVisible': false,
-      'isMultipleChoice': false
+      'isMultipleChoice': false,
+      'uid': 'rq1'
     };
+    // {
+    //   'id': 12,
+    //   'choices': [
+    //       new Choice(0, 'Help me choose.', 'assets/img/black.jpg', '../../assets/img/qa-icon.png', false),
+    //       new Choice(1, 'I know what I need.', 'assets/img/black.jpg', '../../assets/img/monitoring-icon.png', false),
+    //         ],
+    //   'name': "How many resources do you need?",
+    //   'completed': 10,
+    //   'isVisible': false,
+    //   'isMultipleChoice': false,
+    //   'uid': 'rq1'
+    // };
 
 
     constructor(private ref: ApplicationRef, private data : DataService, private modalService: NgbModal,  public authService: AuthService) {
@@ -190,36 +217,25 @@ export class PriceWizardComponent implements OnInit {
       }
       // console.log(question);
       choice.isSelected = !choice.isSelected;
-      // this.questionsToBeSaved.push(question);
-      // var myObject = this.questionsToBeSaved.filter(e => e.name == question.name);
-      // console.log(myObject);
-      // console.log(this.questionsToBeSaved);
 
-      var questionIndex = this.questionsToBeSaved.findIndex(e => e.name == question.name);
+      var questionIndex = this.questionsToBeSaved.findIndex(e => e.uid == question.uid);
+
       if(questionIndex != -1){
-        // console.log("found question");
-        // console.log("question updated");
-        // index = this.questionsToBeSaved.findIndex(x => x.name == quesiton.name);
-        // var myChoice = this.questionsToBeSaved.choices.filter(e => e.name == choice.name);
         var choiceIndex = this.questionsToBeSaved[questionIndex].choices.findIndex(e => e.name == choice.name);
-        // console.log(myChoice);
         if(choiceIndex != -1){
-          // console.log("found choice");
           this.questionsToBeSaved[questionIndex].choices[choiceIndex].isSelected = choice.isSelected;
-          // console.log(this.questionsToBeSaved);
+          this.questionsToBeSaved[questionIndex].name = question.name;
+          this.questionsToBeSaved[questionIndex].isMultipleChoice = question.isMultipleChoice;
+
         }
         else {
-          // console.log("need to add choie");
-          this.questionsToBeSaved[questionIndex].choices.push(choice);
-
+          this.questionsToBeSaved[questionIndex].choices.push(Object.assign({}, choice));
         }
       }
       else {
-        // console.log("length not greater than 0");
         this.questionsToBeSaved.push(question);
-        // console.log("new question added");
-        // console.log(this.questionsToBeSaved);
       }
+
       this.data.changeQuestions(this.questionsToBeSaved);
 
       if(question.id == 0 ){
@@ -592,6 +608,8 @@ export class PriceWizardComponent implements OnInit {
 
     save(){
       console.log("save");
+      this.data.changeQuestions(this.questionsToBeSaved);
+      this.authService.updateUserData();
     }
 
     viewDashboard(){

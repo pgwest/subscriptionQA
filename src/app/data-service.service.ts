@@ -10,6 +10,9 @@ import { resourceQuestions } from './price-wizard/resourceQuestions';
 @Injectable()
 export class DataService {
 
+    private uid = new BehaviorSubject<string>('');
+    currentUid = this.uid.asObservable();
+
     private questions = new BehaviorSubject<Question[]>(null);
     currentQuestions = this.questions.asObservable();
 
@@ -24,8 +27,6 @@ export class DataService {
 
     private resourceQuestions = new BehaviorSubject<Question[]>(resourceQuestions);
     currentResourceQuestions = this.resourceQuestions.asObservable();
-
-
 
     private messageSource = new BehaviorSubject<string>("default message");
     currentMessage = this.messageSource.asObservable();
@@ -57,6 +58,41 @@ export class DataService {
     private loggedIn = new BehaviorSubject<boolean>(true);
     currentLoggedIn = this.loggedIn.asObservable();
 
+
+      private email = new BehaviorSubject<string>("email");
+      currentEmail = this.email.asObservable();
+
+      private photoUrl = new BehaviorSubject<string>("");
+      currentPhotoUrl = this.photoUrl.asObservable();
+
+      private jobTitle = new BehaviorSubject<string>("title");
+      currentJobTitle = this.jobTitle.asObservable();
+
+      private description = new BehaviorSubject<string>("description");
+      currentDescription = this.description.asObservable();
+
+      private billingEmail = new BehaviorSubject<string>("billingEmail");
+      currentBillingEmail = this.billingEmail.asObservable();
+
+      private accountContactPreference = new BehaviorSubject<string>("phone or email");
+      currentAccountContactPreference = this.accountContactPreference.asObservable();
+
+      private commentsForManager = new BehaviorSubject<string>("comments");
+      currentCommentsForManager = this.commentsForManager.asObservable();
+
+      private weeklyUpdates = new BehaviorSubject<boolean>(true);
+      currentWeeklyUpdates = this.weeklyUpdates.asObservable();
+
+      private monthlyUpdates = new BehaviorSubject<boolean>(true);
+      currentMonthlyUpdates = this.monthlyUpdates.asObservable();
+
+      private regularMeetings = new BehaviorSubject<boolean>(true);
+      currentRegularMeetings = this.regularMeetings.asObservable();
+
+      private termsAccepted = new BehaviorSubject<boolean>(false);
+      currentTermsAccepted = this.termsAccepted.asObservable();
+
+
     constructor() { }
 
     changeQuestions(questionSet: Question[]) {
@@ -65,6 +101,9 @@ export class DataService {
       // console.log(this.questions);
     }
 
+    changeUid(uid: string) {
+      this.uid.next(uid);
+    }
 
     changeQaQuestions(questionSet: Question[]) {
       this.qaQuestions.next(questionSet);
@@ -124,6 +163,50 @@ export class DataService {
 
     changeLoggedIn(success: boolean) {
       this.loggedIn.next(success);
+    }
+
+    changeEmail(email: string) {
+      this.email.next(email);
+    }
+
+    changePhotoUrl(photoUrl: string) {
+      this.photoUrl.next(photoUrl);
+    }
+
+    changeJobTitle(jobTitle: string) {
+      this.jobTitle.next(jobTitle);
+    }
+
+    changeDescription(description: string) {
+      this.description.next(description);
+    }
+
+    changeBillingEmail(email: string) {
+      this.billingEmail.next(email);
+    }
+
+    changeAccountContactPreference(accountContactPreference: string) {
+      this.accountContactPreference.next(accountContactPreference);
+    }
+
+    changeCommentsForManager(commentsForManager: string) {
+      this.commentsForManager.next(commentsForManager);
+    }
+
+    changeWeeklyupdates(weeklyUpdates: boolean) {
+      this.weeklyUpdates.next(weeklyUpdates);
+    }
+
+    changeMonthlyUpdates(monthlyUpdates: boolean) {
+      this.monthlyUpdates.next(monthlyUpdates);
+    }
+
+    changeRegularMeetings(success: boolean) {
+      this.regularMeetings.next(success);
+    }
+
+    changeTermsAccepted(success: boolean) {
+      this.termsAccepted.next(success);
     }
 
 }
