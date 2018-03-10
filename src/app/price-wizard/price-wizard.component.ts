@@ -211,12 +211,14 @@ export class PriceWizardComponent implements OnInit {
       this.data.currentResourceQuestions.subscribe(resourceQuestions => {this.myResourceQuestions = resourceQuestions;});
       this.data.currentLoggedIn.subscribe(loggedIn => this.loggedIn = loggedIn);
 
+      // this.data.currentQuestions.subscribe(questions => {this.questionsToBeSaved = questions; this.setFirstQuestion(); console.log(this.questionsToBeSaved);});
       this.data.currentQuestions.subscribe(questions => {this.questionsToBeSaved = questions; this.setFirstQuestion();});
 
       this.monitoringSlider = this.monitoringResources;
       this.devSlider = this.devResources;
       this.qaSlider = this.qaResources;
       // console.log(this.qaResources);
+      // console.log("init called");
 
     }
 
@@ -243,6 +245,7 @@ export class PriceWizardComponent implements OnInit {
         var questionIndex = -1;
         this.questionsToBeSaved = [];
       }
+
       if(questionIndex != -1){
         var choiceIndex = this.questionsToBeSaved[questionIndex].choices.findIndex(e => e.name == choice.name);
         if(choiceIndex != -1){
@@ -260,7 +263,7 @@ export class PriceWizardComponent implements OnInit {
       }
 
       this.data.changeQuestions(this.questionsToBeSaved);
-
+      console.log(this.questionsToBeSaved);
       if(question.id == 0 ){
         if (choice.id == 0){
           this.qaSelected = choice.isSelected;
@@ -703,13 +706,13 @@ export class PriceWizardComponent implements OnInit {
     }
 
     save(){
-      console.log("save");
-      this.data.changeQuestions(this.questionsToBeSaved);
+      // console.log("save");
+      // this.data.changeQuestions(this.questionsToBeSaved);
       this.authService.updateUserData();
     }
 
     viewDashboard(){
-      console.log("view dashboard");
+      // console.log("view dashboard");
       this.router.navigate(['./dashboard']);
     }
 

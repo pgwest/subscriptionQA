@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Question } from './price-wizard/question';
 import { qaQuestions } from './price-wizard/qaQuestions';
@@ -7,11 +8,17 @@ import { devQuestions } from './price-wizard/devQuestions';
 import { monitoringQuestions } from './price-wizard/monitoringQuestions';
 import { resourceQuestions } from './price-wizard/resourceQuestions';
 
+
 @Injectable()
 export class DataService {
 
     private uid = new BehaviorSubject<string>('tempUid');
     currentUid = this.uid.asObservable();
+
+    // private _stuffSubject = new ReplaySubject<any>(1);
+    //
+    // private questions = new ReplaySubject<Question[]>(1);
+    // currentQuestions = this.questions.asObservable();
 
     private questions = new BehaviorSubject<Question[]>(null);
     currentQuestions = this.questions.asObservable();
@@ -95,10 +102,14 @@ export class DataService {
 
     constructor() { }
 
+    clearQuestions(){
+      this.questions = new BehaviorSubject<Question[]>(null);
+    }
+
     changeQuestions(questionSet: Question[]) {
+      // this.questions = new BehaviorSubject<Question[]>(null);
       this.questions.next(questionSet);
-      // console.log("quesitons updated");
-      // console.log(this.questions);
+      console.log(this.questions.getValue());
     }
 
     changeUid(uid: string) {

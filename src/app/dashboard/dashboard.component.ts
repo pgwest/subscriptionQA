@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit() {
-    this.data.currentQuestions.subscribe(questions => {this.questions = questions;});
+    this.data.currentQuestions.subscribe(questions => {this.questions = questions;}); 
     this.data.currentBillingFrequency.subscribe(frequency => {this.frequency = frequency;});
 
   }

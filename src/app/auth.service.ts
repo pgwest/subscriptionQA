@@ -102,7 +102,7 @@ export class AuthService {
 
    updateUserData() {
       const userRef: AngularFirestoreDocument<any> = this.afs.collection('users').doc(`${this.uid}`);
-      this.storeSessionData();
+      // this.storeSessionData();
 
       const userData: User = {
           uid: this.uid,
@@ -124,7 +124,8 @@ export class AuthService {
           monitoringResources: this.monitoringResources
       }
 
-      return userRef.set(userData);
+      userRef.set(userData);
+      // this.retrieveDatabaseInfo();
   }
 
 
@@ -184,7 +185,8 @@ export class AuthService {
     if(this.user){
     // console.log("pulling database info");
       const document: AngularFirestoreDocument<User> = this.afs.collection('users').doc(this.uid);
-      const document$: Observable<User> = document.valueChanges()
+      const document$: Observable<User> = document.valueChanges();
+      // this.data.clearQuestions();
       document$.subscribe(data => {
         // console.log(data)
         // console.log("updating data");
@@ -215,25 +217,28 @@ export class AuthService {
         // console.log(this.questionArray);
 
         this.data.changeQaQuestions(qaQuestions);
-        this.data.changeQaQuestions(qaQuestions);
-        this.data.changeQaQuestions(qaQuestions);
+        this.data.changeDevQuestions(devQuestions);
+        this.data.changeMonitoringQuestions(monitoringQuestions);
+        // if(!this.questions){
         this.data.changeQuestions(this.questionArray);
+        // }
         // console.log(this.questions);
-
-        for (var i = 0; i < this.questions.length; i++){
-          var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
-          if(questionIndex != -1){
-            qaQuestions[questionIndex] = this.questions[i];
+        // if(this.questions){
+          for (var i = 0; i < this.questions.length; i++){
+            var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
+            if(questionIndex != -1){
+              qaQuestions[questionIndex] = this.questions[i];
+            }
+            var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
+            if(questionIndex != -1){
+              devQuestions[questionIndex] = this.questions[i];
+            }
+            var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
+            if(questionIndex != -1){
+              monitoringQuestions[questionIndex] = this.questions[i];
+            }
           }
-          var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
-          if(questionIndex != -1){
-            devQuestions[questionIndex] = this.questions[i];
-          }
-          var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
-          if(questionIndex != -1){
-            monitoringQuestions[questionIndex] = this.questions[i];
-          }
-        }
+        // }
         // console.log(this.questions);
 
       });
@@ -313,7 +318,9 @@ export class AuthService {
           // console.log('user is logged in');
           this.data.changeLoggedIn(true);
           // console.log("user is logged in");
-          this.retrieveDatabaseInfo();
+          if(!this.questions){
+            this.retrieveDatabaseInfo();
+          }
         } else {
           // console.log('user not logged in');
           this.data.changeLoggedIn(false);

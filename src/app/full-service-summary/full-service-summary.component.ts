@@ -64,19 +64,11 @@ export class FullServiceSummaryComponent implements OnInit {
     });
 
 
-    // this.questions = qaQuestions;
-    // this.questions.unshift(this.firstQuestion);
-    // // this.questions = this.questions.concat(qaQuestions);
-    // this.questions = this.questions.concat(qaQuestions);
-    // this.questions = this.questions.concat(devQuestions);
-    // this.questions = this.questions.concat(monitoringQuestions);
-    // this.questions = this.questions.concat(this.resourcesQuestion);
-    // this.questions = this.questions.concat(resourceQuestions);
    }
 
   ngOnInit() {
     this.data.currentBillingFrequency.subscribe(frequency => {this.frequency = frequency; this.getPricing();});
-    this.data.currentLoggedIn.subscribe(loggedIn => {this.loggedIn = loggedIn; this.refreshQuestions();});
+    this.data.currentLoggedIn.subscribe(loggedIn => {this.loggedIn = loggedIn;});
     this.data.currentQuestions.subscribe(questions => {this.questions = questions;});
 
     this.fixedPrice$.subscribe(val => {this.qaWeekly = val[2].weeklyPrice; this.getPricing();});
@@ -87,27 +79,11 @@ export class FullServiceSummaryComponent implements OnInit {
     // this.fixedPrice$.subscribe(val => {this.monitoringMonthly = val[1].monthlyPrice; this.getPricing(); console.log(val);});
     this.fixedPrice$.subscribe(val => {this.monitoringMonthly = val[1].monthlyPrice; this.getPricing();});
 
-
-    this.authService.getAuthStatus();
-
+    // this.authService.getAuthStatus();
 
   }
 
-  refreshQuestions(){
-      if(this.authService.user){
-        //pull from database and update selected questions
-        // this.databaseQuestions =
-      }
-      else {
-        // this.questions = qaQuestions;
-        // this.questions.unshift(this.firstQuestion);
-        // this.questions = this.questions.concat(devQuestions);
-        // this.questions = this.questions.concat(monitoringQuestions);
-        // this.questions = this.questions.concat(this.resourcesQuestion);
-        // this.questions = this.questions.concat(resourceQuestions);
-        // this.data.changeQuestions(this.questions);
-      }
-  }
+
 
   getPricing(){
     if (this.frequency == "monthly"){

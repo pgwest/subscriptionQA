@@ -115,17 +115,12 @@
   <h1 class="text-center" style="color:white; font-weight: bolder;">Your Selections</h1>
   <hr/>
     <div class="cards_wrapper">
-      <!-- <div class="center_wrapper"> -->
         <div *ngFor="let question of questions">
           <div class="row" >
-            <!-- <div class="col-md-1"> -->
-            <!-- </div> -->
             <div class="col-md-12">
               <h2 class="text-center" style="color:white; text-decoration: underline;">{{question.name}}</h2>
               <br>
             </div>
-            <!-- <div class="col-md-1"> -->
-            <!-- </div> -->
           </div>
               <div class="row center_wrapper" >
               <div *ngFor="let choice of question.choices" >
@@ -142,9 +137,7 @@
                 </div>
               </div>
             </div>
-          <!-- </div> -->
         </div>
-      <!-- </div> -->
     </div>
 
 
