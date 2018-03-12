@@ -6,9 +6,12 @@ import { ProfileModule } from '../profile/profile.module';
 import { TermsModule } from '../terms/terms.module';
 import { SupportModule } from '../support/support.module';
 
+
 import { ResourceSummaryModule } from '../resource-summary/resource-summary.module';
 import { CostSummaryModule } from '../cost-summary/cost-summary.module';
 import { FullServiceSummaryModule } from '../full-service-summary/full-service-summary.module';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import {DashboardComponent } from './dashboard.component';
@@ -22,7 +25,9 @@ import {DashboardComponent } from './dashboard.component';
     SupportModule,
     ResourceSummaryModule,
     CostSummaryModule,
-    FullServiceSummaryModule
+    FullServiceSummaryModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   declarations: [DashboardComponent],

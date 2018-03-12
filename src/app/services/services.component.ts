@@ -16,24 +16,49 @@ export class ServicesComponent implements OnInit {
   // message: string;
   frequency : string;
   completed : number;
+  isWeekly: boolean;
+
 
   constructor(private data: DataService) {
     // this.completed = 0;
+    this.isWeekly = false;
   }
 
   ngOnInit() {
     // this.data.currentMessage.subscribe(message => this.message = message);
-    this.data.currentBillingFrequency.subscribe(frequency => this.frequency = frequency);
+    this.data.currentBillingFrequency.subscribe(frequency => {this.frequency = frequency; this.selectTab();});
     this.data.currentCompleted.subscribe(percentageCompleted => this.completed = percentageCompleted);
     // console.log(this.completed);
   }
 
-  billingTimeframe(event: any){
-    if(event.activeId == "ngb-tab-1"){
+
+  selectTab(){
+    if (this.frequency == "weekly"){
+      this.isWeekly = true;
+    }
+    else{
+      this.isWeekly = false;
+    }
+  }
+
+  // billingTimeframe(event: any){
+  //   if(event.activeId == "ngb-tab-1"){
+  //     // this.data.changeMessage("Test from service monthly");
+  //     this.data.changeFrequency("monthly");
+  //   }
+  //   else{
+  //     // this.data.changeMessage("Test from service weekly");
+  //     this.data.changeFrequency("weekly");
+  //   }
+  // }
+  billingTimeframe(){
+    if(this.isWeekly){
       // this.data.changeMessage("Test from service monthly");
+      this.isWeekly = false;
       this.data.changeFrequency("monthly");
     }
     else{
+      this.isWeekly = true;
       // this.data.changeMessage("Test from service weekly");
       this.data.changeFrequency("weekly");
     }

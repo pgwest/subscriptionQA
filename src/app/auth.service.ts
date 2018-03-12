@@ -26,6 +26,7 @@ import { monitoringQuestions } from './price-wizard/monitoringQuestions';
 
 interface User {
   uid: string;
+  name: string;
   email: string;
   photoUrl?: string;
   jobTitle: string;
@@ -59,6 +60,7 @@ export class AuthService {
   userKey: string;
   uid: string;
   email: string;
+  name: string;
   photoUrl?: string;
   jobTitle: string;
   description: string;
@@ -81,6 +83,7 @@ export class AuthService {
     this.loginFailure = false;
 
     this.data.currentEmail.subscribe(email => this.email = email);
+    this.data.currentName.subscribe(name => this.name = name);
     this.data.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
     this.data.currentJobTitle.subscribe(jobTitle => this.jobTitle = jobTitle);
     this.data.currentDescription.subscribe(description => this.description = description);
@@ -106,6 +109,7 @@ export class AuthService {
 
       const userData: User = {
           uid: this.uid,
+          name: this.name,
           email: this.email,
           photoUrl: this.photoUrl,
           jobTitle: this.jobTitle,
@@ -129,9 +133,86 @@ export class AuthService {
   }
 
 
+    retrieveDatabaseInfo(){
+      // var userData;
+      if(this.user){
+      // console.log("pulling database info");
+        const document: AngularFirestoreDocument<User> = this.afs.collection('users').doc(this.uid);
+        const document$: Observable<User> = document.valueChanges();
+        // this.data.clearQuestions();
+        document$.subscribe(data => {
+          // console.log(data)
+          // console.log("updating data");
+          this.data.changeUid(data.uid);
+          this.data.changeName(data.name);
+          this.data.changeEmail(data.email);
+          this.data.changeBillingEmail(data.billingEmail);
+          this.data.changePhotoUrl(data.photoUrl);
+          this.data.changeJobTitle(data.jobTitle);
+          this.data.changeDescription(data.description);
+          this.data.changeFrequency(data.billingTimeframe);
+          this.data.changeAccountContactPreference(data.accountContactPreference);
+          this.data.changeCommentsForManager(data.commentsForManager);
+          this.data.changeWeeklyupdates(data.weeklyUpdates);
+          this.data.changeMonthlyUpdates(data.monthlyUpdates);
+          this.data.changeRegularMeetings(data.regularMeetings);
+          this.data.changeTermsAccepted(data.termsAccepted);
+          this.data.changeDevResources(data.devResources);
+          this.data.changeQaResources(data.qaResources);
+          this.data.changeMonitoringResources(data.monitoringResources);
+
+
+          // console.log(this.data.getQuestions());
+          if(this.data.getQuestions()){
+            // console.log(this.data.getQuestions().length);
+          }
+          else {
+            // console.log("no questions yet");
+
+              // if(this.data.questions.value){
+              //if length is not zero, return, else add questions from database.
+            // }
+              var i=0;
+              while(data.questions[i]){
+                // console.log(data.questions[i]);
+                this.questionArray.push(data.questions[i]);
+                i++;
+              }
+              // console.log(this.questionArray);
+
+              this.data.changeQaQuestions(qaQuestions);
+              this.data.changeDevQuestions(devQuestions);
+              this.data.changeMonitoringQuestions(monitoringQuestions);
+              // if(!this.questions){
+              this.data.changeQuestions(this.questionArray);
+              // }
+              // console.log(this.questions);
+              // if(this.questions){
+                for (var i = 0; i < this.questions.length; i++){
+                  var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
+                  if(questionIndex != -1){
+                    qaQuestions[questionIndex] = this.questions[i];
+                  }
+                  var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
+                  if(questionIndex != -1){
+                    devQuestions[questionIndex] = this.questions[i];
+                  }
+                  var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
+                  if(questionIndex != -1){
+                    monitoringQuestions[questionIndex] = this.questions[i];
+                  }
+                }
+              // }
+              // console.log(this.questions);
+            }
+        });
+      }
+    }
+
     storeSessionData() {
        const userData: User = {
            uid: this.uid,
+           name: this.name,
            email: this.email,
            photoUrl: this.photoUrl,
            jobTitle: this.jobTitle,
@@ -161,6 +242,7 @@ export class AuthService {
         }
         else {
           this.data.changeUid(userData.uid);
+          this.data.changeName(userData.name);
           this.data.changeEmail(userData.email);
           this.data.changePhotoUrl(userData.photoUrl);
           this.data.changeJobTitle(userData.jobTitle);
@@ -177,74 +259,6 @@ export class AuthService {
           this.data.changeMonitoringResources(userData.monitoringResources);
         }
     }
-
-
-
-  retrieveDatabaseInfo(){
-    // var userData;
-    if(this.user){
-    // console.log("pulling database info");
-      const document: AngularFirestoreDocument<User> = this.afs.collection('users').doc(this.uid);
-      const document$: Observable<User> = document.valueChanges();
-      // this.data.clearQuestions();
-      document$.subscribe(data => {
-        // console.log(data)
-        // console.log("updating data");
-        this.data.changeUid(data.uid);
-        this.data.changeEmail(data.email);
-        this.data.changePhotoUrl(data.photoUrl);
-        this.data.changeJobTitle(data.jobTitle);
-        this.data.changeDescription(data.description);
-        this.data.changeFrequency(data.billingTimeframe);
-        this.data.changeAccountContactPreference(data.accountContactPreference);
-        this.data.changeCommentsForManager(data.commentsForManager);
-        this.data.changeWeeklyupdates(data.weeklyUpdates);
-        this.data.changeMonthlyUpdates(data.monthlyUpdates);
-        this.data.changeRegularMeetings(data.regularMeetings);
-        this.data.changeTermsAccepted(data.termsAccepted);
-        this.data.changeDevResources(data.devResources);
-        this.data.changeQaResources(data.qaResources);
-        this.data.changeMonitoringResources(data.monitoringResources);
-        // this.data.changeQuestions(data.questions);
-        // console.log(data.questions);
-
-        var i=0;
-        while(data.questions[i]){
-          // console.log(data.questions[i]);
-          this.questionArray.push(data.questions[i]);
-          i++;
-        }
-        // console.log(this.questionArray);
-
-        this.data.changeQaQuestions(qaQuestions);
-        this.data.changeDevQuestions(devQuestions);
-        this.data.changeMonitoringQuestions(monitoringQuestions);
-        // if(!this.questions){
-        this.data.changeQuestions(this.questionArray);
-        // }
-        // console.log(this.questions);
-        // if(this.questions){
-          for (var i = 0; i < this.questions.length; i++){
-            var questionIndex = qaQuestions.findIndex(e => e.uid == this.questions[i].uid);
-            if(questionIndex != -1){
-              qaQuestions[questionIndex] = this.questions[i];
-            }
-            var questionIndex = devQuestions.findIndex(e => e.uid == this.questions[i].uid);
-            if(questionIndex != -1){
-              devQuestions[questionIndex] = this.questions[i];
-            }
-            var questionIndex = monitoringQuestions.findIndex(e => e.uid == this.questions[i].uid);
-            if(questionIndex != -1){
-              monitoringQuestions[questionIndex] = this.questions[i];
-            }
-          }
-        // }
-        // console.log(this.questions);
-
-      });
-    }
-  }
-
 
 
   signup(email: string, password: string) {

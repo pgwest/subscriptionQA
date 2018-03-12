@@ -65,20 +65,22 @@ export class DataService {
     private loggedIn = new BehaviorSubject<boolean>(true);
     currentLoggedIn = this.loggedIn.asObservable();
 
+    private name = new BehaviorSubject<string>("Update Your Name");
+    currentName = this.name.asObservable();
 
       private email = new BehaviorSubject<string>("email");
       currentEmail = this.email.asObservable();
 
-      private photoUrl = new BehaviorSubject<string>("");
+      private photoUrl = new BehaviorSubject<string>("../assets/img/avatar.png");
       currentPhotoUrl = this.photoUrl.asObservable();
 
-      private jobTitle = new BehaviorSubject<string>("title");
+      private jobTitle = new BehaviorSubject<string>("Job Title");
       currentJobTitle = this.jobTitle.asObservable();
 
-      private description = new BehaviorSubject<string>("description");
+      private description = new BehaviorSubject<string>("Write a description of yourself here.");
       currentDescription = this.description.asObservable();
 
-      private billingEmail = new BehaviorSubject<string>("billingEmail");
+      private billingEmail = new BehaviorSubject<string>("Please enter the email of where to send invoices");
       currentBillingEmail = this.billingEmail.asObservable();
 
       private accountContactPreference = new BehaviorSubject<string>("phone or email");
@@ -109,7 +111,11 @@ export class DataService {
     changeQuestions(questionSet: Question[]) {
       // this.questions = new BehaviorSubject<Question[]>(null);
       this.questions.next(questionSet);
-      console.log(this.questions.getValue());
+      // console.log(this.questions.getValue());
+    }
+
+    getQuestions() {
+      return this.questions.getValue();
     }
 
     changeUid(uid: string) {
@@ -174,6 +180,10 @@ export class DataService {
 
     changeLoggedIn(success: boolean) {
       this.loggedIn.next(success);
+    }
+
+    changeName(name: string) {
+      this.name.next(name);
     }
 
     changeEmail(email: string) {

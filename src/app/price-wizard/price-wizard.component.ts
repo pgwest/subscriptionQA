@@ -263,7 +263,7 @@ export class PriceWizardComponent implements OnInit {
       }
 
       this.data.changeQuestions(this.questionsToBeSaved);
-      console.log(this.questionsToBeSaved);
+      // console.log(this.questionsToBeSaved);
       if(question.id == 0 ){
         if (choice.id == 0){
           this.qaSelected = choice.isSelected;
@@ -546,7 +546,7 @@ export class PriceWizardComponent implements OnInit {
 
     nextResourceHelp(){
       //show select resources
-      console.log("nextResourcehelp");
+      // console.log("nextResourcehelp");
       this.completedSoFar += 10;
       this.completed = this.completedSoFar/this.expectedTotal*100;
       this.data.changeCompleted(this.completed);

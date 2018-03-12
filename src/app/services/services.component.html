@@ -30,7 +30,7 @@
                               <!-- <br/> -->
                               <!-- <br/> -->
                                 <!-- <hr/> -->
-                                <ngb-tabset type="pills" class="nav nav-pills justify-content-center" (tabChange)="billingTimeframe($event)">
+                                <!-- <ngb-tabset id="tabs" activeId={{frequency}} type="pills" class="nav nav-pills justify-content-center" (tabChange)="billingTimeframe($event)">
                                     <ngb-tab title="Monthly">
                                         <ng-template ngbTabContent>
                                         </ng-template>
@@ -39,9 +39,24 @@
                                         <ng-template ngbTabContent>
                                         </ng-template>
                                       </ngb-tab>
-                                    </ngb-tabset>
-                                    <br/>
-                                    <p><ngb-progressbar type="warning" [value]=completed></ngb-progressbar></p>
+                                    </ngb-tabset> -->
+                            <div class="text-center ml-auto mr-auto">
+                              <div *ngIf=isWeekly>
+                                <a class="btn btn-warning btn-round" style="color:white">Bill Weekly</a>
+                                <a (click)=billingTimeframe() class="btn btn-outline-warning btn-round" style="color:white">Bill Monthly</a>
+                                <br/>
+                                <br/>
+                              </div>
+                              <div *ngIf=!isWeekly>
+                                <a (click)=billingTimeframe() class="btn btn-outline-warning btn-round" style="color:white">Bill Weekly</a>
+                                <a class="btn btn-warning btn-round" style="color:white">Bill Monthly</a>
+                                <br/>
+                                <br/>
+                              </div>
+                              <br/>
+                            </div>
+
+                              <p><ngb-progressbar type="warning" [value]=completed></ngb-progressbar></p>
                                     <!-- <br/> -->
                                     <!-- <hr/> -->
 

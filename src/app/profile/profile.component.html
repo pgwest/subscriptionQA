@@ -6,18 +6,24 @@
         <div class="container">
             <div class="owner">
                 <div class="avatar">
-                    <img src="../assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                    <!-- <img src="../assets/img/faces/joe-gardner-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive"> -->
+                    <img src={{photoUrl}} alt="Circle Image" class="img-circle img-no-padding img-responsive">
+
                 </div>
                 <div class="name">
-                    <h2>Jane Faker<br /></h2>
-                    <h6>Vivint - QA Manager</h6>
+                    <h2>{{name}}<br /></h2>
+                    <h6>{{jobTitle}}</h6>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
-                    <p>An artist of considerable range, Jane Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p>
+                    <p>Please feel free to edit your description any time. We like to make sure your account manager knows a bit about you :) </p>
+                    <!-- <p>An artist of considerable range, Jane Faker — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. </p> -->
                     <br />
-                    <button class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</button>
+                    {{description}}
+                    <br *ngIf=!isEditSettings />
+                    <br *ngIf=!isEditSettings />
+                    <button class="btn btn-outline-default btn-round" (click)=edit() *ngIf=!isEditSettings><i class="fa fa-cog"></i>Edit Info</button>
                 </div>
             </div>
             <br/>
@@ -25,7 +31,7 @@
         </div>
     </div>
 </div>
-<div class="profile-content section section-gray">
+<div class="profile-content section section-gray" *ngIf=isEditSettings >
      <div class="container">
          <div class="row">
              <div class="profile-picture">
@@ -38,60 +44,36 @@
                      <div class="row">
                          <div class="col-md-6 col-sm-6">
                              <div class="form-group">
-                                 <label>First Name</label>
-                                 <input type="text" class="form-control border-input" placeholder="First Name">
+                                 <label>Name</label>
+                                 <input type="text" class="form-control border-input" placeholder={{name}} [(ngModel)]="name" name="name">
                              </div>
                          </div>
 
                          <div class="col-md-6 col-sm-6">
                              <div class="form-group">
-                                 <label>Last Email</label>
-                                 <input type="text" class="form-control border-input" placeholder="Last Name">
+                                 <label>Email</label>
+                                 <input type="text" class="form-control border-input" placeholder={{email}} [(ngModel)]="email" name="email">
                              </div>
                          </div>
                      </div>
+                     <div class="form-group">
+                           <label>Profile URL</label>
+                           <input type="text" class="form-control border-input" placeholder={{photoUrl}}  [(ngModel)]="photoUrl" name="photoUrl">
+                     </div>
                    <div class="form-group">
                          <label>Job Title</label>
-                         <input type="text" class="form-control border-input" placeholder="Job Title">
+                         <input type="text" class="form-control border-input" placeholder={{jobTitle}}  [(ngModel)]="jobTitle" name="jobTitle">
                    </div>
                    <div class="form-group">
                      <label>Description</label>
-                         <textarea class="form-control textarea-limited" placeholder="This is a textarea limited to 150 characters." rows="3" maxlength="150" ></textarea>
+                         <textarea class="form-control textarea-limited" placeholder="This is a textarea limited to 150 characters." rows="3" maxlength="150"  [(ngModel)]="description" name="description"></textarea>
                          <h5><small><span id="textarea-limited-message" class="pull-right">150 characters left</span></small></h5>
                    </div>
 
-                 <!-- <label>Notifications</label>
-                 <ul class="notifications">
-                       <li class="notification-item">
-                         Updates regarding platform changes
-                         <bSwitch
-                             [switch-on-color]="'info'"
-                             [switch-off-color]="'info'"
-                             [(ngModel)]="state_info"
-                             name="first_switch">
-                         </bSwitch>
-                       </li>
-                       <li class="notification-item">
-                         Updates regarding product changes
-                         <bSwitch
-                             [switch-on-color]="'info'"
-                             [switch-off-color]="'info'"
-                             [(ngModel)]="state_info1"
-                             name="second_switch">
-                         </bSwitch>
-                       </li>
-                       <li class="notification-item">
-                         Weekly newsletter
-                         <bSwitch
-                             [switch-on-color]="'info'"
-                             [switch-off-color]="'info'"
-                             [(ngModel)]="state_info2"
-                             name="third_switch">
-                         </bSwitch>
-                       </li>
-                   </ul> -->
+
+
                    <div class="text-center">
-                     <button type="submit" class="btn btn-wd btn-info btn-round">Save</button>
+                     <button type="button"  (click)=save()  class="btn btn-wd btn-info btn-round">Save</button>
                    </div>
                  </form>
 
