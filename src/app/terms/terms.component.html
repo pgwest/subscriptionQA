@@ -5,22 +5,24 @@
     <div class="pricing-1 section"  style="background-color: #eeeeee">
       <!-- <div class="pricing-1 section"> -->
         <div class="container">
-          <a href="#" class="btn btn-info btn-round">Accept Terms</a>
+          <a class="btn btn-info btn-round" *ngIf=!isAccepted (click)="acceptTerms()">Accept Terms</a>
+          <h2 *ngIf=isAccepted style="color:white; font-weight:bold;">Terms Accepted</h2>
 
+          <!-- <h2 *ngIf=isAccepted>Terms Accepted</h2> -->
             <div class="row">
 
                 <div class="col-md-10 ml-auto mr-auto text-center">
                     <h2>View Terms and Conditions</h2>
                   <!-- <br/> -->
-                    <h5 class="description" style="color:black">Feel free to reach out with questions! Basically it protects us both from getting sued, assures confidentiality for you and us, and protects our engineers.</h5>
+                    <h5 class="description" style="color:black">Feel free to reach out with questions! Basically it protects us both, assures confidentiality for you and us, and protects our engineers.</h5>
                 </div>
             </div>
             <div class="space-top"></div>
             <div class="row">
 
-                <div class="col-md-10 ml-auto mr-auto text-center">
+                <div class="col-md-11 ml-auto mr-auto text-center">
                     <div class="card card-pricing" >
-                        <div class="card-body" style="margin-left:auto; margin-right:auto; height: 500px; overflow-y: scroll;">
+                        <div class="card-body" style="margin-left:auto; margin-right:auto; height: 600px; overflow-y: scroll;">
                             <!-- <div class="card-icon">
                                 <img src="../../assets/img/chatbooksLogo.png" style="width:222px;height:72px;" alt="Chatbooks logo">
                             </div> -->
@@ -31,7 +33,7 @@
 Service Agreement<br/>
 
 Revised February 16, 2018<br/><br/>
-
+</p><p>
 If you ("CLIENT") currently have a written agreement in place with us, Seva Development, LLC, ("SEVA"), this Service Agreement does not alter, amend or replace that agreement. If you do not have an agreement with us, you can accept this Service Agreement upon reading the following terms and clicking on the "Agree" button. A printer-friendly version is also available for your convenience.<br/>
 
 <br/>
@@ -87,8 +89,10 @@ SEVA and CLIENT recognize that all materials provided to one another contain con
 
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-info btn-round">Accept Terms</a>
+                    <div class="card-footer section-gray">
+                        <a class="btn btn-info btn-round" *ngIf=!isAccepted (click)="acceptTerms()">Accept Terms</a>
+                        <h2 *ngIf=isAccepted style="color:white; font-weight:bold;">Terms Accepted</h2>
+                        <br/>
                         <!-- <button class="btn btn-round" (click)="open(classic)">Accept Terms</button>
 <ng-template #classic let-c="close" let-d="dismiss">
     <div class="modal-header">

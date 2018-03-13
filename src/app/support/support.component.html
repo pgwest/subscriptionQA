@@ -30,27 +30,52 @@
 <div class="profile-content section section-gray">
      <div class="container">
          <div class="row">
-             <div class="profile-picture">
-                 <!-- <app-image-upload [image]="'../assets/img/faces/clem-onojeghuo-2.jpg'"></app-image-upload> -->
-             </div>
-         </div>
-         <div class="row">
              <div class="col-md-6 ml-auto mr-auto">
+               <h3>Contact Preferences</h3>
                  <form class="settings-form">
                      <div class="row">
                          <div class="col-md-6 col-sm-6  ml-auto mr-auto">
                              <div class="form-group ml-auto mr-auto">
                                  <label>Contact Preference</label>
-                                 <input type="text" class="form-control border-input" placeholder="Email/Text/Phone">
+                                 <input type="text" class="form-control border-input" placeholder={{accountContactPreference}}  [(ngModel)]="accountContactPreference" name="accountContactPreference">
                              </div>
                          </div>
 
 
                    <div class="form-group ml-auto mr-auto">
                      <label>Comments/Notes for Account Manager</label>
-                         <textarea class="form-control textarea-limited" placeholder="This is a textarea limited to 150 characters." rows="3" maxlength="150" ></textarea>
+                         <textarea class="form-control textarea-limited" placeholder="This is a textarea limited to 150 characters." rows="3" maxlength="150" [(ngModel)]="commentsForManager" name="commentsForManager" ></textarea>
                          <h5><small><span id="textarea-limited-message" class="pull-right">150 characters left</span></small></h5>
+                         <div class="text-center ml-auto mr-auto">
+                           <br/>
+                           <button type="button" class="btn btn-wd btn-info btn-round" (click)="save(); open(small1, 'sm');">Save</button>
+                           <ng-template #small1 let-c="close" let-d="dismiss">
+
+                             <div class="modal-header"  style="background-color:#5cb85c;
+                                                             -webkit-border-top-left-radius: 10px;
+                                                             -webkit-border-top-right-radius: 10px;
+                                                             -moz-border-radius-topleft: 10px;
+                                                             -moz-border-radius-topright: 10px;
+                                                              border-top-left-radius: 10px;
+                                                              border-top-right-radius: 10px;">
+                                 <h5 class="modal-title" style="color:white; font-weight: bolder;">Success!</h5>
+                                 <button type="button" class="close" (click)="d('Cross click')">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <!-- <div class="modal-body text-center">
+                                 <p>
+                                   Saved to your <strong>Settings</strong>. </p>
+                             </div> -->
+                             <div class="modal-footer">
+                                 <button type="button" class="btn btn-link"  (click)="c('Close click')">Close</button>
+                             </div>
+                         </ng-template>
+                         </div>
                    </div>
+
+
+
                    <div class="row ml-auto mr-auto">
                      <div class="col-md-8 col-sm-8  ml-auto mr-auto">
 <br/>
@@ -62,7 +87,8 @@
                              [switch-on-color]="'info'"
                              [switch-off-color]="'info'"
                              [(ngModel)]="state_info"
-                             name="first_switch">
+                             name="first_switch"
+                             (click)="getWeeklyUpdates();">
                          </bSwitch>
                        </li>
                        <li class="notification-item">
@@ -71,7 +97,8 @@
                              [switch-on-color]="'info'"
                              [switch-off-color]="'info'"
                              [(ngModel)]="state_info1"
-                             name="second_switch">
+                             name="second_switch"
+                             (click)="getMonthlyUpdates();">
                          </bSwitch>
                        </li>
                        <li class="notification-item">
@@ -80,7 +107,8 @@
                              [switch-on-color]="'info'"
                              [switch-off-color]="'info'"
                              [(ngModel)]="state_info2"
-                             name="third_switch">
+                             name="third_switch"
+                             (click)="getRegularMeetings();">
                          </bSwitch>
                        </li>
                    </ul>
@@ -91,10 +119,10 @@
 
              </div>
          </div>
-         <div class="row">
+         <!-- <div class="row">
          <div class="text-center ml-auto mr-auto">
            <button type="submit" class="btn btn-wd btn-info btn-round">Save</button>
          </div>
-       </div>
+       </div> -->
      </div>
  </div>

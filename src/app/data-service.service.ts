@@ -83,10 +83,10 @@ export class DataService {
       private billingEmail = new BehaviorSubject<string>("Please enter the email of where to send invoices");
       currentBillingEmail = this.billingEmail.asObservable();
 
-      private accountContactPreference = new BehaviorSubject<string>("phone or email");
+      private accountContactPreference = new BehaviorSubject<string>("call/text/email");
       currentAccountContactPreference = this.accountContactPreference.asObservable();
 
-      private commentsForManager = new BehaviorSubject<string>("comments");
+      private commentsForManager = new BehaviorSubject<string>("Enter any/all comments.");
       currentCommentsForManager = this.commentsForManager.asObservable();
 
       private weeklyUpdates = new BehaviorSubject<boolean>(true);

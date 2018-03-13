@@ -25,7 +25,7 @@ export class SessionService {
   }
 
   cleanAll() {
-    console.log("cleanedUserSession");
+    // console.log("cleanedUserSession");
     localStorage.clear();
     location.reload();
   }
