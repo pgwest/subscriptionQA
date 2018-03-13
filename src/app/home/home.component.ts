@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   email: string;
   name: string;
   downloadable: boolean;
-
+  showAlert: boolean;
   closeResult: string;
 
     model = {
@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 
     constructor(private modalService: NgbModal, private authService: AuthService) {
         this.downloadable = false;
+        this.showAlert = false;
      }
      // url: string;
 
@@ -47,12 +48,14 @@ export class HomeComponent implements OnInit {
 
     shouldDownload(){
       if(this.email && this.name){
+        this.showAlert = false;
         this.authService.addDownloadUser(this.name, this.email);
         // window.location.href = "https://firebasestorage.googleapis.com/v0/b/subscriptionqa-1.appspot.com/o/seva-brochure-nepal-np.pdf?alt=media&token=7a16e6d9-de44-46c9-b459-e6d11ededaa0";
         window.open("https://firebasestorage.googleapis.com/v0/b/subscriptionqa-1.appspot.com/o/seva-brochure-nepal-np.pdf?alt=media&token=7a16e6d9-de44-46c9-b459-e6d11ededaa0", "_blank");
       }
       else {
-        console.log("please enter name and email to download QA Best PRactic ");
+        this.showAlert = true;
+        // console.log("Please enter name and email to download QA Best Practices ");
       }
     }
 
@@ -60,7 +63,10 @@ export class HomeComponent implements OnInit {
       //need to import auth service and save name and email to firestore to qaBestPracticesDownload collection
       if(this.email){
         this.authService.addDownloadUser(this.name, this.email);
-        console.log("email saved to database")
+        this.showAlert = false;
+        // console.log("email saved to database")
+      } else{
+        this.showAlert = true;
       }
     }
 
@@ -84,6 +90,7 @@ export class HomeComponent implements OnInit {
             }
           } else{
             console.log("enter your name and email");
+            this.showAlert = true;
           }
         }
 

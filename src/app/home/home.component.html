@@ -190,7 +190,7 @@
 
 
     <div class="section" id="carousel">
-        <div class="container">
+        <div class="container" style="height:500px">
             <div class="tim-title">
                 <h3>What our clients say</h3>
             </div>
@@ -218,6 +218,8 @@
 
 
                             <ng-template ngbSlide>
+                              <br/>
+                              <br/>
                                 <div class="row">
                                 <div class="col-md-7">
                                 <img src="../assets/img/silvervue.png" alt="Silvervue">
@@ -237,6 +239,8 @@
 
 
                             <ng-template ngbSlide>
+                              <br/>
+                              <br/>
                                 <div class="row">
                                 <div class="col-md-7">
                                 <img src="../assets/img/chatbooks.jpg" alt="Chatbooks">
@@ -250,7 +254,7 @@
                                     <p><i>We love the social mission."</i></p>
                                     <p><strong>Chatbooks</strong> CTO</p>
                                     <a href="/impact"><button type="button" class="btn btn-primary btn-round">Learn How</button></a>
-
+                                    <br/>
                                 </div>
                               </div>
                             </ng-template>
@@ -371,7 +375,7 @@
                             <div class="card card-profile card-plain">
                                 <div class="card-img-top">
                                     <!-- <a href=""> -->
-                                        <img class="img" src="assets/img/sections/angelo-pantazis.jpg" />
+                                        <img class="img" src="assets/img/slantRep.png" />
                                     <!-- </a> -->
                                 </div>
                                 <div class="card-body">
@@ -390,7 +394,7 @@
                             <div class="card card-profile card-plain">
                                 <div class="card-img-top">
                                     <!-- <a href=""> -->
-                                        <img class="img" src="assets/img/sections/patrick-tomasso.jpg" />
+                                        <img class="img" src="assets/img/blacktop.png" />
                                     <!-- </a> -->
                                 </div>
                                 <div class="card-body">
@@ -455,13 +459,19 @@
                             </div>
                             <div class="col-md-6">
                                 <label  style="color: white">Email</label>
+
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="nc-icon nc-email-85"></i>
                                     </span>
+
                                     <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
                                 </div>
                             </div>
+                        </div>
+                        <div class="alert alert-warning text-center alert-dismissible ml-auto mr-auto" style="width:40%; border-radius:25px;" *ngIf="showAlert">
+                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                          <strong>Please enter your name and email!</strong>
                         </div>
                         <div class="row">
                             <div class="col-md-6 download-area ml-auto mr-auto">

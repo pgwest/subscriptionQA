@@ -54,6 +54,8 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthService } from './auth.service';
 import { DataService } from './data-service.service';
 import { SessionService } from './session-service.service';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 
 @NgModule({
@@ -73,7 +75,9 @@ import { SessionService } from './session-service.service';
     AboutComponent,
     BlogpostComponent,
     BlogpostsComponent,
-    AdminComponent
+    AdminComponent,
+    ResetPasswordComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

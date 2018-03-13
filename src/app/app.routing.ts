@@ -16,6 +16,9 @@ import { AboutComponent } from './about/about.component';
 import { BlogpostsComponent } from './blogposts/blogposts.component';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { WhitepaperComponent } from './whitepaper/whitepaper.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+
 
 import { AdminComponent } from './admin/admin.component';
 
@@ -35,6 +38,8 @@ const routes: Routes =[
     { path: 'post',      component: BlogpostComponent },
     { path: 'whitepaper',      component: WhitepaperComponent },
     { path: 'admin',      component: AdminComponent },
+    { path: 'reset',      component: ResetPasswordComponent },
+    { path: 'resetSent',      component: PasswordResetComponent },
     { path: '**', component: HomeComponent },
 
     { path: '', redirectTo: 'home', pathMatch: 'full' }
