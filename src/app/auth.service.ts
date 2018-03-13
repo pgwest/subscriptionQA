@@ -46,6 +46,11 @@ interface User {
 
 }
 
+interface DownloadUser {
+  name: string;
+  email: string;
+}
+
 
 @Injectable()
 export class AuthService {
@@ -342,5 +347,21 @@ export class AuthService {
         }
       });
   }
+
+
+  addDownloadUser(downloadName:string, downloadEmail:string) {
+     // const downloadCollectionRef: AngularFirestoreCollection<any> = this.afs.collection('qaBestPracticesDownloads');
+     // // this.storeSessionData();
+     //
+     // const userData: DownloadUser = {
+     //     name: this.name,
+     //     email: this.email
+     // }
+     //
+     // downloadCollectionRef.update(userData);
+     // this.afs.collection('qaBestPracticesDownloads').add({'name': downloadName, 'email': downloadEmail});
+     this.afs.collection('qaBestPracticesDownloads').doc(downloadEmail + " - " + downloadName).set({'name': downloadName, 'email': downloadEmail});
+
+ }
 
 }

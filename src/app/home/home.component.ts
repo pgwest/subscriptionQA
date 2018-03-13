@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/storage';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-home',
@@ -37,7 +38,7 @@ export class HomeComponent implements OnInit {
 //     httpsReference = storage.refFromURL('gs://subscriptionqa-1.appspot.com/seva-brochure-nepal-np.pdf');
 
 
-    constructor(private modalService: NgbModal) {
+    constructor(private modalService: NgbModal, private authService: AuthService) {
         this.downloadable = false;
      }
      // url: string;
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
 
     shouldDownload(){
       if(this.email && this.name){
+        this.authService.addDownloadUser(this.name, this.email);
         // window.location.href = "https://firebasestorage.googleapis.com/v0/b/subscriptionqa-1.appspot.com/o/seva-brochure-nepal-np.pdf?alt=media&token=7a16e6d9-de44-46c9-b459-e6d11ededaa0";
         window.open("https://firebasestorage.googleapis.com/v0/b/subscriptionqa-1.appspot.com/o/seva-brochure-nepal-np.pdf?alt=media&token=7a16e6d9-de44-46c9-b459-e6d11ededaa0", "_blank");
       }
@@ -57,6 +59,7 @@ export class HomeComponent implements OnInit {
     saveEmail(){
       //need to import auth service and save name and email to firestore to qaBestPracticesDownload collection
       if(this.email){
+        this.authService.addDownloadUser(this.name, this.email);
         console.log("email saved to database")
       }
     }
