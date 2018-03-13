@@ -442,7 +442,7 @@
             </div> -->
             <div class="row">
                 <div class="col-md-8 mr-auto ml-auto">
-                    <form class="contact-form">
+                    <form class="contact-form" ngNativeValidate (ngSubmit)="shouldDownload()">
                         <div class="row">
                             <div class="col-md-6">
                                 <label  style="color: white">Name</label>
@@ -450,7 +450,7 @@
                                     <span class="input-group-addon">
                                         <i class="nc-icon nc-single-02"></i>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="Name">
+                                    <input type="text" class="form-control" placeholder="Name"  [(ngModel)]="name" name="name">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -459,16 +459,43 @@
                                     <span class="input-group-addon">
                                         <i class="nc-icon nc-email-85"></i>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="Email">
+                                    <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 download-area ml-auto mr-auto">
-                                <a href="" class="btn btn-info btn-round">Download QA Best Practices</a>
-                                <a href="" class="btn btn-danger btn-round btn-lg">Learn More</a>
+                                <!-- <a class="btn btn-info btn-round" (click)="shouldDownload();">Download QA Best Practices</a> -->
+                                <!-- <a class="btn btn-danger btn-round btn-lg" (click)="saveEmail();">Learn More</a> -->
+                                <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+                                <a class="btn btn-danger btn-round btn-lg" (click)="saveEmail(); open(small1, 'sm');" style="color:white">Learn More</a>
+                                <button type="submit" class="btn btn-info btn-round btn-lg" >Download QA Best Practices</button>
+                                <ng-template #small1 let-c="close" let-d="dismiss">
+
+                                  <div class="modal-header"  style="background-color:#5cb85c;
+                                                                  -webkit-border-top-left-radius: 10px;
+                                                                  -webkit-border-top-right-radius: 10px;
+                                                                  -moz-border-radius-topleft: 10px;
+                                                                  -moz-border-radius-topright: 10px;
+                                                                   border-top-left-radius: 10px;
+                                                                   border-top-right-radius: 10px;">
+                                      <h5 class="modal-title" style="color:white; font-weight: bolder;">Success!</h5>
+                                      <button type="button" class="close" (click)="d('Cross click')">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body text-center">
+                                      <p>
+                                        We'll be in touch soon! <br/> In the meantime, take a look around!</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-link"  (click)="c('Close click')">Close</button>
+                                  </div>
+                                </ng-template>
+
                             </div>
                         </div>
+
                         <!-- <h2 class="text-center">Or reach out to learn more!</h2>
 
                         <label>Message</label>

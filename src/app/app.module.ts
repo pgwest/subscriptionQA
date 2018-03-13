@@ -8,8 +8,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-// import { AngularFireStorageModule } from 'angularfire2/storage';
-
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
 
 import { environment } from '../environments/environment';
 
@@ -94,4 +94,6 @@ import { SessionService } from './session-service.service';
   providers: [AuthService, DataService, SessionService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
